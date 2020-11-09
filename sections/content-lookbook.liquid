@@ -1,0 +1,202 @@
+<section id="lookbook-main" class="container">
+    <a id="lookbook-btn">
+        <p>{{ section.settings.lookbook-intro-text }}</p>
+        <img id="lookbook-thumb" src="{{ section.settings.lookbook-thumb | img_url: '1600x' }}" alt="Click to view the lookbook">
+    </a>
+</section>
+
+{{ 'photoswipe.css' | asset_url | stylesheet_tag }}
+{{ 'photoswipe-default-skin.css' | asset_url | stylesheet_tag }}
+{{ 'photoswipe.min.js' | asset_url | script_tag }}
+{{ 'photoswipe-ui-default.min.js' | asset_url | script_tag }}
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <!--<button class="pswp__button pswp__button--share" title="Share"></button>-->
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>-->
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% schema %}
+{
+    "name": "Lookbook",
+    "settings": [
+        {
+        "type": "header",
+        "content": "Promo"
+      },
+      {
+        "type": "text",
+        "id": "lookbook-intro-text",
+        "label": "Promo text"
+      },
+      {
+        "type": "image_picker",
+        "id": "lookbook-thumb",
+        "label": "Promo image (1500x2318px, ~400kb jpg)"
+      },
+      {
+        "type": "header",
+        "content": "Covers"
+      },
+      {
+        "type": "checkbox",
+        "id": "lookbook-cover-show",
+        "label": "Show Cover?"
+      },
+      {
+        "type": "image_picker",
+        "id": "lookbook-cover",
+        "label": "Cover image (1500x2318px, ~400kb jpg)"
+      },
+      {
+        "type": "checkbox",
+        "id": "lookbook-back-show",
+        "label": "Show Back?"
+      },
+      {
+        "type": "image_picker",
+        "id": "lookbook-back",
+        "label": "Back image (1500x2318px, ~400kb jpg)"
+      }
+
+    ],
+    "blocks": [
+    {
+        "type": "image",
+        "name": "Lookbook page",
+        "settings": [
+
+            {
+            "type": "checkbox",
+            "id": "lookbook-page-show",
+            "label": "Show page?"
+            },
+            {
+            "type": "image_picker",
+            "id": "lookbook-page",
+            "label": "Page image (2000x1545px, ~500kb .jpg)"
+            }
+
+        ]
+    }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+<script>
+var openPhotoSwipe = function() {
+var pswpElement = document.querySelectorAll('.pswp')[0];
+var items = [
+   {% if section.settings.lookbook-cover-show %}
+     {
+        src: '{{ section.settings.lookbook-cover | img_url: '1800x', format: 'pjpg' }}',
+
+
+        w: 800,
+        h: 1236
+    },
+    {% endif %}
+    
+    {% for block in section.blocks %}
+    
+        {% if block.settings.lookbook-page-show %}
+         {
+            src: '{{ block.settings.lookbook-page | img_url: '1800x', format: 'pjpg' }}',
+            w: 1600,
+            h: 1236
+        },
+        {% endif %}
+
+    {% endfor %}
+
+     {% if section.settings.lookbook-back-show %}
+     {
+        src: '{{ section.settings.lookbook-back | img_url: '1800x', format: 'pjpg' }}',
+        w: 800,
+        h: 1236
+    }
+    {% endif %}
+];
+var options = {
+    history: false,
+    focus: false,
+    bgOpacity:.8,
+    closeOnScroll: false,
+    showAnimationDuration: .7,
+    hideAnimationDuration: .7
+
+};
+var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+gallery.init();
+};
+
+document.getElementById('lookbook-btn').onclick = openPhotoSwipe;
+</script> 

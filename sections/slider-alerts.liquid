@@ -1,0 +1,67 @@
+<ul class="alert">
+{% for block in section.blocks %}
+    {% if block.settings.show_notification %}
+    <li>{{ block.settings.notification_text }} <a href="{{ block.settings.notification_link_url }}">{{ block.settings.notification_link_text }}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+{% schema %}
+{
+    "name": "Notifications",
+    "max_blocks": 10,
+    "blocks": [
+    {
+        "type": "text",
+        "name": "Notifcation",
+        "settings": [
+            {
+            "type": "checkbox",
+            "id": "show_notification",
+            "label": "Show Notification?"
+            },
+            {
+            "type": "text",
+            "id": "notification_text",
+            "label": "Notification Text"
+            },
+            {
+            "type": "text",
+            "id": "notification_link_text",
+            "label": "Notification Link Text"
+            },
+            {
+            "type": "text",
+            "id": "notification_link_url",
+            "label": "Notification Link URL"
+            }
+        ]
+    }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+$(document).ready(function () {
+    
+    $('.alert').lightSlider({
+        gallery: false,
+        item: 1,
+        mode:'fade',
+        controls: false,
+        adaptiveHeight:false,
+        speed: 700,
+        auto: true,
+        loop: true,
+        pause: 5000,
+        pager: false,
+        onSliderLoad:
+            function (el) {
+                el.addClass('active');
+            }
+    });
+});
+{% endjavascript %}

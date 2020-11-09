@@ -1,0 +1,29 @@
+<section class="lede image">
+    <div class="container center-xy">
+        <h1>{{ page.title }}</h1>
+        <p class="description">{{ page.content }}</p>
+    </div>
+    <picture>
+      <source srcset="{{ section.settings.image | img_url: '1600x', format: 'pjpg' }}" media="(min-width: 640px)">
+      <img srcset="{{ section.settings.image | img_url: '640x240',  crop: 'center', format: 'pjpg' }}" alt="{{ page.title }}">
+    </picture> 
+</section>
+
+{% schema %}
+{
+    "name": "Header",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image desktop (1600x640px, .jpg, ~300kb)"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

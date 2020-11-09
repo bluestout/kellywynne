@@ -1,0 +1,101 @@
+<div class="container">
+    <p>{{ section.settings.philanthropy_intro }}</p>
+</div>
+
+<div class="container quote">
+    <img class="quote-left" src="{{ "icon-quote-left.png" | asset_url }}" />
+    <div class="phil-quote">{{ section.settings.philanthropy_quote }}</div>
+    <img class="quote-right" src="{{ "icon-quote-signature.png" | asset_url }}" />
+</div>
+
+<section class="banner light">
+    <div class="container">
+        {{ section.settings.philanthropy_main_text }}
+    </div>
+</section>
+
+<section class="container">
+    <div class="organization">
+        <a href="{{ section.settings.philanthropy_featured_organization_url }}" target="_blank"><img class="body-img" src="{{ section.settings.philanthropy_featured_logo | img_url: 'master' }}" /></a>
+        <h4><a href="{{ section.settings.philanthropy_featured_organization_url }}" target="_blank">{{ section.settings.philanthropy_featured_organization }}</a></h4>
+        <p>{{ section.settings.philanthropy_organization_text }}</p>
+        <a class="button teal center-x" href="{{ section.settings.philanthropy_featured_organization_url }}" target="_blank">{{ section.settings.philanthropy_featured_organization_button }}</a>
+    </div>
+</section>
+
+<section class="container">
+    <div class="query">{{ section.settings.philanthropy_query_text }}</div>
+</section>
+
+<section class="container">
+    <div class="embed-container">
+        <iframe src='https://player.vimeo.com/video/310673754' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Page content",
+    "settings": [
+        {
+        "type": "richtext",
+        "id": "philanthropy_intro",
+        "label": "Intro text"
+        },
+        {
+        "type": "richtext",
+        "id": "philanthropy_quote",
+        "label": "Quote text"
+        },
+        {
+        "type": "richtext",
+        "id": "philanthropy_main_text",
+        "label": "Primary text"
+        },
+        {
+        "type": "header",
+        "content": "Featured organization"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_featured_logo",
+        "label": "Organization logo (.jpg or .png, ~200px wide)"
+        },
+        {
+        "type": "text",
+        "id": "philanthropy_featured_organization",
+        "label": "Organization name"
+        },
+        {
+        "type": "text",
+        "id": "philanthropy_featured_organization_url",
+        "label": "Organization url"
+        },
+        {
+        "type": "richtext",
+        "id": "philanthropy_organization_text",
+        "label": "Organization main text"
+        },
+        {
+        "type": "text",
+        "id": "philanthropy_featured_organization_button",
+        "label": "Button text"
+        },
+        {
+        "type": "header",
+        "content": "Query text"
+        },
+        {
+        "type": "richtext",
+        "id": "philanthropy_query_text",
+        "label": "Query text"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

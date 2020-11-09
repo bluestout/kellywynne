@@ -1,0 +1,80 @@
+<div class="container bundles">
+    <ul class="grid two">
+        {% for block in section.blocks %}
+        {% if block.settings.bundle_show %}
+        <li class="promo bundle">
+            <a href="{{ all_products[block.settings.bundle_url].url }}">
+                {% if block.settings.bundle_image %}
+                <img src="{{ block.settings.bundle_image | img_url: '1600x1600', crop: 'center' }}" class="" alt="{{ block.settings.bundle_title }}">
+                {% endif %}
+                {% if block.settings.bundle_title %}
+                <h2>{{ block.settings.bundle_title }}</h2>
+                {% endif %}
+                <div class="meta">
+                    {% if block.settings.bundle_price_bundle %}<span class="price">{{ block.settings.bundle_price_bundle }}</span>{% endif %}
+                    {% if block.settings.bundle_price_original %}<span class="price original">{{ block.settings.bundle_price_original }}</span>{% endif %}
+                    
+                    {% if block.settings.bundle_disclaimer %}<span class="colors">{{ block.settings.bundle_disclaimer }}</span>{% endif %}
+                </div>
+            </a> 
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+{% schema %}
+{
+    "name": "Bundles",
+    "blocks": [
+    {
+        "type": "product",
+        "name": "Bundle",
+        "settings": [
+            {
+            "type": "checkbox",
+            "id": "bundle_show",
+            "label": "Show Bundle?"
+            },
+            {
+            "type": "image_picker",
+            "id": "bundle_image",
+            "label": "Image"
+            },
+            {
+            "type": "text",
+            "id": "bundle_title",
+            "label": "Title"
+            },
+            {
+            "type": "text",
+            "id": "bundle_price_original",
+            "label": "Original price"
+            },
+            {
+            "type": "text",
+            "id": "bundle_price_bundle",
+            "label": "Bundle price"
+            },
+            {
+            "type": "text",
+            "id": "bundle_disclaimer",
+            "label": "Bundle disclaimer"
+            },
+            {
+            "type": "product",
+            "id": "bundle_url",
+            "label": "Url"
+            }
+
+        ]
+    }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

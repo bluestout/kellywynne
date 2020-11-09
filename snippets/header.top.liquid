@@ -1,0 +1,20 @@
+<header class="top">
+    <form action="/search" method="get" class="search desktop" role="search">
+        <input name="q" type="text" placeholder="search..." />
+        <input type="hidden" name="type" value="product" />
+        <button type="submit">{% include 'icon.search' %}</button>
+    </form>
+
+    {% include 'slider.notifications' %}
+    
+    <ul class="cart meta desktop">
+        {% if shop.customer_accounts_enabled %}
+            {% if customer %}
+                <li><a href="/account">my account</a></li>
+            {% else %}
+                <li>{{ 'sign in' | customer_login_link }}</li>
+            {% endif %}
+        {% endif %}
+        <li><a href="/cart">cart: <span class="cart-items">{{ cart.item_count }}</span></a></li>
+    </ul>
+</header>

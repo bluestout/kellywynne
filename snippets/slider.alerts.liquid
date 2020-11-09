@@ -1,0 +1,17 @@
+<ul class="alert">
+{% if settings.show_notification_1 %}
+    <li>{{ settings.notification_1_text }} <a href="{{ settings.notification_1_link_url }}">{{ settings.notification_1_link_text }}</a></li>
+{% endif %}
+    {% if settings.show_notification_2 %}
+    <li>{{ settings.notification_2_text }} <a href="{{ settings.notification_2_link_url }}">{{ settings.notification_2_link_text }}</a></li>
+{% endif %}
+    {% if settings.show_notification_3 %}
+    <li>{{ settings.notification_3_text }} <a href="{{ settings.notification_3_link_url }}">{{ settings.notification_3_link_text }}</a></li>
+{% endif %}
+    {% if settings.show_notification_4 %}
+    <li>{{ settings.notification_4_text }} <a href="{{ settings.notification_4_link_url }}">{{ settings.notification_4_link_text }}</a></li>
+{% endif %}
+    {% if settings.show_notification_5 %}
+    <li>{{ settings.notification_5_text }} <a href="{{ settings.notification_5_link_url }}">{{ settings.notification_5_link_text }}</a></li>
+{% endif %}
+</ul>

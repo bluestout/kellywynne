@@ -1,0 +1,232 @@
+[
+  {
+    "name": "Sitewide announcement",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Sitewide announcement"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": "Show announcement?"
+      },
+      {
+        "type": "textarea",
+        "id": "announcement_text",
+        "label": "Announcement Text"
+      },
+      {
+        "type": "text",
+        "id": "announcement_link_text",
+        "label": "Announcement Link Text"
+      },
+      {
+        "type": "text",
+        "id": "announcement_link_url",
+        "label": "Announcement Link URL"
+      },
+      {
+        "type": "color",
+        "id": "announcement_background_color",
+        "label": "Background color",
+        "default": "#6AB7B1"
+      }
+    ]
+  },
+  {
+    "name": "Notifications",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Notification 1"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_notification_1",
+        "label": "Show Notification 1?"
+      },
+      {
+        "type": "text",
+        "id": "notification_1_text",
+        "label": "Notification 1 Text"
+      },
+      {
+        "type": "text",
+        "id": "notification_1_link_text",
+        "label": "Notification 1 Link Text"
+      },
+      {
+        "type": "text",
+        "id": "notification_1_link_url",
+        "label": "Notification 1 Link URL"
+      },
+      {
+        "type": "header",
+        "content": "Notification 2"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_notification_2",
+        "label": "Show Notification 2?"
+      },
+      {
+        "type": "text",
+        "id": "notification_2_text",
+        "label": "Notification 2 Text"
+      },
+      {
+        "type": "text",
+        "id": "notification_2_link_text",
+        "label": "Notification 2 Link Text"
+      },
+      {
+        "type": "text",
+        "id": "notification_2_link_url",
+        "label": "Notification 2 Link URL"
+      },
+      {
+        "type": "header",
+        "content": "Notification 3"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_notification_3",
+        "label": "Show Notification 3?"
+      },
+      {
+        "type": "text",
+        "id": "notification_3_text",
+        "label": "Notification 3 Text"
+      },
+      {
+        "type": "text",
+        "id": "notification_3_link_text",
+        "label": "Notification 3 Link Text"
+      },
+      {
+        "type": "text",
+        "id": "notification_3_link_url",
+        "label": "Notification 3 Link URL"
+      },
+      {
+        "type": "header",
+        "content": "Notification 4"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_notification_4",
+        "label": "Show Notification 4?"
+      },
+      {
+        "type": "text",
+        "id": "notification_4_text",
+        "label": "Notification 4 Text"
+      },
+      {
+        "type": "text",
+        "id": "notification_4_link_text",
+        "label": "Notification 4 Link Text"
+      },
+      {
+        "type": "text",
+        "id": "notification_4_link_url",
+        "label": "Notification 4 Link URL"
+      }
+    ]
+  },
+  {
+    "name": "Social Links",
+    "settings": [
+      {
+        "type": "text",
+        "id": "facebook_url",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "text",
+        "id": "twitter_url",
+        "label": "Twitter URL"
+      },
+      {
+        "type": "text",
+        "id": "instagram_url",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "blogfeed_url",
+        "label": "Blog Feed URL"
+      },
+      {
+        "type": "text",
+        "id": "pinterest_url",
+        "label": "Pinterest URL"
+      }
+    ]
+  },
+  {
+    "name": "Contact Information",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Contact Phone"
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact Email"
+      },
+      {
+        "type": "text",
+        "id": "spotted_email",
+        "label": "Spotted Email"
+      },
+      {
+        "type": "text",
+        "id": "wholesale_email",
+        "label": "Wholesale Inquiries Email"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Cart promos"
+      },
+      {
+        "type": "image_picker",
+        "id": "cart-promo1",
+        "label": "Cart promo 1 image"
+      },
+      {
+        "type": "text",
+        "id": "cart-promo1-url",
+        "label": "Cart promo 1 url"
+      },
+      {
+        "type": "image_picker",
+        "id": "cart-promo2",
+        "label": "Cart promo 2 image"
+      },
+      {
+        "type": "text",
+        "id": "cart-promo2-url",
+        "label": "Cart promo 2 url"
+      },
+      {
+        "type": "header",
+        "content": "Shipping disclaimer"
+      },
+      {
+        "id": "cart-disclaimer",
+        "type": "richtext",
+        "label": "Add custom disclaimer text below",
+        "default": "<p>We are unable to ship to PO Boxes.<\/p>"
+      }
+    ]
+  }
+]

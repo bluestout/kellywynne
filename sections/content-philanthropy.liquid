@@ -1,0 +1,210 @@
+<div class="container intro">
+    <p class="intro">{{ section.settings.philanthropy_intro }}</p>
+    <h3 class="hashtag">{{ section.settings.philanthropy_hashtag }}</h3>
+</div>
+
+<section class="banner light progress">
+    <div class="container">
+        <p class="white">Help us reach our goal!</p>
+        <h2>Be clear on the cause.</h2>
+        <p>A portion of every sale on kellywynne.com goes towards the sponsorship of a domestic minor sex trafficking survivor at The Refuge Ranch</p>
+        <picture>
+            <source data-srcset="{{ section.settings.philanthropy_progress | img_url: 'master' }}" media="(min-width: 640px)">
+            <img class="lazy" data-src="{{ section.settings.philanthropy_progress | img_url: '640x' }}" alt="{{ page.title }}">
+        </picture>
+        <p class="white">Your purchase makes a difference.</p>
+        <h3>Every single time</h3>
+    </div>
+</section>
+
+<section class="container organization">
+    <a href="{{ section.settings.philanthropy_featured_organization_url }}" target="_blank"><img class="lazy" data-src="{{ section.settings.philanthropy_featured_logo | img_url: 'master' }}" /></a>
+    <p>{{ section.settings.philanthropy_organization_text }}</p>
+    <a class="button blue center-x" href="{{ section.settings.philanthropy_featured_organization_url }}" target="_blank">Learn more <span class="arrow">&#9658;</span></a>
+</section>
+
+<section class="banner background">
+    <div class="container">
+        <h3 class="white">Core components <span class="small">of the Refuge Ranch</span></h3>
+        <div class="column one-third">
+            <img class="lazy" data-src="{{ section.settings.philanthropy_components_img1 | img_url: 'master' }}" />
+            <h4>Care</h4>
+            <p>every girl that comes into our care has value. She is uniquely created by God for a special purpose in the world</p>
+        </div>
+        <div class="column one-third">
+            <img class="lazy" data-src="{{ section.settings.philanthropy_components_img2 | img_url: 'master' }}" />
+            <h4>Create</h4>
+            <p>every girl is given the support and love to understand her worth and create a new life for herself outside of The Refuge Ranch</p>
+        </div>
+
+        <div class="column one-third last">
+            <img class="lazy" data-src="{{ section.settings.philanthropy_components_img3 | img_url: 'master' }}" />
+            <h4>Change</h4>
+            <p>every survivor has the potential to be a change agent, championing the fight to eradicate the sexual exploitation of children</p>
+        </div>
+    </div>
+    <style>
+        .banner.background {
+            background-image: url('{{ section.settings.philanthropy_components_bg | img_url: 'master' }}') !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-position: center !important;
+        }
+    </style>
+</section>
+
+<section class="container infographic">
+    <h3>The hard facts <span class="small">on domestic minor<br/>sex trafficking</span></h3>
+    <ul>
+        <li>           
+            <picture>
+              <source srcset="{{ section.settings.philanthropy_infographic1 | img_url: 'master' }}" media="(min-width: 640px)">
+              <img class="lazy" data-src="{{ section.settings.philanthropy_infographic1 | img_url: '640x' }}" alt="{{ page.title }}">
+            </picture> 
+        </li>
+        <li>
+            <picture>
+              <source data-srcset="{{ section.settings.philanthropy_infographic2 | img_url: 'master' }}" media="(min-width: 640px)">
+              <img class="lazy" data-src="{{ section.settings.philanthropy_infographic2 | img_url: '640x' }}" alt="{{ page.title }}">
+            </picture>
+        </li>
+        <li>
+            <picture>
+              <source data-srcset="{{ section.settings.philanthropy_infographic3 | img_url: 'master' }}" media="(min-width: 640px)">
+              <img class="lazy" data-src="{{ section.settings.philanthropy_infographic3 | img_url: '640x' }}" alt="{{ page.title }}">
+            </picture>
+        </li>
+        <li>
+            <picture>
+              <source data-srcset="{{ section.settings.philanthropy_infographic4 | img_url: 'master' }}" media="(min-width: 640px)">
+              <img class="lazy" data-src="{{ section.settings.philanthropy_infographic4 | img_url: '640x' }}" alt="{{ page.title }}">
+            </picture>
+        </li>
+        <li>
+            <picture>
+              <source data-srcset="{{ section.settings.philanthropy_infographic5 | img_url: 'master' }}" media="(min-width: 640px)">
+              <img class="lazy" data-src="{{ section.settings.philanthropy_infographic5 | img_url: '640x' }}" alt="{{ page.title }}">
+            </picture>
+        </li>
+        <li><p class="small"><em>* Statistics are from <a href="https://www.missingkids.org/" target="_blank">National Center for Missing &amp; Exploited Children (NCMEC)</a></em></p></li>
+    </ul>
+</section>
+
+<section class="banner light">
+    <div class="container video">
+    <div class="embed-container">
+        <iframe src='https://player.vimeo.com/video/310673754' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+    <a class="button blue" href="{{ section.settings.philanthropy_featured_organization_url }}" target="_blank">Learn more <span class="arrow">&#9658;</span></a>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Page content",
+    "settings": [
+        {
+        "type": "textarea",
+        "id": "philanthropy_intro",
+        "label": "Intro text"
+        },
+        {
+        "type": "text",
+        "id": "philanthropy_hashtag",
+        "label": "Intro hashtag"
+        },
+        {
+        "type": "textarea",
+        "id": "philanthropy_main_text",
+        "label": "Primary text"
+        },
+        {
+        "type": "header",
+        "content": "Featured organization"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_featured_logo",
+        "label": "Organization logo (.jpg or .png, ~200px wide)"
+        },
+        {
+        "type": "text",
+        "id": "philanthropy_featured_organization_url",
+        "label": "Organization url"
+        },
+        {
+        "type": "textarea",
+        "id": "philanthropy_organization_text",
+        "label": "Organization main text"
+        },
+        {
+        "type": "header",
+        "content": "Progress"
+        },        
+        {
+        "type": "image_picker",
+        "id": "philanthropy_progress",
+        "label": "Progress (transparent .png, ~1600px wide)"
+        },
+        {
+        "type": "header",
+        "content": "Infographic"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_infographic1",
+        "label": "Infographic 1 (transparent .png, ~1200px wide)"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_infographic2",
+        "label": "Infographic 2 (transparent .png, ~1200px wide)"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_infographic3",
+        "label": "Infographic 3 (transparent .png, ~1200px wide)"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_infographic4",
+        "label": "Infographic 4 (transparent .png, ~1200px wide)"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_infographic5",
+        "label": "Infographic 5 (transparent .png, ~1200px wide)"
+        },
+        {
+        "type": "header",
+        "content": "Core components"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_components_img1",
+        "label": "Core component image 1 (transparent .png, ~600px wide)"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_components_img2",
+        "label": "Core component image 2 (transparent .png, ~600px wide)"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_components_img3",
+        "label": "Core component image 3 (transparent .png, ~600px wide)"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy_components_bg",
+        "label": "Core component background (.jpg, ~1600px wide)"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

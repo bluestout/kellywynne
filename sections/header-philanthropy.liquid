@@ -1,0 +1,42 @@
+<section class="lede image">
+    <div class="container center-xy">
+        <h1>{{ section.settings.philanthropy-title }}</h1>
+    </div>
+    <picture>
+        <source srcset="{{ section.settings.philanthropy-header-image | img_url: '1600x600', crop: 'center', format: 'pjpg' }}" media="(min-width: 640px)">
+        <img srcset="{{ section.settings.philanthropy-header-image | img_url: '640x240',  crop: 'center', format: 'pjpg' }}" alt="{{ settings.philanthropy-title }}">
+    </picture>
+</section>
+
+{% schema %}
+{
+    "name": "Page header",
+    "settings": [
+        {
+        "type": "header",
+        "content": "Header"
+        },
+        {
+        "type": "image_picker",
+        "id": "philanthropy-header-image",
+        "label": "Header image (2400x900px, ~500kb jpg)"
+        },
+        {
+        "type": "text",
+        "id": "philanthropy-title",
+        "label": "Page title"
+        },
+        {
+        "type": "textarea",
+        "id": "philanthropy-header-image-text",
+        "label": "Header text"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

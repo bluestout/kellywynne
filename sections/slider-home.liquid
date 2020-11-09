@@ -1,0 +1,116 @@
+<section class="lede slides">
+    <ul class="slider">
+        {% for block in section.blocks %}
+        {% if block.settings.show_slide %}
+        <li class="slide">
+            <div class="container center-xy">
+                <h2 {% if block.settings.slideshow_header_sm_color != "" %}style="color: {{ block.settings.slideshow_header_sm_color }};"{% endif %}><a href="{{ block.settings.slideshow_url }}">{{ block.settings.slideshow_header_sm }}<br/><span style="font-size: {{ block.settings.slideshow_header_lg_size }}px;{% if block.settings.slideshow_header_lg_color != "" %} color: {{ block.settings.slideshow_header_lg_color }};{% endif %}"> {{ block.settings.slideshow_header_lg }}</span></a></h2>
+                <a class="diamond" href="{{ block.settings.slideshow_url }}">{{ block.settings.slideshow_action }}</a>
+            </div>
+            <picture>
+                <source srcset="{{ block.settings.image | img_url: '1600x640', crop: 'center', format: 'pjpg' }}" media="(min-width: 640px)">
+                {% if block.settings.image_mobile %}<img srcset="{{ block.settings.image_mobile | img_url: '640x640',  crop: 'center', format: 'pjpg' }}" alt="{{ block.settings.slideshow_header_lg }}">{% else %}<img srcset="{{ block.settings.image | img_url: '640x640',  crop: 'center', format: 'pjpg' }}" alt="{{ block.settings.slideshow_header_lg }}">{% endif %}
+            </picture>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</section>
+
+{% schema %}
+{
+    "name": "Slideshow",
+    "max_blocks": 10,
+    "blocks": [
+    {
+        "type": "image",
+        "name": "Slide",
+        "settings": [
+
+            {
+            "type": "checkbox",
+            "id": "show_slide",
+            "label": "Show slide?"
+            },
+            {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image desktop (2400x960px, 500kb jpg)"
+            },
+            {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Image mobile (1600x1600px, 500kb jpg)"
+            },
+            {
+            "type": "color",
+            "id": "slideshow_header_sm_color",
+            "label": "Header top color"
+            },
+            {
+            "type": "color",
+            "id": "slideshow_header_lg_color",
+            "label": "Header bottom color"
+            },
+            {
+            "type": "range",
+            "id": "slideshow_header_lg_size",
+            "label": "Header bottom font size",
+            "min": 48,
+            "max": 124,
+            "unit": "px",
+            "step": 2,
+            "default": 72
+            },
+            {
+            "type": "text",
+            "id": "slideshow_header_sm",
+            "label": "Top header"
+            },
+            {
+            "type": "text",
+            "id": "slideshow_header_lg",
+            "label": "Bottom header"
+            },
+            {
+            "type": "text",
+            "id": "slideshow_action",
+            "label": "Action button (ie 'Shop now')"
+            },
+            {
+            "type": "text",
+            "id": "slideshow_url",
+            "label": "URL (full, ie https:\/\/kellywynne.com\/pages\/handbags_collection)"
+            }
+        ]
+    }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+$(document).ready(function () {
+    
+    $('.lede .slider').lightSlider({
+        gallery: false,
+        item: 1,
+        mode:'fade',
+        controls: true,
+        adaptiveHeight:false,
+        speed: 700,
+        auto: true,
+        loop: true,
+        pause: 5000,
+        pager: false,
+        enableTouch: true,
+        enableDrag: true,
+        onSliderLoad:
+            function (el) {
+                el.addClass('active');
+            }
+    });
+});
+{% endjavascript %}

@@ -1,0 +1,52 @@
+<section class="lede search">
+    <div class="container">
+        <h1>Search results</h1>
+        <h2>&ldquo;{{ search.terms }}&rdquo;</h2>
+    </div>
+</section>
+
+<section class="container search">
+    <p class="description">{{ collection.description }}</p>
+
+        {% if search.performed == false %}
+
+        {% endif %}
+
+      {% paginate search.results by 999 %}
+        {% if search.performed %}
+
+            {% if search.results_count == 0 %}
+                <p style="text-align:center; margin: 60px 0 100px;">Your search for "{{ search.terms }}" did not yield any results.</p>
+            {% else %}
+
+              {% assign searched = search.results | sort:'title' %}
+
+            <ul class="grid three">
+            {% for product in searched %}
+                {% if product.type == 'PPLR_HIDDEN_PRODUCT' %}{% continue %}{% endif %}
+                    {% include 'product-grid-item' %}
+            {% endfor %}
+            </ul>
+
+          {% endif %}
+
+        {% endif %}
+
+        <!--
+        <form action="/search" method="get" class="search" role="search">
+            <input name="q" type="text" id="search-field" value="{{ search.terms }}" placeholder="search..." />
+            <input type="hidden" name="type" value="product" />
+            <button type="submit">{% include 'icon.search' %}</button>
+        </form>
+        -->
+
+        {% if paginate.pages > 1 %}
+            <div id="pagination">
+                {{ paginate | default_pagination }}
+            </div>
+        {% endif %}
+        {% endpaginate %}
+
+</section>
+
+{% include 'banner.retailers' %}

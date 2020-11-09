@@ -1,0 +1,123 @@
+<div id="sidebar">
+                    
+    <a href="{{ section.settings.blog_sidebar_promo1_url }}" class="blog-promo">
+        <img src="{{ section.settings.blog_sidebar_promo1_img | img_url: '800x800', crop: 'center' }}" alt="About Kelly">
+    </a>
+
+    <a href="{{ section.settings.blog_sidebar_promo2_url }}" class="blog-promo">
+        <img src="{{ section.settings.blog_sidebar_promo2_img | img_url: '800x800', crop: 'center' }}" alt="Kelly's Closet">
+    </a>
+
+    <a href="{{ section.settings.blog_sidebar_promo3_url }}" class="blog-promo">
+        <img src="{{ section.settings.blog_sidebar_promo3_img | img_url: '800x800', crop: 'center' }}" alt="Around Town">
+    </a>
+
+    <img id="dare-header" src="{{ section.settings.blog_sidebar_dare_header_img | img_url: 'master' }}" alt="Dare of the week!">		
+    
+    <h3>&ldquo;{{ section.settings.blog_sidebar_dare_text }}&rdquo;<br/>xoxo Kelly</h3>
+
+
+    <img class="blog-promo" src="{{ section.settings.blog_sidebar_dare_img | img_url: '800x800', crop: 'center' }}" alt="Dare of the week!">
+
+    <div class="clearfix"></div>
+
+    <div id="spotted-blog">
+        <h4 class="teal">Mingling around town with your KW bag? Send us a spotted pic for a chance to be featured on our social media!</h4>
+        <a href="mailto:spotted@kellywynne.com" class="button">spotted@kellywynne.com</a>
+    </div>
+
+</div>
+
+{% schema %}
+{
+    "name": "Sidebar content",
+    "settings": [
+        {
+        "type": "header",
+        "content": "Promo 1"
+        },
+        {
+        "type": "image_picker",
+        "id": "blog_sidebar_promo1_img",
+        "label": "Sidebar promo 1 image (.jpg)"
+        },
+        {
+        "type": "text",
+        "id": "blog_sidebar_promo1_url",
+        "label": "Sidebar promo 1 url"
+        },
+        {
+        "type": "header",
+        "content": "Promo 2"
+        },
+        {
+        "type": "image_picker",
+        "id": "blog_sidebar_promo2_img",
+        "label": "Sidebar promo 2"
+        },
+        {
+        "type": "text",
+        "id": "blog_sidebar_promo2_url",
+        "label": "Sidebar promo 2 url"
+        },
+        {
+        "type": "header",
+        "content": "Promo 3"
+        },
+        {
+        "type": "image_picker",
+        "id": "blog_sidebar_promo3_img",
+        "label": "Sidebar promo 3 image (.jpg)"
+        },
+        {
+        "type": "text",
+        "id": "blog_sidebar_promo3_url",
+        "label": "Sidebar promo 3 url"
+        },
+        {
+        "type": "header",
+        "content": "Dare of the week"
+        },
+        {
+        "type": "image_picker",
+        "id": "blog_sidebar_dare_header_img",
+        "label": "Dare of week header image (.jpg)"
+        },
+        {
+        "type": "image_picker",
+        "id": "blog_sidebar_dare_img",
+        "label": "Dare of week image (.jpg)"
+        },
+        {
+        "type": "text",
+        "id": "blog_sidebar_dare_text",
+        "label": "Dare of week text"
+        }
+        ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+$(document).ready(function () {
+    
+    $('.slider.lede').lightSlider({
+        gallery: false,
+        item: 1,
+        mode:'fade',
+        controls: true,
+        adaptiveHeight:false,
+        speed: 700,
+        auto: true,
+        loop: true,
+        pause: 5000,
+        pager: false,
+        onSliderLoad:
+            function (el) {
+                el.addClass('active');
+            }
+    });
+});
+{% endjavascript %}

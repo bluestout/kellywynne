@@ -1,0 +1,44 @@
+<section id="cart-promos" class="container">
+    <a href="{{ section.settings.cart-promo1-url }}">
+        <img src="{{ section.settings.cart-promo1 | img_url: '600x' }}" alt="Shop!">
+    </a>
+    <a href="{{ section.settings.cart-promo2-url }}">
+        <img src="{{ section.settings.cart-promo2 | img_url: '600x' }}" alt="Shop!">
+    </a>
+</section>
+
+{% schema %}
+
+{
+    "name": "Cart promos",
+    "settings": [
+{
+        "type": "image_picker",
+        "id": "cart-promo1",
+        "label": "Cart promo 1 image"
+      },
+      {
+        "type": "text",
+        "id": "cart-promo1-url",
+        "label": "Cart promo 1 url"
+      },
+      {
+        "type": "image_picker",
+        "id": "cart-promo2",
+        "label": "Cart promo 2 image"
+      },
+      {
+        "type": "text",
+        "id": "cart-promo2-url",
+        "label": "Cart promo 2 url"
+      }
+    ]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

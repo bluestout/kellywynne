@@ -1,0 +1,28 @@
+{% section 'header-showroom' %}
+
+{% if page.content != "" %}
+<section class="container content {{ page.handle }}">
+      {{ page.content }}
+</section>
+{% endif %}  
+
+<section class="container">
+    <div class="showroom">
+        <div class="full reverse">
+            <div class="half">
+                <h2>Address</h2>
+                <p>2800 Industrial Terrace Suite A<br/>Austin, TX 78758</p>
+
+                <p><em>By appointment only</em></p>
+
+                <h2>Request an appointment</h2>
+                <p><a href="mailto:info@kellywynne.com" target="_blank">info@kellywynne.com</a></p>
+
+               
+            </div>
+            <div class="half">
+                <img src="{{ 'KELLY-WYNNE_showroom-2-800x996px.jpg' | asset_url }}" />
+            </div>
+        </div>  
+    </div>
+</section>

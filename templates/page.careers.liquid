@@ -1,0 +1,25 @@
+<section id="faqs_header" class="lede grey">
+    <div class="container center-xy">
+        <h1>Want to join the Kelly Wynne team?</h1>
+        <p>Find out more below.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="one-third">
+        <div class="contact">
+            <p>For general support, press or wholesale inquiries email us at</p>
+            <p><a href="mailto:{{ settings.contact_email }}" class="button blue">{{ settings.contact_email }}</a></p>
+        </div>
+
+        <div class="contact">
+            <p>For immediate assistance, give us a ring. Monday&mdash;Friday, 9:00am&mdash;5:00pm (CST)</p>
+            <p><a href="tel:{{ settings.contact_phone }}" class="button blue">Tel: {{ settings.contact_phone }}</a></p>
+        </div>
+    </div>
+    <div class="two-thirds">
+        <div id="faqs">
+            {{ page.content }}
+        </div>
+    </div>
+</section>

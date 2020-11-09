@@ -1,0 +1,39 @@
+<li class="grid-item">
+    <a href="{{ product.url }}" class="product product_rect" data-price="{{ product.price | money_without_currency }}">
+        <div class="imagery">
+            <img class="bottom lazy" data-src="{{ product.images[2] | product_img_url: 'large' }}" alt="{{ product.title }}" />
+            
+            {% comment %}
+            <video class="video-single"poster="{{ "video-asos-2-1k5.jpg" | asset_url }}" muted loop preload="metadata" playsinline>
+                <source src="{{ "video-asos-2-1k5.webm" | asset_url }}" type="video/webm">
+                <source src="{{ "video-asos-2-1k5.mp4" | asset_url }}" type="video/mp4">
+            </video>
+            {% endcomment %}
+            
+            <img class="top lazy" data-src="{{ product.images[0] | product_img_url: 'large' }}" alt="{{ product.title }}" />
+            
+        </div>
+        
+        <div class="meta">
+            <h3>{{ product.title }}</h3>
+                {% assign variant = product.variants.first %}
+                {% if variant.inventory_quantity <= 0 and variant.available and variant.inventory_management != '' %}
+                    <span class="price" itemprop="price">{{ product.price | money  | remove: '.00' }}</span>
+                {% elsif product.available != true %}
+                    <span class="price soldout" itemprop="price">Sold out</span>
+                {% elsif product.price < product.compare_at_price %}
+                    <span class="price" itemprop="price">{{ product.price | money | remove: '.00' }}</span>
+                    <span class="price original"> (originally {{product.compare_at_price | money | remove: '.00' }})</span>
+          		{% else %}
+                    <span class="price" itemprop="price">{{ product.price | money | remove: '.00' }}</span>
+                {% endif %}
+                {% if variant.inventory_quantity < 4 and variant.inventory_quantity > 0 %}
+                    <span class="lowstock">Only {{ variant.inventory_quantity }} left!</span>
+                {% endif %}
+            <span class="colors">more colors available!</span>
+            {% if product.handle contains "envelopes" %}
+                <span class="excluded">excluded from promotion</span>
+            {% endif %}
+		</div>
+	</a>
+</li>

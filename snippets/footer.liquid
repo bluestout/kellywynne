@@ -1,0 +1,40 @@
+<footer id="footer">
+    <div class="top desktop">
+        <ul class="social center-x">
+            <li><a class="pinterest" href="{{ settings.pinterest_url }}" target="_blank">{% include 'icon.pinterest.light' %} Pinterest</a>
+            </li>
+            <li><a class="facebook" href="{{ settings.facebook_url }}" target="_blank">{% include 'icon.facebook.light' %} Facebook</a>
+            </li>
+            <li><a class="instagram" href="{{ settings.instagram_url }}" target="_blank">{% include 'icon.instagram.light' %} Instagram</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container social mobile">
+        <h2>Socialize with KW!</h2>
+        <ul class="social center-x">
+            <li><a class="pinterest" href="{{ settings.pinterest_url }}" target="_blank">{% include 'icon.pinterest.light' %}</a>
+            </li>
+            <li><a class="facebook" href="{{ settings.facebook_url }}" target="_blank">{% include 'icon.facebook.light' %}</a>
+            </li>
+            <li><a class="instagram" href="{{ settings.instagram_url }}" target="_blank">{% include 'icon.instagram.light' %}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="bottom">
+        <ul class="links main">
+            <li><a href="/pages/careers">Careers</a></li>
+            <li><a href="/pages/contact-faq">Contact Us</a></li>
+            <li><a href="/products/gift-card">Gift Cards</a></li>
+            <li><a href="/pages/repairs">Warranty</a></li>
+            <li><a href="/pages/contact-faq#returns-exchanges">Returns &amp; Exchanges</a></li>
+            <li><a href="/pages/contact-faq">FAQ</a></li>
+            <li class="club"><a href="/pages/wynners-club">Wynners' Club</a></li>
+        </ul>
+        <ul class="links ancillary">
+            <li>
+            <a href="/pages/privacy-statement">Copyright &copy; {{ 'now' | date: "%Y" }} Kelly Wynne</a></li><li><a href="/pages/privacy-statement">Privacy Statement</a></li> <li><a href="/pages/terms-of-service">Terms of Service</a></li>
+        </ul>
+    </div>
+</footer>

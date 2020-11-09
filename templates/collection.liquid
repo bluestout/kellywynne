@@ -1,0 +1,61 @@
+<section class="lede{% if collection.image %} image{% endif %}">
+    <div class="container{% if collection.image %} center-xy{% endif %}">
+        <h1>{{ collection.title }}</h1>
+    </div>
+    {% if collection.image %}
+    <picture>
+        <source srcset="{{ collection.image | img_url: '1600x600', crop: 'center', format: 'pjpg' }}" media="(min-width: 640px)">
+        <img srcset="{{ collection.image | img_url: '640x240',  crop: 'center', format: 'pjpg' }}" alt="{{ collection.title }}">
+    </picture>
+    {% endif %}
+</section>
+
+    {% paginate collection.products by 48 %}
+<section class="container {{ collection.handle }}">
+
+    {% if collection.description != '' %}
+    <p class="description">{{ collection.description }}</p>
+    {% endif %}
+
+    <ul class="grid three">
+    {% for product in collection.products %}
+    {% if product.type == 'PPLR_HIDDEN_PRODUCT' %}{% continue %}{% endif %}
+        {% include 'product-grid-item' %}
+    {% endfor %}
+    </ul>
+
+
+</section>
+    {% if paginate.previous or paginate.next %}
+    <div class="pages">
+        {% if paginate.previous %} <a href="{{ paginate.previous.url }}" rel="prev">&larr; Prev</a>{% endif %}
+        {% if paginate.next %} <a href="{{ paginate.next.url }}" rel="next">More &rarr;</a>{% endif %}
+    </div>
+    {% elsif collection.handle != 'final-few' %}
+    <section id="home_handbags" class="container">
+      <h2 style="text-align:center; font-size: 18px; font-weight: 300;line-height: 1.2em;">Didn't find what you're looking for?<br/>Shop our past favorites!</h2>
+        <img id="shop-all-arrows-left" src="{{ 'arrows-left.gif' | asset_url }}" alt="Shop All Handbags">&emsp;
+        <a href="/collections/final-few" class="button large">Shop The Final Few</a>&emsp;
+        <img id="shop-all-arrows-right" src="{{ 'arrows-right.gif' | asset_url }}" alt="Shop All Handbags">
+    </section>
+    {% endif %}
+
+{% endpaginate %}
+
+{{ 'jquery.waypoints.min.js' | asset_url | script_tag }}
+
+
+<script>
+/* Waypoints flip on scroll */
+/* $(document).ready(function () {
+    if ($(window).width() < 767) {
+        $('.grid-item').each(function () {
+            $(this).waypoint(function () {
+                $(this.element).toggleClass('on');
+            }, {
+                offset: '20%'
+            });
+        });
+    }
+});*/
+</script>

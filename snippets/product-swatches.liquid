@@ -1,0 +1,10 @@
+<div id="product-swatches-images">
+{% assign swatchproducts = collections[product.metafields.product_swatches.swatch_collection_id].products %}
+{% for swatchproduct in swatchproducts %}
+<div class="image-circle {% if swatchproduct.id == product.id %}active{%endif%}">
+    <a href="{{swatchproduct.url}}" title="{{swatchproduct.title}}">
+        <img src="{{ swatchproduct.images[1] | img_url: '100x100', crop: 'center' }}" />
+    </a>
+</div>
+{% endfor %}
+</div>

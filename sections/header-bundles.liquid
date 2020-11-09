@@ -1,0 +1,65 @@
+<section class="lede image">
+    <div class="container center-xy">
+        {% if section.settings.header-text != "" %}<h4 class="description">{{ section.settings.header-text }}</h4>{% endif %}
+        {% if section.settings.header-title != "" %}<h1>{{ section.settings.header-title }}</h1>{% endif %}
+    </div>
+    <picture>
+      <source srcset="{{ section.settings.image | img_url: '1600x600', crop: 'center', format: 'pjpg' }}" media="(min-width: 640px)">
+      <img srcset="{{ section.settings.image | img_url: '640x240',  crop: 'center', format: 'pjpg' }}" alt="{{ page.title }}">
+    </picture> 
+</section>
+
+<div class="container intro">
+    {% if section.settings.intro_text != "" %}<p class="intro">{{ section.settings.intro_text }}</p>{% endif %}
+    {% if section.settings.tutorial_text != "" %}
+    <div class="banner tutorial">
+        <h3>{{ section.settings.tutorial_text }}</h3>
+    </div>
+    {% endif %}
+</div>
+{% schema %}
+{
+    "name": "Header",
+    "settings": [
+        {
+        "type": "header",
+        "content": "Lede"
+        },
+        {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Header image (2400x900px, ~500kb jpg)"
+        },
+        {
+        "type": "text",
+        "id": "header-text",
+        "label": "Header small text"
+        },
+        {
+        "type": "text",
+        "id": "header-title",
+        "label": "Header title"
+        },
+        {
+        "type": "header",
+        "content": "Intro"
+        },
+        {
+        "type": "text",
+        "id": "intro_text",
+        "label": "Intro text"
+        },
+        {
+        "type": "textarea",
+        "id": "tutorial_text",
+        "label": "Tutorial text"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

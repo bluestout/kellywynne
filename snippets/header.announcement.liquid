@@ -1,0 +1,5 @@
+{% if settings.show_announcement %}
+<header class="bottom" {% if settings.announcement_background_color %}style="background-color: {{ settings.announcement_background_color }}"{% endif %}>
+{{ settings.announcement_text }}{% if settings.announcement_link_text %} <a href="{{ settings.announcement_link_url }}">{{ settings.announcement_link_text }}</a>{% endif %}
+</header>
+{% endif %}

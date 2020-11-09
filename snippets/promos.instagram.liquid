@@ -1,0 +1,27 @@
+<section class="container instagram">
+    <h3>Wynnestagram</h3>
+    <div class="feed instagram"></div>
+    <div class="clearfix"></div>
+    <h4><a href="https://instagram.com/shopkellywynne/" target="_blank">@shopkellywynne</a><a href="https://instagram.com/explore/tags/daretowynne/" target="_blank">#daretowynne</a></h4>
+</section>
+
+<!-- Instagram feed -->
+{{ 'jquery.instagramFeed.min.js' | asset_url | script_tag }}
+
+<script>
+    (function($){
+        $(window).on('load', function(){
+            $.instagramFeed({
+                'username': 'shopkellywynne',
+                'container': ".feed.instagram",
+                'display_profile': false,
+                'display_biography': false,
+                'display_gallery': true,
+                'display_igtv': false,
+                'styling': false,
+                'items': 4,
+                margin: 1
+            });
+        });
+    })(jQuery);
+</script>

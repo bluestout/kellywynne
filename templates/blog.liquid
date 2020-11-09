@@ -1,0 +1,36 @@
+{% section 'slider-blog' %}
+{% paginate blog.articles by 2 %}
+<div class="container main">
+
+    <div class="left">
+
+        {% for article in blog.articles %}
+        <article>
+            <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+            <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time>
+            <div class="excerpt">
+                {{ article.excerpt }}
+            </div>
+
+            <a class="read-more button blue center-x" href="{{ article.url }}">READ MORE &rarr;</a>
+
+        </article>
+        {% endfor %}
+
+        <div class="pages"> 
+          {% if paginate.previous %}
+            {{ '&laquo; Previous Posts' | link_to: paginate.previous.url }}
+          {% endif %}
+          {% if paginate.next %}
+             {{ 'Next Posts &raquo;' | link_to: paginate.next.url }}
+          {% endif %}            
+        </div>
+
+    </div>
+
+    <div class="right desktop">
+        {% section 'sidebar-blog' %}    
+    </div>
+
+</div>
+{% endpaginate %}

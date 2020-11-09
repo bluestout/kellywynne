@@ -1,0 +1,39 @@
+{% for block in section.blocks %}
+{% if collections[block.settings.featured_collection].products_count != 0 %}
+<section class="container collection">
+    <h2><a href="{{ collections[block.settings.featured_collection].url }}">{{ collections[block.settings.featured_collection].title }}</a></h2>
+    <ul class="grid three">        
+        {% for product in collections[block.settings.featured_collection].products %}
+            {% include 'product-grid-item' %}
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+{% endfor %}
+
+{% schema %}
+{
+    "name": "Collections",
+    "blocks": [
+    {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+
+            {
+            "type": "collection",
+            "id": "featured_collection",
+            "label": "Collection"
+            }
+
+        ]
+    }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,66 @@
+<header class="main">
+    <div class="container branding">
+        <button type="button" class="menu-toggle mobile collapsed center-y">
+            <span class="icon-bar top-bar"></span>
+            <span class="icon-bar middle-bar"></span>
+            <span class="icon-bar bottom-bar"></span>
+        </button>
+        <ul class="social desktop center-y">
+            <li><a class="pinterest" href="{{ settings.pinterest_url }}" target="_blank">{% include 'icon.pinterest.light' %}</a>
+            </li>
+            <li><a class="facebook" href="{{ settings.facebook_url }}" target="_blank">{% include 'icon.facebook.light' %}</a>
+            </li>
+            <li><a class="instagram" href="{{ settings.instagram_url }}" target="_blank">{% include 'icon.instagram.light' %}</a>
+            </li>
+        </ul>
+        <a href="/" class="logo center-x">{% include 'logo.stacked' %}</a>
+        <div class="phone desktop center-y">
+            <a href="https://kellywynne.com/pages/KELLYWYNNESAVE10-subscribe-page" target="_blank">Text with us {% include 'icon.phone' %}</a>
+        </div>
+        <a id="cart-bag" class="mobile center-y" href="/cart">{% include 'icon.bag' %}{% if cart.item_count > 0 %}<span class="cart-items">{{ cart.item_count }}</span>{% endif %}</a>
+        <div class="slogan">Genuine leather <span class="dot">&#8226;</span> Obtainable Luxury <span class="dot">&#8226;</span> Designed in Austin, TX</div>
+    </div>
+    
+    <nav class="primary">
+        <ul class="container nav">
+            <li class="mobile">
+                <form action="/search" method="get" class="search" role="search">
+                    <input name="q" type="text" id="search-field" placeholder="search..." />
+                    <input type="hidden" name="type" value="product" />
+                    <button type="submit">{% include 'icon.search' %}</button>
+                </form>
+            </li>
+            <li class="brand desktop">
+                <a href="/"><img alt="KW" src="{{ 'logo-navbar.svg' | asset_url }}" />
+                </a>
+            </li>
+            {% for link in linklists.main-menu.links %}
+            <li class="{% if link.active %}active {% endif %}{% if link.child_active %}child-active{% endif %}">
+                <a {% if link.links != blank %}class="parent"{% endif %} href="{{ link.url }}">{{ link.title }}</a>
+                {% if link.links != blank %}
+                <ul class="child">
+                    {% for child_link in link.links %}  
+                    <li class="{{ child_link.handle }}{% if child_link.links != blank %} nest{% endif %}{% if child_link.active %} active{% endif %}{% if child_link.child_active %} child-active{% endif %}">
+                        <a {% if child_link.links != blank %}class="nestparent"{% endif %} href= "{{ child_link.url }}">{{ child_link.title }}</a>
+                        {% if child_link.links != blank %}
+                        <ul class="grandchild">
+                            {% for grandchild_link in child_link.links %}  
+                            <li class="{{ child_link.handle }}{% if grandchild_link.active %} active{% endif %}{% if grandchild_link.child_active %} child-active{% endif %}">
+                                <a href= "{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}   
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %} 
+            </li>
+            {% endfor %}
+            <li class="customer mobile">
+                <a href="/account/register" id="customer_register_link">sign up</a>
+                <a href="/account/login" id="customer_login_link">log in</a>
+            </li>
+        </ul>
+    </nav>
+</header>

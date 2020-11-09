@@ -1,0 +1,115 @@
+<div itemscope itemtype="http://schema.org/Product">
+ 
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="{{ product.images[1] | product_img_url: 'master' }}" />
+
+	<form action="/cart/add" method="post">
+	  
+		<section id="single_product" data-currentid="{{ product.id }}">
+	   	
+	   	<div class="container">
+	   		<div class="row">
+	   			
+	   			<div id="single_photos" class="span6">
+	   				<div class="imgs">
+
+	   					<div class="main">
+
+	   						<div id="">
+								<div class="small">
+									<img src="{{ product.images[0] | product_img_url: 'master' }}" alt="{{ product.title | escape }}">
+								</div>
+							</div>
+	   					</div><!-- /.main -->
+	   					
+	   				</div><!-- /.imgs -->
+			
+	   			</div><!-- /#single_photos -->
+	   			
+	   			<div id="single_info" class="span4 offset1">
+	   				<div class="body">
+	   					
+	   					<header>
+	   						<h1 itemprop="name">{{ product.title }}</h1>
+	   						<meta itemprop="brand"  />
+	   						{% if product.price_min == product.price_max %}
+	   							<p class="price" itemprop="price">{{ product.price | money | remove: '.00' }}</p>
+	   						{% else %}
+	   							<p class="price" itemprop="price">{{ product.price_min | money | remove: '.00' }} - {{ product.price_max | money | remove: '.00' }}</p>
+	   						{% endif %}
+	   					</header>
+	   					
+	   					<div class="description" itemprop="description">{{ product.description }}</div>
+	   					
+	   					<div id="backorder" class="hidden alert alert-danger">
+							<p><span id="selected-variant"></span> is back-ordered. We will ship it separately in 10 to 15 days.</p>
+						</div>
+
+	   					{% if product.variants.size > 1 %}
+		   					<div class="btn-group" id="product-select-btn">
+								<a class="btn dropdown-toggle btn-large" data-toggle="dropdown" href="#">
+									Select a Dollar Amount
+									<span class="caret top"></span>
+									<span class="caret bottom"></span>
+								</a>
+								<ul class="dropdown-menu">
+									{% for variant in product.variants %}
+										{% if variant.available == true %}
+											<li><a href="#" data-id="{{ variant.id }}" data-qty="{{ variant.inventory_quantity }}">{{ variant.price | money | remove: '.00' }}</a></li>
+										{% else %}
+											<li><a href="#" data-id="{{ variant.id }}">{{ variant.title }} - Sold Out</a></li>
+										{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+		
+							<div class="hidden">						
+								<select id="product-select" name='id'>
+									{% for variant in product.variants %}
+										{% if variant.available == true %}
+											<option value="{{ variant.id }}">{{ variant.price | money | remove: '.00' }}</option>
+										{% else %}
+											<option disabled="disabled"> {{ variant.title }} - sold out! </option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+
+							<input type="submit" id="submit" class="button teal" value="choose a card above" disabled="disabled" />
+
+						{% else %}
+							<div class="hidden">
+								<select id="product-select" name='id'>
+									{% for variant in product.variants %}
+										{% if variant.available == true %}
+											<option value="{{ variant.id }}" selected="selected">{{ variant.title }} - {{ variant.price | money | remove: '.00' }}</option>
+										{% else %}
+											<option disabled="disabled"> {{ variant.title }} - sold out! </option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+
+							<input type="submit" id="submit" class="button teal" value="Add to Cart" />
+						{% endif %}
+
+
+	   					<ul class="social">
+	   						<li class="pinterest">
+	   							<div class="pin">
+									<a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark">
+										<img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" />
+									</a>
+								</div>
+	   						</li>
+	   					</ul>
+	   					
+	   				</div>
+	   			</div>
+	   			
+	   		</div>
+	   	</div>
+
+	
+	</form>
+</div>{% render 'product_infox' %}

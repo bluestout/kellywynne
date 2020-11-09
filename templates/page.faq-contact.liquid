@@ -1,0 +1,32 @@
+<section id="faqs_header" class="lede grey">
+    <div class="container center-xy">
+        <h1>Have A question? Please Check the FAQ.</h1>
+        <p>If you can’t find the answer, don’t hesitate to get in touch.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="one-third">
+      <div class="contact">
+            <p>For Customer Care inquiries<br/> or product questions e-mail us at:</p>
+            <p><a href="mailto:customercare@kellywynne.com" class="button blue">customercare@kellywynne.com</a><small></small></p>
+        </div>
+
+        <div class="contact">
+            <p>For internship or marketing<br/> inquiries email us at:</p>
+            <p><a href="mailto:{{ settings.contact_email }}" class="button blue">{{ settings.contact_email }}</a></p>
+        </div>
+        
+        <div class="contact">
+            <p>For press inquiries email us at:</p>
+            <p><a href="mailto:{{ settings.contact_email }}" class="button blue">{{ settings.contact_email }}</a></p>
+        </div>
+    </div>
+    
+    <div class="two-thirds">
+        <div id="faqs">
+            {{ page.content }}
+        </div>
+    </div>
+    
+</section>

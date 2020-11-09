@@ -1,0 +1,22 @@
+<div id="disclaimer">
+    {{ section.settings.disclaimer }}
+</div>
+{% schema %}
+  {
+    "name": "Disclaimer",
+    "settings": [
+      {
+        "id": "disclaimer",
+        "type": "richtext",
+        "label": "Add custom disclaimer text below",
+"default": "<p>We are unable to ship to PO Boxes.</p>"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

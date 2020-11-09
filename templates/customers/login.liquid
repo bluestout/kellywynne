@@ -1,0 +1,90 @@
+<section class="lede">
+    <div class="container">
+        <h1>Customer login</h1>
+    </div>
+</section>
+
+
+    <div class="container">
+
+        <div id="customer_wrap" class="center-x">
+
+        {% layout settings.customer_layout %}
+
+        {% form 'customer_login' %} {{ form.errors | default_errors }}
+
+        <div id="login_email" class="clearfix large_form">
+            <input type="email" value="" name="customer[email]" id="customer_email" class="large" size="30" placeholder="Email Address" />
+        </div>
+
+        {% if form.password_needed %}
+        <div id="login_password" class="clearfix large_form">
+            <input type="password" value="" name="customer[password]" id="customer_password" class="large password" size="16" placeholder="Password" />
+        </div>
+        {% endif %}
+
+        <div class="action_bottom">
+            <a href="{{ shop.url }}" class="button blue">Return to Store</a>
+            <button class="button teal" type="submit">Sign In</button>
+        </div>
+
+        <div id="forgot_password">
+            <a href="#forgot_password" onclick="showRecoverPasswordForm();return false;">Forgot your password?</a>
+        </div>
+        <div id="new_customer">
+            <a href="/account/register">New customer?</a>
+        </div>
+
+        {% endform %}
+
+        <div id="recover-password" style='display:none'>
+            <div class="template_header">
+                <h2 class="title">Reset Password</h2>
+                <p class="note">We will send you an email to reset your password.</p>
+            </div>
+
+            {% form 'recover_customer_password' %} {{ form.errors | default_errors }}
+
+            <div id="recover_email" class="clearfix large_form">
+                <input type="email" value="" size="30" name="email" id="recover-email" class="large" placeholder="Email address" />
+            </div>
+            <div class="action_bottom">
+                <button type="submit" class="button teal">Submit</button>
+                <span class="note">or <a href="#customer_wrap" onclick="hideRecoverPasswordForm();return false;">Cancel</a></span>
+            </div>
+
+            {% endform %}
+
+        </div>
+    </div>
+
+    <div class="container">
+        {% if shop.checkout.guest_login %}
+        <div id="guest">
+            <div class="template_header">
+                <h2 class="title">Guest Login</h2>
+            </div>
+            {% form 'guest_login' %}
+            <button class="button teal" type="submit">Continue as Guest</button> {% endform %}
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    function showRecoverPasswordForm() {
+        document.getElementById('recover-password').style.display = 'inline-block';
+        document.getElementById('customer').style.display = 'none';
+    }
+
+    function hideRecoverPasswordForm() {
+        document.getElementById('recover-password').style.display = 'none';
+        document.getElementById('customer').style.display = 'inline-block';
+    }
+
+    if (window.location.hash == '#recover') {
+        showRecoverPasswordForm()
+    }
+</script>

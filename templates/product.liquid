@@ -1,0 +1,224 @@
+<div itemscope itemtype="http://schema.org/Product">
+
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+    <meta itemprop="image" content="{{ product.images[0] | product_img_url: 'master' }}" />
+
+        <section id="single_product" data-currentid="{{ product.id }}">
+
+            <div class="container">
+
+                   <div id="single_photos" class="half{% if product.images.size > 6 %} overflow{% endif %}{% if product.images.size < 2 %} single{% endif %}"><!-- add if video class video -->
+
+                    <ul id="product-images">
+                        {% for image in product.images %}
+                        {% unless image.attached_to_variant? %}
+                        {% unless image == product.images[1] %}
+                            <li class="" data-thumb="{{ image | product_img_url: '120x' }}">
+                              <img src="{{ image | product_img_url: '1120x1410', format: 'pjpg' }}" alt='{{ product.title }}' />
+                            </li>
+                        {% endunless %}
+                        {% endunless %}
+                        {% endfor %}
+
+                        {% comment %}
+                        <li class="video" data-thumb="{{ 'video-asos-2-1k5.jpg' | asset_url }}">
+                            <video class="video-single" muted loop preload="metadata" playsinline>
+                                <source src="{{ 'video-asos-2-1k5.webm' | asset_url }}" type="video/webm">
+                                <source src="{{ 'video-asos-2-1k5.mp4' | asset_url }}" type="video/mp4">
+                            </video>
+                        </li>
+                        {% endcomment %}
+
+                    </ul>
+                   </div>
+
+                   <div id="single_info" class="half">
+
+                    <header>
+                        <h1 itemprop="name">{{ product.title }}</h1>
+
+                        <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}" data-product-sku="{{ product.handle }}" style="display: inline-block;">{{ product.metafields.stamped.badge }}</span>
+
+                        {% if product.price < product.compare_at_price %}
+
+                        <p class="price sale" itemprop="price">{{ product.price | money | remove: '.00' }}
+
+                        <span class="original">{{product.compare_at_price | money | remove: '.00' }}</span></p>
+
+                        {% else %}
+
+                            {% if product.price_min == product.price_max %}
+                                   <p class="price" itemprop="price">{{ product.price | money | remove: '.00' }}</p>
+                               {% else %}
+                                   <p class="price" itemprop="price">{{ product.price_min | money | remove: '.00' }} - {{ product.price_max | money | remove: '.00' }}</p>
+                               {% endif %}
+
+                        {% endif %}
+                    </header>
+
+
+                    <!-- Swatches -->
+                    {% if product.metafields.product_swatches.swatch_collection_id %}
+                        {% include 'product-swatches' %}
+                    {% endif %}
+
+                    <!-- Variant selector -->
+
+                    <form action="/cart/add" method="post" id="form-post">
+                    {% if product.variants.size > 1 %}
+
+                        <select name="id" id="ProductSelect" class="variants no-js">
+                          {% for variant in product.variants %}
+                            {% if variant.available %}
+                              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                                {{ variant.title }}{% if variant.inventory_quantity > 0 and variant.inventory_quantity < 4 %} &mdash; Only {{ variant.inventory_quantity }} left!{% endif %}
+                              </option>
+                            {% else %}
+                              <option disabled="disabled">{{ variant.title }} &mdash; SOLD OUT!</option>
+                            {% endif %}
+                          {% endfor %}
+                        </select>
+
+                        <div class="addtocart">
+
+                        {% if product.available %}
+
+                            <select id="quantity" name="quantity">
+                                {% for i in (1..10) %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <!-- Add to cart button -->
+                            <input type="submit" id="submit" class="button teal" value="{% if product.tags contains 'pre-order' or product.tags contains 'preorder' %}Pre-order{% elsif product.tags contains 'back-order' or product.tags contains 'backorder' %}Back order &mdash; Buy now{% else %}Add to Cart{% endif %}{% if variant.inventory_quantity > 0 and variant.inventory_quantity < 4 %} &mdash; Only {{ variant.inventory_quantity }} left!{% endif %}" />
+
+                        {% else %}
+
+                            <input type="submit" id="submit" class="button teal full disabled" value="Sold Out!"  disabled="disabled" />
+
+                        </div>
+                    {% endif %}
+
+                    <!-- No variant -->
+                    {% else %}
+                        <select name="id" class="hidden product-form__variants no-js">
+                          {% for variant in product.variants %}
+                            {% if variant.available %}
+                              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                                {{ variant.title }}
+                              </option>
+                            {% else %}
+                              <option disabled="disabled">{{ variant.title }} &mdash; SOLD OUT!</option>
+                            {% endif %}
+                          {% endfor %}
+                        </select>
+
+                        <div class="addtocart">
+
+                        {% if product.available %}
+                            <select id="quantity" name="quantity">
+                                {% for i in (1..10) %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                            {% for variant in product.variants %}
+                                {% if variant.available %}
+                                <!-- Add to cart button -->
+                                <input type="submit" id="submit" class="button teal" value="{% if product.tags contains 'pre-order' or product.tags contains 'preorder' %}Pre-order{% elsif product.tags contains 'back-order' or product.tags contains 'backorder' %}Back order &mdash; Buy now{% else %}Add to Cart{% endif %}{% if variant.inventory_quantity > 0 and variant.inventory_quantity < 4 %} &mdash; Only {{ variant.inventory_quantity }} left!{% endif %}" />
+                                {% endif %}
+                            {% endfor %}
+                            {% else %}
+                                <input type="submit" id="submit" class="button teal full" value="Sold Out!"  disabled="disabled" />
+                            {% endif %}
+                        {% endif %}
+                        </div>
+                    </form>
+
+                    <div class="accordion">
+
+                        {{product.description}}
+
+                    </div>
+
+                </div>
+
+
+
+                </div>
+        </section>
+
+    {% include 'banner.bundles' %}
+
+</div>
+
+<div class="reviews container">
+<div id="stamped-main-widget" class="stamped-main-widget" data-widget-style="standard" data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}" data-url="{{ shop.url }}{{ product.url }}" data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" data-description="{{ product.description | escape }}" data-product-sku="{{product.handle}}" data-product-type="{{product.type}}">
+
+        {{ product.metafields.stamped.reviews }}
+    </div>
+</div>
+
+<!-- Related products -->
+{% include 'promos.related' %}
+
+<script>
+$(document).ready(function () {
+
+    /* Sliders */
+    $('#product-images').lightSlider({
+        {% if product.images.size > 1 %}gallery: true,{% endif %}
+         {% if product.images.size < 2 %}pager: false,{% endif %}
+        item: 1,
+        mode: 'fade',
+        thumbItem: 7,
+        keyPress: true,
+        thumbMargin: 0,
+        slideMargin: 0,
+        controls: false,
+        adaptiveHeight: false,
+        galleryMargin: 20,
+        thumbMargin: 10,
+        thumbItem: 0,
+        vertical: false,
+        onSliderLoad: function (el) {
+            el.find('li').zoom({
+                on: 'click',
+                touch: false
+        });
+
+        setTimeout(function () {
+            $('#single_photos').addClass('active');
+        }, 100);
+        }
+    });
+});
+</script>
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>
+{% render 'product_infox' %}

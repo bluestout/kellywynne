@@ -1,0 +1,39 @@
+<section class="lede image">
+    <div class="container center-xy">
+        {% if section.settings.header-text != "" %}<h4 class="description">{{ section.settings.header-text }}</h4>{% endif %}
+        {% if section.settings.header-title != "" %}{% if section.settings.header-title != "" %}<h1>{{ section.settings.header-title }}</h1>{% endif %}{% endif %}
+    </div>
+    <picture>
+      <source srcset="{{ section.settings.image | img_url: '1600x600', crop: 'center', format: 'pjpg' }}" media="(min-width: 640px)">
+      <img srcset="{{ section.settings.image | img_url: '640x240',  crop: 'center', format: 'pjpg' }}" alt="{{ page.title }}">
+    </picture> 
+</section>
+
+{% schema %}
+{
+    "name": "Page header",
+    "settings": [
+        {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Header image (2400x900px, ~500kb jpg)"
+        },
+        {
+        "type": "text",
+        "id": "header-title",
+        "label": "Header title"
+        },
+        {
+        "type": "text",
+        "id": "header-text",
+        "label": "Header small text"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

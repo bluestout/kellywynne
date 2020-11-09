@@ -1,0 +1,181 @@
+<!-- <section class="container cta">
+    <img id="shop-all-arrows-left" src="{{ 'arrows-left.gif' | asset_url }}" alt="Shop All Handbags">
+    <a href="/pages/dare-to-donate" class="button large nocaps">$5 of every purchase helps sponsor a sex trafficking survivor to attend The Refuge Ranch</a>&emsp;
+    <img id="shop-all-arrows-right" src="{{ 'arrows-right.gif' | asset_url }}" alt="Shop All Handbags">
+</section> -->
+
+<div class="clearfix"></div>
+
+<section class="container promos mobile">
+    <a href="{{ section.settings.promo_home_mobile_1_url }}">
+        <img src="{{ section.settings.promo_home_mobile_1 | img_url: '400x', format: 'pjpg' }}" alt="Shop Handbags">
+        <h2>{{ section.settings.promo_home_mobile_1_text }}</h2>
+    </a>
+    <a href="{{ section.settings.promo_home_mobile_2_url }}" class="no-margin">
+        <img src="{{ section.settings.promo_home_mobile_2 | img_url: '400x', format: 'pjpg' }}" alt="Shop Accessories">
+        <h2>{{ section.settings.promo_home_mobile_2_text }}</h2>
+    </a>
+</section>
+
+<section class="container promos category">
+    <a href="{{ section.settings.promo_home_1_url }}">
+        <img src="{{ section.settings.promo_home_1_mobile | img_url: '600x', format: 'pjpg' }}" class="mobile" alt="Shop Handbags">
+        <h2>{{ section.settings.promo_home_1_text }}</h2>
+        <div class="zoom-wrap"><img src="{{ section.settings.promo_home_1 | img_url: '600x', format: 'pjpg' }}" class="desktop" alt="Shop Handbags"></div>
+    </a>
+    <a href="{{ section.settings.promo_home_2_url }}">
+        <img src="{{ section.settings.promo_home_2_mobile | img_url: '600x', format: 'pjpg' }}" class="mobile" alt="Shop Handbags">
+        <h2>{{ section.settings.promo_home_2_text }}</h2>
+        <div class="zoom-wrap"><img src="{{ section.settings.promo_home_2 | img_url: '600x', format: 'pjpg' }}" class="desktop" alt="Shop Handbags"></div>
+    </a>
+    <a href="{{ section.settings.promo_home_3_url }}" class="no-margin">
+        <img src="{{ section.settings.promo_home_3_mobile | img_url: '600x', format: 'pjpg' }}" class="mobile" alt="Shop Handbags">
+        <h2>{{ section.settings.promo_home_3_text }}</h2>
+        <div class="zoom-wrap"><img src="{{ section.settings.promo_home_3 | img_url: '600x', format: 'pjpg' }}" class="desktop" alt="Shop Handbags"></div>
+    </a>
+</section>
+
+<div class="clearfix"></div>
+
+{% schema %}
+{
+    "name": "Promos",
+    "settings": [
+        {
+        "type": "header",
+        "content": "Extra mobile promo 1"
+        },
+        {
+        "type": "text",
+        "id": "promo_home_mobile_1_text",
+        "label": "Text"
+        },
+        {
+        "type": "text",
+        "id": "promo_home_mobile_1_url",
+        "label": "Url"
+        },
+        {
+        "type": "image_picker",
+        "id": "promo_home_mobile_1",
+        "label": "Mobile image (400x400px, ~100kb jpg)"
+        },
+        {
+        "type": "header",
+        "content": "Extra mobile promo 2"
+        },
+        {
+        "type": "text",
+        "id": "promo_home_mobile_2_text",
+        "label": "Text"
+        },
+        {
+        "type": "text",
+        "id": "promo_home_mobile_2_url",
+        "label": "Url"
+        },
+        {
+        "type": "image_picker",
+        "id": "promo_home_mobile_2",
+        "label": "Mobile image (400x400px, ~100kb jpg)"
+        },
+        {
+        "type": "header",
+        "content": "Promo 1"
+        },
+        {
+        "type": "text",
+        "id": "promo_home_1_text",
+        "label": "Text"
+        },
+        {
+        "type": "text",
+        "id": "promo_home_1_url",
+        "label": "Url"
+        },
+        {
+        "type": "image_picker",
+        "id": "promo_home_1",
+        "label": "Image (800x1120px, ~150kb jpg)"
+        },
+        {
+        "type": "image_picker",
+        "id": "promo_home_1_mobile",
+        "label": "Mobile image (800x400px, ~100kb jpg)"
+        },
+        {
+        "type": "header",
+        "content": "Promo 2"
+        },
+        {
+        "type": "text",
+        "id": "promo_home_2_text",
+        "label": "Text"
+        },
+        {
+        "type": "text",
+        "id": "promo_home_2_url",
+        "label": "Url"
+        },
+        {
+        "type": "image_picker",
+        "id": "promo_home_2",
+        "label": "Image (800x1120px, ~150kb jpg)"
+        },
+        {
+        "type": "image_picker",
+        "id": "promo_home_2_mobile",
+        "label": "Mobile image (800x400px, ~100kb jpg)"
+        },
+        {
+        "type": "header",
+        "content": "Promo 3"
+        },
+        {
+        "type": "text",
+        "id": "promo_home_3_text",
+        "label": "Text"
+        },
+        {
+        "type": "text",
+        "id": "promo_home_3_url",
+        "label": "Url"
+        },
+        {
+        "type": "image_picker",
+        "id": "promo_home_3",
+        "label": "Image ()"
+        },
+        {
+        "type": "image_picker",
+        "id": "promo_home_3_mobile",
+        "label": "Mobile image (800x400px, ~100kb jpg)"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+$(document).ready(function () {
+    
+    $('.slider.home').lightSlider({
+        gallery: false,
+        item: 1,
+        mode:'fade',
+        controls: true,
+        adaptiveHeight:false,
+        speed: 700,
+        auto: true,
+        loop: true,
+        pause: 5000,
+        pager: false,
+        onSliderLoad:
+            function (el) {
+                el.addClass('active');
+            }
+    });
+});
+{% endjavascript %}

@@ -1,0 +1,18 @@
+{
+  "shopify": {
+    "checkout": {
+      "shipping": {
+        "shipping_method_notice": "We are unable to ship to PO Boxes. GROUND ORDERS will ship after one business day of order processing. Ground shipping transit times range between 1-4 days, excluding Sundays and holidays. EXPEDITED ORDERS placed before 2pm will ship the same day. Expedited orders placed after 2pm CT will ship the following business day. Expedited shipping transit times exclude weekends and holidays. \n"
+      },
+      "contact": {
+        "shipping_address_title": "Shipping Address (No PO Boxes)"
+      },
+      "order_summary": {
+        "cart_does_not_meet_discount_requirements_notice": "<strong>{{code}}<\/strong> discount code isn't valid for the items in your cart."
+      },
+      "field_errors": {
+        "reduction_code_code_not_found": "This code did not match any active gift card or discount. Was it entered correctly?"
+      }
+    }
+  }
+}
