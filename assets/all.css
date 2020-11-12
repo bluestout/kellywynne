@@ -2185,7 +2185,11 @@ a:hover .icon-path.stroke {
     padding: 0;
     margin: 40px 0 0;
 }
-
+@media (max-width: 749px){
+    .banner .klaviyo-form form {
+        margin: 0px 0 0;
+    }
+}
 .banner .klaviyo-form .needsclick {
     padding: 0;
 }
@@ -3127,6 +3131,14 @@ a.product-image {
     font-size: 18px;
     font-family: "museo-slab", Georgia, "Times New Roman", Times, serif;
     text-transform: uppercase;
+}
+
+.cart-template .cart_wrap .content .item-content li .info span {
+    color: #8AD2D1;
+    font-family: Helvetica;
+    font-size: 12px;
+    letter-spacing: 0.87px;
+    line-height: 14px;
 }
 
 .cart_wrap ul.grid li p.price {
@@ -7118,8 +7130,14 @@ a.pplr_close:hover {
     }
 
     .container.instagram h4 a {
-        display: block;
-        margin: 0 0 20px 0 !important
+        /* display: block;
+        margin: 0 0 20px 0 !important */
+        display: inline;
+        margin: 0 0 20px 0 !important;
+        width: 50%;
+        font-size: 12px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     .banner.dare .inside {

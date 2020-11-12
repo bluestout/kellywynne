@@ -460,7 +460,7 @@ header.bottom{
           align-items: center;
           width: 250px;
           padding: 0;
-          margin: 10px auto;
+          margin: 30px auto 10px auto;
           flex-wrap: nowrap;
         }
         svg{
@@ -473,6 +473,10 @@ header.bottom{
           line-height: 17px;
           letter-spacing: 0.9px;
           color: $color-darkgrey;
+          text-transform: uppercase;
+          @include respond-to("small-down"){
+            font-size: 11px;
+          }
         }
       }
     }
@@ -485,6 +489,15 @@ header.bottom{
       .info{
         max-width: 375px;
         margin: auto;
+        @media (min-width: 749px){
+          p{
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 0.89px;
+            line-height: 32px;
+          }
+        }
+        
         @include respond-to("small-down"){
           padding: 20px;
           p{
@@ -573,6 +586,12 @@ header.bottom{
             @include font-RomanRegular();
           }
         }
+        @include respond-to("small-down"){
+          p:nth-child(2)
+          {
+            display: none;
+          }
+        }
         p{
           @include font-HelveticaLight();
           font-size: $font-body;
@@ -651,6 +670,10 @@ header.bottom{
         }
         p{
           color: white;
+          font-size: 18px;
+          font-weight: 300;
+          letter-spacing: 1px;
+          line-height: 24px;
           @include respond-to("small-down"){
             display: none;
           }
@@ -673,6 +696,7 @@ header.bottom{
   @include respond-to("small-down"){
     padding-top: 20px;
     order: 9;
+    margin-bottom: 0;
   }
   .heading{
     margin-bottom: 0;
@@ -689,6 +713,7 @@ header.bottom{
       letter-spacing: 0.9px;
       color: $color-darkgrey;
       margin-bottom: 0;
+      text-transform: uppercase;
     }
   }
   .content{
@@ -1047,6 +1072,13 @@ header.bottom{
       .mini-cart__item--content{
         position: relative;
         width: 100%;
+        span{
+          color: #8AD2D1;
+          font-family: Helvetica;
+          font-size: 12px;
+          letter-spacing: 0.87px;
+          line-height: 14px;
+        }
         .mini-cart__item__title{
           width: 100%;
           margin-top: 5px;
