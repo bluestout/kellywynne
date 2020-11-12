@@ -1,6 +1,6 @@
 <header class="top">
     <form action="/search" method="get" class="search desktop" role="search">
-        <input name="q" type="text" placeholder="search..." />
+        <input name="q" type="text" placeholder="Search..." />
         <input type="hidden" name="type" value="product" />
         <button type="submit">{% include 'icon.search' %}</button>
     </form>
@@ -10,11 +10,11 @@
     <ul class="cart meta desktop">
         {% if shop.customer_accounts_enabled %}
             {% if customer %}
-                <li><a href="/account">my account</a></li>
+                <li><a href="/account">My Account</a></li>
             {% else %}
-                <li>{{ 'sign in' | customer_login_link }}</li>
+                <li>{{ 'Sign in' | customer_login_link }}</li>
             {% endif %}
         {% endif %}
-        <li><a href="/cart">cart: <span class="cart-items">{{ cart.item_count }}</span></a></li>
+        <li><a class="cart_btn" href="/cart">Cart: <span class="cart-items">{{ cart.item_count }}</span></a></li>
     </ul>
 </header>

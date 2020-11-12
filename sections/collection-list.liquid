@@ -1,0 +1,143 @@
+<div class="container">
+  <div class="heading">
+    <h3>{{ section.settings.title }}</h3>
+  </div>
+  <div class="content">
+    <div class="grid_item first desktop">
+      {% assign collection = collections[section.settings.collecon_1] %}
+      <div class="content" style="background: url({{section.settings.image_1 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+        <div class="caption_info desktop">
+          <p class="title">{{collection.title}}</p>
+          <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+        </div>
+        
+      </div>
+      <div class="caption_info mobile">
+        <p class="title">{{collection.title}}</p>
+        <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+      </div>
+    </div>
+    <div class="grid_item second">
+    
+      <div class="grid_item">
+        {% assign collection = collections[section.settings.collecon_2] %}
+        <div class="content" style="background: url({{section.settings.image_2 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+          <div class="caption_info desktop">
+            <p class="title">{{collection.title}}</p>
+            <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+          </div>
+        </div>
+        <div class="caption_info mobile">
+          <p class="title">{{collection.title}}</p>
+          <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+        </div>
+      </div>
+
+      <div class="grid_item mobile">
+        {% assign collection = collections[section.settings.collecon_1] %}
+        <div class="content" style="background: url({{section.settings.image_1 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+          <div class="caption_info desktop">
+            <p class="title">{{collection.title}}</p>
+            <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+          </div>
+        </div>
+        <div class="caption_info mobile">
+          <p class="title">{{collection.title}}</p>
+          <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+        </div>
+      </div>
+      
+      <div class="grid_item">
+        {% assign collection = collections[section.settings.collecon_3] %}
+        <div class="content" style="background: url({{section.settings.image_3 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+          <div class="caption_info desktop">
+            <p class="title">{{collection.title}}</p>
+            <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+          </div>
+        </div>
+        <div class="caption_info mobile">
+          <p class="title">{{collection.title}}</p>
+          <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+        </div>
+      </div>
+
+      <div class="grid_item">
+        {% assign collection = collections[section.settings.collecon_4] %}
+        <div class="content" style="background: url({{section.settings.image_4 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+          <div class="caption_info desktop">
+            <p class="title">{{collection.title}}</p>
+            <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+          </div>
+        </div>
+        <div class="caption_info mobile">
+          <p class="title">{{collection.title}}</p>
+          <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+        </div>
+      </div>
+
+    </div>
+    
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection list",
+  "class": "collection-list-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "header",
+      "content": "content"
+    },
+    {
+      "type": "collection",
+      "id": "collecon_1",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Collection Image"
+    },
+    {
+      "type": "collection",
+      "id": "collecon_2",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Collection Image"
+    },
+    {
+      "type": "collection",
+      "id": "collecon_3",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Collection Image"
+    },
+    {
+      "type": "collection",
+      "id": "collecon_4",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Collection Image"
+    }
+  ]
+}
+{% endschema %}

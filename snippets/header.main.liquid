@@ -18,7 +18,6 @@
             <a href="https://kellywynne.com/pages/KELLYWYNNESAVE10-subscribe-page" target="_blank">Text with us {% include 'icon.phone' %}</a>
         </div>
         <a id="cart-bag" class="mobile center-y" href="/cart">{% include 'icon.bag' %}{% if cart.item_count > 0 %}<span class="cart-items">{{ cart.item_count }}</span>{% endif %}</a>
-        <div class="slogan">Genuine leather <span class="dot">&#8226;</span> Obtainable Luxury <span class="dot">&#8226;</span> Designed in Austin, TX</div>
     </div>
     
     <nav class="primary">
@@ -63,4 +62,6 @@
             </li>
         </ul>
     </nav>
+    
 </header>
+{% include 'mini-cart' %}

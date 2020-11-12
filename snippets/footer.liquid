@@ -1,26 +1,14 @@
 <footer id="footer">
-    <div class="top desktop">
+    <div class="top">
         <ul class="social center-x">
-            <li><a class="pinterest" href="{{ settings.pinterest_url }}" target="_blank">{% include 'icon.pinterest.light' %} Pinterest</a>
+            <li><a><span>{% include 'icon.freeshippinglarge' %}</span> Free Shipping $100+</a>
             </li>
-            <li><a class="facebook" href="{{ settings.facebook_url }}" target="_blank">{% include 'icon.facebook.light' %} Facebook</a>
-            </li>
-            <li><a class="instagram" href="{{ settings.instagram_url }}" target="_blank">{% include 'icon.instagram.light' %} Instagram</a>
+            <li><a><span>{% include 'icon.return' %}</span> Free Returns & Exchanges</a>
             </li>
         </ul>
     </div>
-
-    <div class="container social mobile">
-        <h2>Socialize with KW!</h2>
-        <ul class="social center-x">
-            <li><a class="pinterest" href="{{ settings.pinterest_url }}" target="_blank">{% include 'icon.pinterest.light' %}</a>
-            </li>
-            <li><a class="facebook" href="{{ settings.facebook_url }}" target="_blank">{% include 'icon.facebook.light' %}</a>
-            </li>
-            <li><a class="instagram" href="{{ settings.instagram_url }}" target="_blank">{% include 'icon.instagram.light' %}</a>
-            </li>
-        </ul>
-    </div>
+    
+    {% render 'banner.contact' %}
 
     <div class="bottom">
         <ul class="links main">

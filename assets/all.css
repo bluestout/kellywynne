@@ -734,7 +734,7 @@ a.button:visited,
     background: #182240;
     border: none;
     border-radius: 3px;
-    padding: 18px 32px;
+    padding: 18px 10px;
     cursor: pointer;
     letter-spacing: .1em;
     text-transform: uppercase;
@@ -1280,11 +1280,11 @@ label {
     right: auto;
     top: 48% !important;
     left: 50% !important;
-    -moz-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%)
+    -moz-transform: translate(-51%, -52%);
+    -o-transform: translate(-51%, -52%);
+    -ms-transform: translate(-51%, -52%);
+    -webkit-transform: translate(-51%, -52%);
+    transform: translate(-51%, -52%);
 }
 
 /* Zoom scaler gpu accelerated */
@@ -1527,7 +1527,7 @@ header.top {
     right: 0;
     width: 100%;
     z-index: 1031;
-    background: #182240;
+    background: #1B223F;
     color: #fff;
     font-size: 12px;
     height: 30px;
@@ -3137,14 +3137,6 @@ a.product-image {
     display: block;
 }
 
-.qty {
-    float: left;
-    width: 70px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
 .qty input[type="number"],
 .qty input.quantity {
     border: 1px solid #e6e7e8;
@@ -3306,8 +3298,8 @@ div#disclaimer {
     line-height: 18px;
     width: 100%;
     box-sizing: border-box;
-    height: 64px;
-    text-align: center;
+    height: auto;
+    text-align: left;
     margin: 0;
     padding: 20px;
 }
@@ -3867,10 +3859,6 @@ ul#product-images {
     text-align: left;
     text-indent: -999em;
 
-    background: url({{ "icon-arrow-open-left.svg" | asset_url }}) center center no-repeat;
-
-    background: url('https://cdn.shopify.com/s/files/1/0946/6600/t/11/assets/icon-arrow-open-left.svg') center center no-repeat;
-
     background-size: 14px !important;
 
     border: 0;
@@ -3902,12 +3890,9 @@ ul#product-images {
     right: auto;
 }
 
+
+
 .lSAction > .lSNext {
-
-    background: url({{ "icon-arrow-open-right.svg" | asset_url }}) center center no-repeat;
-
-    background: url('https://cdn.shopify.com/s/files/1/0946/6600/t/11/assets/icon-arrow-open-right.svg') center center no-repeat;
-
     left: auto;
     right: 0;
 }
@@ -4736,7 +4721,7 @@ li span:not(.price):not(.cart-items) {
 
 li span.price {
     font-size: 14px;
-    color: #968f8c;
+    color: #4D4D4F;
     display: inline;
 }
 
@@ -6512,22 +6497,18 @@ a.pplr_close:hover {
     header.top {
         position: relative;
         font-size: 12px;
-        height: 56px;
         line-height: 14px;
     }
 
     header.top .lSSlideOuter {
-        height: 56px;
         line-height: 56px;
     }
 
     header.top .lSSlideWrapper {
-        height: 56px;
         line-height: 56px;
     }
 
     ul.alert {
-        height: 56px !important;
         line-height: 30px !important;
         position: relative;
     }
@@ -6569,11 +6550,11 @@ a.pplr_close:hover {
     a#cart-bag {
         position: absolute;
         right: 20px;
-        top: 46% !important;
+        top: 50% !important;
     }
 
     a#cart-bag svg {
-        width: 28px;
+        width: 18px;
         height: auto;
     }
 
@@ -6583,10 +6564,10 @@ a.pplr_close:hover {
 
     a#cart-bag span.cart-items {
         position: absolute;
-        bottom: 14px;
+        bottom: 10px;
         font-size: 10px;
         line-height: 10px;
-        width: 28px;
+        width: 18px;
         text-align: center;
         left: 0;
         color: #9d9596;
@@ -6810,8 +6791,8 @@ a.pplr_close:hover {
 
     /* Menu hamburger */
     .menu-toggle .icon-bar {
-        width: 27px;
-        height: 3px;
+        width: 25px;
+        height: 2px;
         margin: 0 0 4px 0;
         background: #182240;
         transition: all 0.4s;
@@ -7477,11 +7458,9 @@ a.pplr_close:hover {
     }
 
     header.main .logo {
-        margin: 0 0 5px 0;
-    }
-
-    header.main .logo svg {
-        width: 150px;
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
     }
 
     a#cart-bag img {
@@ -7504,7 +7483,7 @@ a.pplr_close:hover {
 
     /* Home */
     .lede {
-        margin: 0 0 40px 0;
+        margin: 0!important;
     }
 
     .promos.category a {

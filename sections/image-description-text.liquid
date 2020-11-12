@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="heading text-center">
+    {{section.settings.heading_title}}
+  </div>
+  <div class="content flex">
+    <div class="image">
+      <img src="{{ section.settings.image | img_url: '1024x' }}">
+      <div class="icon flex">
+        {{ section.settings.icon }}
+        <span>{{section.settings.icon_title}}</span>
+      </div>
+    </div>
+    <div class="description">
+      <div class="info">
+        <h3 class="title">{{section.settings.title}}</h3>
+        {{ section.settings.description }}
+        {% if section.settings.button_title != blank and section.settings.button_link != blank %}
+          <a href="{{section.settings.button_link}}" class="btn btn-small">{{section.settings.button_title}}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image text description",
+  "class": "image-text-description-section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading_title",
+      "label": "Heading Title"
+    },
+    {
+      "type": "header",
+      "content": "Banner Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "html",
+      "id": "icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "icon_title",
+      "label": "Icon title"
+    },
+    {
+      "type": "header",
+      "content": "Description Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button_title",
+      "label": "Buttton title"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ]
+}
+{% endschema %}

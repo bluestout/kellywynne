@@ -1,0 +1,171 @@
+<div class="container">
+  <div class="heading text-center mobile">
+    <h3 class="title">{{section.settings.title}}</h3>
+    {{ section.settings.description }}
+  </div>
+  <div class="content flex">
+    <div class="description">
+      <div class="info">
+        <div class="heading text-center desktop">
+          <h3 class="title">{{section.settings.title}}</h3>
+          {{ section.settings.description }}
+        </div>
+        
+        {% assign product = all_products[section.settings.product] %}
+        <section id="single_product" data-currentid="{{ product.id }}">
+          <div id="single_photos" class="single desktop"><!-- add if video class video -->
+  
+            <ul id="product-images">
+              <img src="{{ product.featured_image | product_img_url: '1120x1410', format: 'pjpg' }}" alt='{{ product.title }}' />
+            </ul>
+          </div>
+  
+          <div id="single_info" class="single">
+            <header>
+                <p class="vendor text-center">{{product.vendor}}</p>
+                <h1 itemprop="name">{{ product.title }}</h1>
+  
+                {% if product.price < product.compare_at_price %}
+  
+                <p class="price sale" itemprop="price">{{ product.price | money | remove: '.00' }}
+  
+                <span class="original">{{product.compare_at_price | money | remove: '.00' }}</span></p>
+  
+                {% else %}
+  
+                    {% if product.price_min == product.price_max %}
+                            <p class="price" itemprop="price">{{ product.price | money | remove: '.00' }}</p>
+                        {% else %}
+                            <p class="price" itemprop="price">{{ product.price_min | money | remove: '.00' }} - {{ product.price_max | money | remove: '.00' }}</p>
+                        {% endif %}
+  
+                {% endif %}
+            </header>
+  
+            <form action="/cart/add" method="post" id="form-post">
+            {% if product.variants.size > 1 %}
+  
+                <select name="id" id="ProductSelect" class="variants no-js">
+                  {% for variant in product.variants %}
+                    {% if variant.available %}
+                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                        {{ variant.title }}{% if variant.inventory_quantity > 0 and variant.inventory_quantity < 4 %} &mdash; Only {{ variant.inventory_quantity }} left!{% endif %}
+                      </option>
+                    {% else %}
+                      <option disabled="disabled">{{ variant.title }} &mdash; SOLD OUT!</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+  
+                <div class="addtocart">
+  
+                {% if product.available %}
+                  <input id="quantity" name="quantity" value="1" type="hidden">
+                  <!-- Add to cart button -->
+                  <input type="submit" id="submit" class="btn btn-small" value="{% if product.tags contains 'pre-order' or product.tags contains 'preorder' %}Pre-order{% elsif product.tags contains 'back-order' or product.tags contains 'backorder' %}Back order &mdash; Buy now{% else %}Get the Bag{% endif %}{% if variant.inventory_quantity > 0 and variant.inventory_quantity < 4 %} &mdash; Only {{ variant.inventory_quantity }} left!{% endif %}" />
+                {% else %}
+                    <input type="submit" id="submit" class="btn  btn-small disabled" value="Sold Out!"  disabled="disabled" />
+                </div>
+            {% endif %}
+  
+            <!-- No variant -->
+            {% else %}
+                <select name="id" class="hidden product-form__variants no-js">
+                  {% for variant in product.variants %}
+                    {% if variant.available %}
+                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                        {{ variant.title }}
+                      </option>
+                    {% else %}
+                      <option disabled="disabled">{{ variant.title }} &mdash; SOLD OUT!</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+  
+                <div class="addtocart">
+  
+                {% if product.available %}
+                    <input id="quantity" name="quantity" value="1" type="hidden">
+                    {% for variant in product.variants %}
+                        {% if variant.available %}
+                        <!-- Add to cart button -->
+                        <input type="submit" id="submit" class="btn btn-small" value="{% if product.tags contains 'pre-order' or product.tags contains 'preorder' %}Pre-order{% elsif product.tags contains 'back-order' or product.tags contains 'backorder' %}Back order &mdash; Buy now{% else %}Get the Bag{% endif %}{% if variant.inventory_quantity > 0 and variant.inventory_quantity < 4 %} &mdash; Only {{ variant.inventory_quantity }} left!{% endif %}" />
+                        {% endif %}
+                    {% endfor %}
+                    {% else %}
+                        <input type="submit" id="submit" class="btn btn-small" value="Sold Out!"  disabled="disabled" />
+                    {% endif %}
+                {% endif %}
+                </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="image">
+      <img class="desktop" src="{{ section.settings.image | img_url: '1024x' }}">
+      <img class="mobile" src="{{ section.settings.mobile_image | img_url: '1024x' }}">
+      <div class="icon flex">
+        {{ section.settings.icon }}
+        <span>{{section.settings.icon_title}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image Product section",
+  "class": "image-Product-section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading_title",
+      "label": "Heading Title"
+    },
+    {
+      "type": "header",
+      "content": "Banner Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "html",
+      "id": "icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "icon_title",
+      "label": "Icon title"
+    },
+    {
+      "type": "header",
+      "content": "Description Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    }
+  ]
+}
+{% endschema %}

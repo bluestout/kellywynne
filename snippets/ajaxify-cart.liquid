@@ -95,6 +95,7 @@ Shopify.AjaxifyCart = (function($) {
             }, _config.howLongTillBtnReturnsToNormal);
             // Update cart count and show cart link.
             $.getJSON(_config.shopifyAjaxCartURL, function(cart) {
+              refreshCart(cart);
               if (_config.cartCountSelector && $(_config.cartCountSelector).length) {
                 var value = $(_config.cartCountSelector).html() || '0';
                 $(_config.cartCountSelector).html(value.replace(/[0-9]+/,cart.item_count)).removeClass('hidden-count');

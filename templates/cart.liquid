@@ -1,134 +1,212 @@
-<section id="cart-header" class="lede grey">
-    <div class="container center-xy">
-        <h1>Your Cart</h1>
-        <p class="cart-items">&mdash; {{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }} &mdash;</p>
-    </div>
-</section>
-
-<script class="cartFlagX"></script>{% if cart.item_count > 0 %}
-<form action="/cart" method="post">
-    <div class="container cart_wrap">
-
-        <ul class="grid one">
-        {% for item in cart.items %}
-        {% if forloop.first %}
-            {% assign collection_url = item.product.collections.first.url %}
-            {% if collection_url == '/collections/frontpage' or collection_url == '' %}
-                {% assign collection_url = '/collections/all' %}
-            {% endif %}
-        {% endif %}
-
-
-        <li class="grid_item" style="{% render "product-personalizer-helper" ,item:item,pplr: "hide-pricing-item-row" %}" {% render "product-personalizer-helper" ,forloop:forloop,item:item,pplr: "cart-row-data" %}>
-
-            {% assign option_index = 0 %}
-                {% assign found_option = false %}
-                {% assign index = 0 %}
-                {% assign found_image = false %}
-
-                {% for option in item.product.options %}
-                  {% if found_option == false %}
-                    {% assign downcased_option = option | downcase %}
-                    {% if downcased_option contains 'color' or downcased_option contains 'title' or downcased_option contains 'colour' or downcased_option contains 'style' %}
-                      {% assign option_index = forloop.index0 %}
-                      {% assign found_option = true %}
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-
-                {% if found_option %}
-                {% for image in item.product.images %}
-                  {% unless found_image %}
-                    {% if image.alt == item.variant.options[option_index] %}
-                      {% assign index = forloop.index0 %}
-                      {% assign found_image = true %}
-                    {% endif %}
-                  {% endunless %}
-                {% endfor %}
-                {% endif %}
-
-            <a class="product-image" href="{{ item.product.url | within: collections.all }}">
-                <img src="{{ item.product.images[index] | product_img_url: 'compact' }}" alt="{{ item.variant.title | escape }}" />
-            </a>
-
-            <p class="item-name">
-                <a class="product-title" href="{{ item.product.url | within: collections.all }}">{{ item.variant.title }}</a>
-            </p>
-
-            <p class="personalization">{% render "product-personalizer-helper" ,item:item %}</p>
-
-            {% if item.price < item.product.compare_at_price %}
-
-                <p class="price sale" itemprop="price">{{ item.price | money | remove: '.00' }}
-
-                <span class="original">{{ item.product.compare_at_price | money | remove: '.00' }}</span></p>
-
-                {% else %}
-
-                <p class="price" itemprop="price">{{ item.price | money | remove: '.00' }}</p>
-
-
-
-            {% endif %}
-
-            <div class="qty">
-                <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="quantity" />
-                <input type="submit" name="update" value="Update" class="button light tiny update"/>
-                <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="button light tiny remove">remove</a>
-            </div>
-
-            <div class="total">{{ item.line_price | money | remove: '.00' }}</div>
-
-            </li>
-
-        {% endfor %}
-    </ul>
-
-        <div id="subtotal">
-            <p><span>Subtotal:</span><span style="display:none" class="tdf-cart-total-flag"></span> {{ cart.total_price | money }}</p>
+<div class="cart-template">
+    <section id="cart-header" class="lede grey">
+        <div class="container center-xy">
+            <h1>Your Cart</h1>
         </div>
+    </section>
+    <section class="container cart_wrap">
+        <script class="cartFlagX"></script>
+        {% if cart.item_count > 0 %}
+            <form action="/cart" method="post">
+                <div class="content">
+                    <div class="item-content">
+                        <ul class="grid one">
+                            {% for item in cart.items %}
+                                {% if forloop.first %}
+                                    {% assign collection_url = item.product.collections.first.url %}
+                                    {% if collection_url == '/collections/frontpage' or collection_url == '' %}
+                                        {% assign collection_url = '/collections/all' %}
+                                    {% endif %}
+                                {% endif %}
+                
+                
+                                <li class="grid_item" style="{% render "product-personalizer-helper" ,item:item,pplr: "hide-pricing-item-row" %}" {% render "product-personalizer-helper" ,forloop:forloop,item:item,pplr: "cart-row-data" %}>
+                                
+                                {% assign option_index = 0 %}
+                                    {% assign found_option = false %}
+                                    {% assign index = 0 %}
+                                    {% assign found_image = false %}
+                
+                                    {% for option in item.product.options %}
+                                    {% if found_option == false %}
+                                        {% assign downcased_option = option | downcase %}
+                                        {% if downcased_option contains 'color' or downcased_option contains 'title' or downcased_option contains 'colour' or downcased_option contains 'style' %}
+                                        {% assign option_index = forloop.index0 %}
+                                        {% assign found_option = true %}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                
+                                    {% if found_option %}
+                                    {% for image in item.product.images %}
+                                    {% unless found_image %}
+                                        {% if image.alt == item.variant.options[option_index] %}
+                                        {% assign index = forloop.index0 %}
+                                        {% assign found_image = true %}
+                                        {% endif %}
+                                    {% endunless %}
+                                    {% endfor %}
+                                    {% endif %}
+                
+                                <a class="product-image" href="{{ item.product.url | within: collections.all }}">
+                                    <img src="{{ item.product.images[index] | product_img_url: 'compact' }}" alt="{{ item.variant.title | escape }}" />
+                                </a>
+                                <div class="info">
+                                    <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="button light tiny remove">{% include 'icon.close' %}</a>
+                                    <p class="item-name">
+                                        <a class="product-title" href="{{ item.product.url | within: collections.all }}">{{ item.variant.title }}</a>
+                                    </p>
+                    
+                                    <p class="personalization">{% render "product-personalizer-helper" ,item:item %}</p>
+                    
+                                    <div class="qty">
+                                        <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="quantity" />
+                                    </div>
+                    
+                                    <div class="total">{{ item.line_price | money | remove: '.00' }}</div>
+                                </div>
+                                
+                
+                                </li>
+                
+                            {% endfor %}
 
-        <div class="message sale">
-            <p class="coral">All sale items are final sale. No returns or exchanges.</p>
-            <p class="grey">Please note: no additional discount codes or promotions may be applied to sale items or bundles. Codes cannot be combined.</p>
+                            <li class="grid_item signle_product" style="{% render "product-personalizer-helper" ,item:item,pplr: "hide-pricing-item-row" %}" {% render "product-personalizer-helper" ,forloop:forloop,item:item,pplr: "cart-row-data" %}>
+                                {% assign product = all_products[settings.recommend_product] %}
+                                {% assign option_index = 0 %}
+                                    {% assign found_option = false %}
+                                    {% assign index = 0 %}
+                                    {% assign found_image = false %}
+                
+                                    {% for option in item.product.options %}
+                                    {% if found_option == false %}
+                                        {% assign downcased_option = option | downcase %}
+                                        {% if downcased_option contains 'color' or downcased_option contains 'title' or downcased_option contains 'colour' or downcased_option contains 'style' %}
+                                        {% assign option_index = forloop.index0 %}
+                                        {% assign found_option = true %}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                
+                                    {% if found_option %}
+                                    {% for image in item.product.images %}
+                                    {% unless found_image %}
+                                        {% if image.alt == item.variant.options[option_index] %}
+                                        {% assign index = forloop.index0 %}
+                                        {% assign found_image = true %}
+                                        {% endif %}
+                                    {% endunless %}
+                                    {% endfor %}
+                                    {% endif %}
+                
+                                <a class="product-image" href="{{ product.url }}">
+                                    <img src="{{ product.featured_image | product_img_url: '1120x1410', format: 'pjpg' }}" alt='{{ product.title }}'  />
+                                </a>
+                                <div class="info">
+                                    
+                                    <p class="item-name">
+                                        <a class="product-title" href="{{ product.url }}">{{ product.title  }}</a>
+                                    </p>
+                    
+                                    <p class="personalization">{% render "product-personalizer-helper" ,item:item %}</p>
+                    
+                                    <div class="qty">
+                                        <input type="number" value="1" class="quantity" />
+                                    </div>
+
+                                    <div id="product-swatches-images">
+                                        {% assign swatchproducts = collections[product.metafields.product_swatches.swatch_collection_id].products %}
+                                        <ul class="select">
+                                            {% for swatchproduct in swatchproducts %}
+                                                <li data-id="{{swatchproduct.selected_or_first_available_variant.id}}">
+                                                    <a title="{{swatchproduct.title}}">
+                                                        <img src="{{ swatchproduct.images[1] | img_url: '100x100', crop: 'center' }}" />
+                                                        {{swatchproduct.title}}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                            <span></span>
+                                        </ul>
+                                    </div>
+                                    <div class="total">
+                                        {% if product.price < product.compare_at_price %}
+            
+                                        {{ product.price | money | remove: '.00' }}
+                
+                                        <span class="original">{{product.compare_at_price | money | remove: '.00' }}</span>
+                
+                                        {% else %}
+                
+                                            {% if product.price_min == product.price_max %}
+                                                   {{ product.price | money | remove: '.00' }}
+                                                {% else %}
+                                                    {{ product.price_min | money | remove: '.00' }} - {{ product.price_max | money | remove: '.00' }}
+                                                {% endif %}
+                
+                                        {% endif %}
+                                    </div>
+                                    <a class="btn btn-small add_cart_button" data-id="{{swatchproducts[0].selected_or_first_available_variant.id}}" data-quantity="1">ADD</a>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                        <a href="/collections/all-handbags" class="btn btn-grey btn-small shop">Continue shopping</a>
+                        <div class="message sale">
+                            <p>All sale items are final sale. No returns or exchanges.</p>
+                            <p>Please note: no additional discount codes or promotions may be applied to sale items or bundles. Codes cannot be combined.</p>
+                        </div>
+                        
+                    </div>
+                    
+                    <div id="subtotal">
+                        <div class="subtotal">
+                            <p class="title"><span>Subtotal:</span></p>
+                            <p><span style="display:none" class="tdf-cart-total-flag"></span> {{ cart.total_price | money }}</p>
+                        </div>
+                        
+                        <div class="message">
+                            <h3>Is this order a gift?</h3>
+                            <textarea name="note" id="note" rows="5" cols="60" placeholder="Leave a message for your gift recipient below and we'll print it on the invoice and remove the price!">{{ cart.note }}</textarea>
+                        </div>
+                
+                        <div class="proceed">
+                            <input type="submit" name="update" value="Update" class="btn btn-blue update"/>
+                            <button type="submit" name="checkout" class="btn btn-green checkout">Checkout</button>
+                        </div>
+                        <div class="freeshipping-message">
+                            {% include 'icon.freeshipping' %}
+                            <p>Free Shipping and Free Returns on orders $100+</p>
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <section class="promos">
+                    <a href="{{ settings.cart-promo1-url }}">
+                        <img src="{{ settings.cart-promo1 | img_url: '600x' }}" alt="Shop!">
+                    </a>
+                    <a href="{{ settings.cart-promo2-url }}">
+                        <img src="{{ settings.cart-promo2 | img_url: '600x' }}" alt="Shop!">
+                    </a>
+                </section>
+        
+                <div id="disclaimer">
+                    {{ settings.cart-disclaimer }}
+                </div>
+            </form>
+        {% else %}
+        
+        <div class="container cart_wrap empty">
+        
+            <h2>Your cart is empty!<br/>Fill me up!</h2>
+            <a href="/collections/new-arrivals" class="button teal center-x">Shop our new arrivals &rarr;</a>
+            <h4>Need help deciding?</h4>
+            <p>Chat with one of our stylists by using the chat icon below!</p>
+        
         </div>
-
-        <div class="message">
-            <h3>Is this order a gift?</h3>
-            <p>Leave a message for your gift recipient below and we'll print it on the invoice and remove the price!</p>
-            <textarea name="note" id="note" rows="2" cols="60">{{ cart.note }}</textarea>
-        </div>
-
-        <div class="proceed">
-            <a href="/collections/all-handbags" class="button blue shop">&larr;&nbsp;&nbsp;Continue shopping</a>
-            <button type="submit" name="checkout" class="button teal checkout">Proceed to Checkout&nbsp;&nbsp;&rarr;</button>
-        </div>
-
-        <section class="promos">
-            <a href="{{ settings.cart-promo1-url }}">
-                <img src="{{ settings.cart-promo1 | img_url: '600x' }}" alt="Shop!">
-            </a>
-            <a href="{{ settings.cart-promo2-url }}">
-                <img src="{{ settings.cart-promo2 | img_url: '600x' }}" alt="Shop!">
-            </a>
-        </section>
-
-        <div id="disclaimer">
-            {{ settings.cart-disclaimer }}
-        </div>
-
-    </div><!-- /cart_wrap -->
-
-</form>
-{% else %}
-
-<div class="container cart_wrap empty">
-
-    <h2>Your cart is empty!<br/>Fill me up!</h2>
-    <a href="/collections/new-arrivals" class="button teal center-x">Shop our new arrivals &rarr;</a>
-    <h4>Need help deciding?</h4>
-    <p>Chat with one of our stylists by using the chat icon below!</p>
-
+    </section>
+    
+    
+    {% endif %}
 </div>
 
-{% endif %}

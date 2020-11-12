@@ -13,6 +13,11 @@
       "field_errors": {
         "reduction_code_code_not_found": "This code did not match any active gift card or discount. Was it entered correctly?"
       }
+    },
+    "layout": {
+      "empty_cart": "Your Cart is Empty",
+      "check_out": "Checkout",
+      "gift_message": "Is this order a gift?"
     }
   }
 }

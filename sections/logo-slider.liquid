@@ -1,0 +1,39 @@
+<div class="container">
+  <ul class="logo-carousel">
+    {% for item in section.blocks %}
+      <li class="logo-item">
+        <div class="content text-center">
+          <img src="{{item.settings.logo | img_url: '480x'}}">
+          {{ item.settings.text }}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% schema %}
+{
+  "name": "Logo slider section",
+  "class": "logo-slider-section",
+  "settings": [
+    
+  ],
+  "blocks":[
+    {
+      "name": "logo",
+      "type": "logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo icon"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Logo Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

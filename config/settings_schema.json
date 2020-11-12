@@ -226,6 +226,11 @@
         "type": "richtext",
         "label": "Add custom disclaimer text below",
         "default": "<p>We are unable to ship to PO Boxes.<\/p>"
+      },
+      {
+        "type": "product",
+        "id": "recommend_product",
+        "label": "Recommend Product"
       }
     ]
   }

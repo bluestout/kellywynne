@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="heading text-center uppercase">
+    <h3>{{section.settings.title}}</h3>
+  </div>
+  <div class="content">
+    <ul class="product-loop">
+      {% for block in section.blocks %}
+        {% assign product = all_products[block.settings.product] %}
+        {% include 'product-grid-item'%}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured product section",
+  "class": "featured-product-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
