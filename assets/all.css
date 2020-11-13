@@ -3140,7 +3140,7 @@ a.product-image {
     text-transform: uppercase;
 }
 
-.cart-template .cart_wrap .content .item-content li .info span {
+.cart-template .cart_wrap .content .item-content li .info span.cst_upsell_span {
     color: #8AD2D1;
     font-family: Helvetica;
     font-size: 12px;
