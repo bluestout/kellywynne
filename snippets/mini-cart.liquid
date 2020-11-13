@@ -1,12 +1,21 @@
+{% assign recommend_products = '' %}
+{% for item in cart.items %}
+    {% assign product_recommend_str = item.product.metafields["global"]["recommend-products"] %}
+    {% if product_recommend_str != blank %}
+        {% assign recommend_products = recommend_products | append: product_recommend_str | append: ',' %}
+    {% endif %}
+{% endfor %}
+<script>console.log({{recommend_products | json}})</script>
 {% unless template contains 'cart' %}
     <div id="mini-cart" class="tos_warning cart_content animated fadeInRight">
         <div class="header flex">
-            <p><a href="/cart">Shopping Cart</a></p>
+            <p><a href="/cart">SHOPPING CART</a></p>
             <a href="#mini-cart" class="close">{% render 'icon.close' %} close</a>
         </div>
         <div class="js-empty-cart__message {% if cart.item_count > 0 %}hidden{% endif %}">
             <p class="empty_cart">{{ 'shopify.layout.empty_cart' | t }}</p>
         </div>
+        
         <form action="{{ routes.cart_url }}"
                 method="post"
                 class="{% if cart.item_count == 0 %}hidden{% endif %}"
@@ -16,115 +25,188 @@
                 data-shop-name="{{ shop.name | escape }}"
                 data-cart-form="mini-cart">
             
-                <ul class="cart_items js-cart_items">
-                    {% if cart.item_count > 0 %}
-                    {% assign total_saving = 0 %}
-                    {% for item in cart.items %}
-                        {% if item.variant.compare_at_price > item.variant.price %}
-                        {% assign saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
-                        {% assign total_saving = saving | plus: total_saving %}
-                        {% endif %}
-        
-                        <li class="mini-cart__item" data-cart-item data-line-id="{{ forloop.index }}" data-variant-id="{{ item.id }}">
-                            <a class="image_link" href="{{ item.url }}">
-                                {% if item.image %}
-                                <div class="cart_image mini-cart__item-image">
-                                    <img src="{{ item.image | img_url: '320x' }}" alt="{{ item.title | escape }}" class="lazyload" />
-                                </div>
-                                {% endif %}
-                            </a>
-            
-                            <div class="mini-cart__item--content">
-                                <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="cart__remove-btn" data-line-id="{{ forloop.index }}" data-remove-item="mini-cart">{% render 'icon.close' %}</a>
-                                <div class="mini-cart__item__title">
-                                    <div class="item_title">
-                                        <a href="{{ item.url }}">
-                                        {{ item.product.title }}                                    
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <strong class="left price">
-                                {{ item.quantity  }} X 
-                                {% if item.price > 0 %}
-                                    <span class="money {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}sale{% endif %}">
-                                    {% render 'price-element', price: item.final_price %}
-                                    </span>
-                                {% else %}
-                                    {{ settings.free_price_text }}
-                                {% endif %}
-                                </strong> 
-                            </div>
-                        </li>
-                    {% endfor %}
-                        
-                        <li class="mini-cart__item relate_product">
-                            {% assign product = all_products[settings.recommend_product] %}
-                            <a class="image_link" href="{{ product.url }}">
-                                {% if product.featured_image %}
-                                <div class="cart_image mini-cart__item-image">
-                                    <img src="{{ product.featured_image | img_url: '320x' }}" alt="{{ product.title | escape }}" class="lazyload" />
-                                </div>
-                                {% endif %}
-                            </a>
-            
-                            <div class="mini-cart__item--content">
-                                <span>You may like this too</span>
-                                <div class="mini-cart__item__title">
-                                    <div class="item_title">
-                                        <a href="{{ product.url }}">
-                                        {{ product.title }}                                    
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <strong class="left price">
-                                1 X 
-                                {% if product.price > 0 %}
-                                    <span class="money">
-                                    {% render 'price-element', price: product.price %}
-                                    </span>
-                                {% else %}
-                                    {{ settings.free_price_text }}
-                                {% endif %}
-                                </strong> 
-                                <div id="product-swatches-images">
-                                    {% assign swatchproducts = collections[product.metafields.product_swatches.swatch_collection_id].products %}
-                                    <ul class="select">
-                                        {% for swatchproduct in swatchproducts %}
-                                            <li data-id="{{swatchproduct.selected_or_first_available_variant.id}}">
-                                                <a title="{{swatchproduct.title}}">
-                                                    <img src="{{ swatchproduct.images[1] | img_url: '100x100', crop: 'center' }}" />
-                                                    {{swatchproduct.title}}
-                                                </a>
-                                            </li>
-                                        {% endfor %}
-                                        <span></span>
-                                    </ul>
-                                </div>
-                                <a class="btn btn-small ajax_add_cart_button" data-id="{{swatchproducts[0].selected_or_first_available_variant.id}}" data-quantity="1">ADD</a>
-                            </div>
-                        </li>
-                    {% else %}
-                        <a class="cart_content__continue-shopping secondary_button">
-                        {{ 'cart.general.continue_shopping_link_html' | t }}
-                        </a>
+            <ul class="cart_items js-cart_items">
+                {% if cart.item_count > 0 %}
+                {% assign total_saving = 0 %}
+                {% for item in cart.items %}
+                    
+                    {% if recommend_products contains item.product.handle %}
+                        {% assign recommend_products = recommend_products | remove: item.product.handle %}
                     {% endif %}
-                </ul>
+                    {% if item.variant.compare_at_price > item.variant.price %}
+                    {% assign saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
+                    {% assign total_saving = saving | plus: total_saving %}
+                    {% endif %}
+
+                    <li class="mini-cart__item" data-cart-item data-line-id="{{ forloop.index }}" data-variant-id="{{ item.id }}">
+                        <a class="image_link" href="{{ item.url }}">
+                            {% if item.image %}
+                            <div class="cart_image mini-cart__item-image">
+                                <img src="{{ item.image | img_url: '320x' }}" alt="{{ item.title | escape }}" class="lazyload" />
+                            </div>
+                            {% endif %}
+                        </a>
+        
+                        <div class="mini-cart__item--content">
+                            <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="cart__remove-btn" data-line-id="{{ forloop.index }}" data-remove-item="mini-cart">{% render 'icon.close' %}</a>
+                            <div class="mini-cart__item__title">
+                                <div class="item_title">
+                                    <a href="{{ item.url }}">
+                                    {{ item.product.title }}                                    
+                                    </a>
+                                </div>
+                            </div>
+
+                            <strong class="left price">
+                            {{ item.quantity  }} X 
+                            {% if item.price > 0 %}
+                                <span class="money {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}sale{% endif %}">
+                                {% render 'price-element', price: item.final_price %}
+                                </span>
+                            {% else %}
+                                {{ settings.free_price_text }}
+                            {% endif %}
+                            </strong> 
+                        </div>
+                    </li>
+                {% endfor %}
+                
+                {% assign recommend_products_arr = recommend_products | split: ',' | uniq %}
+                <script>console.log({{recommend_products_arr | json}})</script>
+                {% assign status = true %}
+                {% for r_product in recommend_products_arr %}
+                    {% if r_product != blank and status %}
+                        {% assign product_str = r_product %}
+                        {% assign status = false %}
+                    {% endif %}
+                {% endfor %}
+                <script>console.log({{product_str | json}})</script>
+                {% if product_str != blank %}
+                    <li class="mini-cart__item relate_product">
+                        {% assign product = all_products[product_str] %}
+                        <a class="image_link" href="{{ product.url }}">
+                            {% if product.featured_image %}
+                            <div class="cart_image mini-cart__item-image">
+                                <img src="{{ product.featured_image | img_url: '320x' }}" alt="{{ product.title | escape }}" class="lazyload" />
+                            </div>
+                            {% endif %}
+                        </a>
+        
+                        <div class="mini-cart__item--content">
+                            <span>You may like this too</span>
+                            <div class="mini-cart__item__title">
+                                <div class="item_title">
+                                    <a href="{{ product.url }}">
+                                    {{ product.title }}                                    
+                                    </a>
+                                </div>
+                            </div>
+
+                            <strong class="left price">
+                            1 X 
+                            {% if product.price > 0 %}
+                                <span class="money">
+                                {% render 'price-element', price: product.price %}
+                                </span>
+                            {% else %}
+                                {{ settings.free_price_text }}
+                            {% endif %}
+                            </strong> 
+                            <div id="product-swatches-images">
+                                {% assign swatchproducts = collections[product.metafields.product_swatches.swatch_collection_id].products %}
+                                <ul class="select">
+                                    {% for swatchproduct in swatchproducts %}
+                                        <li data-id="{{swatchproduct.selected_or_first_available_variant.id}}">
+                                            <a title="{{swatchproduct.title}}">
+                                                <img src="{{ swatchproduct.images[1] | img_url: '100x100', crop: 'center' }}" />
+                                                {{swatchproduct.title}}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                    <span></span>
+                                </ul>
+                            </div>
+                            <a class="btn btn-small ajax_add_cart_button" data-id="{{swatchproducts[0].selected_or_first_available_variant.id}}" data-quantity="1">ADD</a>
+                        </div>
+                    </li>
+                {% endif %}
+                    
+                {% else %}
+                    <a class="cart_content__continue-shopping secondary_button">
+                    {{ 'cart.general.continue_shopping_link_html' | t }}
+                    </a>
+                {% endif %}
+            </ul>
+            
             <ul class="sub-total">
-            <li class="gift-message">
-                <a class="js-toggle_btn">{{"shopify.layout.gift_message" | t }}</a>
-                <div class="js-toggle-content">
-                    <textarea rows="5" class="form-control" name="note"></textarea>
-                </div>
-            </li>
-            <li class="cart_subtotal js-cart_subtotal">
-              <span>Subtotal</span>
-              <span class="money">{% render 'price-element', price: cart.total_price %}</span>  
-            </li>
-            <li><button type="submit" name="checkout" class="action_button btn btn-full add_to_cart">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{"shopify.layout.check_out" | t }}</button></li>
+                <li class="gift-message">
+                    <a class="js-toggle_btn">{{"shopify.layout.gift_message" | t }}</a>
+                    <div class="js-toggle-content">
+                        <textarea rows="5" class="form-control" name="note"></textarea>
+                    </div>
+                </li>
+                <li class="cart_subtotal js-cart_subtotal">
+                <span>Subtotal</span>
+                <span class="money">{% render 'price-element', price: cart.total_price %}</span>  
+                </li>
+                <li><button type="submit" name="checkout" class="action_button btn btn-full add_to_cart">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{"shopify.layout.check_out" | t }}</button></li>
+                <li class="freeshipping">
+                    {% include 'icon.freeshipping' %}
+                    <span>Free Shipping and Free Returns on orders $100+</span>
+                </li>
             </ul>
         </form>
+        {% if product_str != blank %}
+            <div class="mini-cart__item relate_product_html" style="display: none!important;">
+
+                {% assign product = all_products[product_str] %}
+                <a class="image_link" href="{{ product.url }}">
+                    {% if product.featured_image %}
+                    <div class="cart_image mini-cart__item-image">
+                        <img src="{{ product.featured_image | img_url: '320x' }}" alt="{{ product.title | escape }}" class="lazyload" />
+                    </div>
+                    {% endif %}
+                </a>
+
+                <div class="mini-cart__item--content">
+                    <span>You may like this too</span>
+                    <div class="mini-cart__item__title">
+                        <div class="item_title">
+                            <a href="{{ product.url }}">
+                            {{ product.title }}                                    
+                            </a>
+                        </div>
+                    </div>
+
+                    <strong class="left price">
+                    1 X 
+                    {% if product.price > 0 %}
+                        <span class="money">
+                        {% render 'price-element', price: product.price %}
+                        </span>
+                    {% else %}
+                        {{ settings.free_price_text }}
+                    {% endif %}
+                    </strong> 
+                    <div id="product-swatches-images">
+                        {% assign swatchproducts = collections[product.metafields.product_swatches.swatch_collection_id].products %}
+                        <ul class="select">
+                            {% for swatchproduct in swatchproducts %}
+                                <li data-id="{{swatchproduct.selected_or_first_available_variant.id}}">
+                                    <a title="{{swatchproduct.title}}">
+                                        <img src="{{ swatchproduct.images[1] | img_url: '100x100', crop: 'center' }}" />
+                                        {{swatchproduct.title}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            <span></span>
+                        </ul>
+                    </div>
+                    <a class="btn btn-small ajax_add_cart_button" data-id="{{swatchproducts[0].selected_or_first_available_variant.id}}" data-quantity="1">ADD</a>
+                </div>
+            </div>
+        {% endif %}
+        
     </div>
 {% endunless %}
     

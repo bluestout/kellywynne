@@ -11,7 +11,13 @@
   <div class="description">
     <div class="info">
       <h3 class="title">{{section.settings.title}}</h3>
-      {{ section.settings.description }}
+      <div class="desktop">
+        {{ section.settings.description }}
+      </div>
+      
+      <div class="mobile">
+        {{ section.settings.mobile_description }}
+      </div>
       {% if section.settings.button_title != blank and section.settings.button_link != blank %}
         <a href="{{section.settings.button_link}}" class="btn btn-small">{{section.settings.button_title}}</a>
       {% endif %}
@@ -60,6 +66,11 @@
       "type": "richtext",
       "id": "description",
       "label": "Description"
+    },
+    {
+      "type": "richtext",
+      "id": "mobile_description",
+      "label": "Mobile Description"
     },
     {
       "type": "text",

@@ -3,7 +3,15 @@
     <h3 class="title">{{section.settings.title}}</h3>
     {{ section.settings.description }}
   </div>
-  <div class="content flex">
+  <div class="content image-product-slider flex">
+    <div class="image">
+      <img class="desktop" src="{{ section.settings.image | img_url: '1024x' }}">
+      <img class="mobile" src="{{ section.settings.mobile_image | img_url: '1024x' }}">
+      <div class="icon flex">
+        {{ section.settings.icon }}
+        <span>{{section.settings.icon_title}}</span>
+      </div>
+    </div>
     <div class="description">
       <div class="info">
         <div class="heading text-center desktop">
@@ -13,10 +21,14 @@
         
         {% assign product = all_products[section.settings.product] %}
         <section id="single_product" data-currentid="{{ product.id }}">
-          <div id="single_photos" class="single desktop"><!-- add if video class video -->
-  
+          <div id="single_photos" class="single"><!-- add if video class video -->
+            {% if section.settings.product_image != blank %}
+              {% assign image = section.settings.product_image %}
+            {% else %}
+              {% assign image = product.featured_image %}
+            {% endif %}
             <ul id="product-images">
-              <img src="{{ product.featured_image | product_img_url: '1120x1410', format: 'pjpg' }}" alt='{{ product.title }}' />
+              <img src="{{ image | product_img_url: '1120x1410', format: 'pjpg' }}" alt='{{ product.title }}' />
             </ul>
           </div>
   
@@ -42,7 +54,7 @@
                 {% endif %}
             </header>
   
-            <form action="/cart/add" method="post" id="form-post">
+            <form action="/cart/add" method="post" id="form-post" class="desktop">
             {% if product.variants.size > 1 %}
   
                 <select name="id" id="ProductSelect" class="variants no-js">
@@ -102,14 +114,10 @@
         </section>
       </div>
     </div>
-    <div class="image">
-      <img class="desktop" src="{{ section.settings.image | img_url: '1024x' }}">
-      <img class="mobile" src="{{ section.settings.mobile_image | img_url: '1024x' }}">
-      <div class="icon flex">
-        {{ section.settings.icon }}
-        <span>{{section.settings.icon_title}}</span>
-      </div>
-    </div>
+    
+  </div>
+  <div class="bottom-action mobile">
+    <a class="btn btn-small">GET THE BAG</a>
   </div>
 </div>
 
@@ -160,6 +168,11 @@
       "type": "richtext",
       "id": "description",
       "label": "Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
     },
     {
       "type": "product",

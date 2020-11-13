@@ -493,11 +493,15 @@ h4 {
     text-align: center;
     width: 100%;
     margin: 30px 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .container.instagram h4 a {
     margin: 0 10px;
     color: #6AB7B1;
+
 }
 
 .container.instagram h4 a:hover {
@@ -7130,11 +7134,7 @@ a.pplr_close:hover {
     }
 
     .container.instagram h4 a {
-        /* display: block;
-        margin: 0 0 20px 0 !important */
-        display: inline;
-        margin: 0 0 20px 0 !important;
-        width: 50%;
+        width: auto;
         font-size: 12px;
         padding-left: 10px;
         padding-right: 10px;
