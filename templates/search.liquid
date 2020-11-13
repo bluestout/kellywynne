@@ -23,6 +23,7 @@
 
             <ul class="grid three">
             {% for product in searched %}
+            <script type="application/json" class="bold-product-json">{{ product | json }}</script>
                 {% if product.type == 'PPLR_HIDDEN_PRODUCT' %}{% continue %}{% endif %}
                     {% include 'product-grid-item' %}
             {% endfor %}

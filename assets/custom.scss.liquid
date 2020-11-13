@@ -1537,6 +1537,28 @@ header.bottom{
             @include font-HelveticaLight();
             font-size: 16px;
             margin-bottom: 20px;
+            position: relative;
+          }
+          h3:after{
+            content: "";
+            position: absolute;
+            left: 95%;
+            top: 5px;
+            width: 11px;
+            height: 11px;
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            transition: all 0.25s ease-out;
+          }
+          h3.open:after{
+            transform: rotate(225deg);
+            -moz-transform: rotate(225deg);
+            -webkit-transform: rotate(225deg);
+            transition: all 0.25s ease-out;
+            top: 0px;
           }
         }
         .proceed{
@@ -1675,6 +1697,8 @@ header.bottom{
         display: table;
         padding: 10px;
         height: auto;
+        float: unset !important;
+        width: unset !important;
         a{
           display: table;
         }

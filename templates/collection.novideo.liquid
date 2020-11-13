@@ -19,6 +19,7 @@
 
     <ul class="grid three">
     {% for product in collection.products %}
+    <script type="application/json" class="bold-product-json">{{ product | json }}</script>
         {% include 'product-grid-item-novideo' %}
     {% endfor %}
     </ul>

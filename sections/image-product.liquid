@@ -39,14 +39,15 @@
   
                 {% if product.price < product.compare_at_price %}
   
-                <p class="price sale" itemprop="price">{{ product.price | money | remove: '.00' }}
+                <p class="price sale" itemprop="price">
+                  <span class="money" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span>
   
                 <span class="original">{{product.compare_at_price | money | remove: '.00' }}</span></p>
   
                 {% else %}
   
                     {% if product.price_min == product.price_max %}
-                            <p class="price" itemprop="price">{{ product.price | money | remove: '.00' }}</p>
+                            <p class="price" itemprop="price"><span class="money" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span></p>
                         {% else %}
                             <p class="price" itemprop="price">{{ product.price_min | money | remove: '.00' }} - {{ product.price_max | money | remove: '.00' }}</p>
                         {% endif %}

@@ -23,6 +23,12 @@ $(document).ready(function () {
         e.preventDefault();
         $('.js-toggle-content').toggle();
     });
+  
+  	$('.cst_cart_msgbox_title').on("click", function (e) {
+        e.preventDefault();
+        $('.cst_cart_msgbox_title').toggleClass('open');
+        $('.cst_cart_msgbox_content').toggle();
+    });
 
     $(document).on('click', '.select', function() {
         var is_open = $(this).hasClass("open");
@@ -347,13 +353,13 @@ $(document).ready(function () {
     }
 
     /* Sticky nav */
-    if ($(window).width() > 1023) {
+    if ($(window).width() > 749) {/*FS 1023*/
         $("nav.primary").stick_in_parent({
             offset_top: 30,
             bottoming: false
         });
     }
-    if ($(window).width() < 1024) {
+    if ($(window).width() < 749) {/*FS 1023*/
         $("header.main").stick_in_parent({
             offset_top: 0,
             bottoming: false
@@ -477,7 +483,7 @@ $(document).ready(function () {
 
 
 $(window).resize(function () {
-    if ($(window).width() > 1025) {
+    if ($(window).width() > 749) {/*FS 1025*/
         $("nav.primary").trigger("sticky_kit:detach");
         $("nav.primary").stick_in_parent({
             offset_top: 30,
@@ -493,7 +499,7 @@ $(window).resize(function () {
         });*/
         //console.log("> 1023");
     }
-    if ($(window).width() < 1025) {
+    if ($(window).width() < 749) {/*FS 1025 */
         $("nav.primary").trigger("sticky_kit:detach");
         $("header.main").stick_in_parent({
             offset_top: 0,
@@ -516,6 +522,15 @@ $(window).resize(function () {
 });
 
 function refreshCart(cart) {
+    // Bold:PRE
+    if(typeof window.BOLD !== 'undefined'
+    && typeof window.BOLD.common !== 'undefined'
+    && typeof window.BOLD.common.cartDoctor !== 'undefined') {
+    // NOTE: "cart" should be the variable containing the cart JSON data
+    cart = window.BOLD.common.cartDoctor.fix(cart);
+    }
+    // Bold:PRE
+    
     $(".cart_count").empty();
     $cartBtn = $(".cart_count");
     var value = $cartBtn.text() || '0';

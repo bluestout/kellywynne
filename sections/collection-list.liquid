@@ -23,8 +23,11 @@
         {% assign collection = collections[section.settings.collecon_2] %}
         <div class="content" style="background: url({{section.settings.image_2 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
           <div class="caption_info desktop">
-            <p class="title">{{collection.title}}</p>
-            <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+            {% comment %} <p class="title">{{collection.title}}</p>
+            <a href="{{collection.url}}" class="btn ex_small-btn">View</a> {% endcomment %}
+            <p class="title">Everyday Bags</p>
+            <a href="https://kellywynne.com/pages/all-legacy" class="btn ex_small-btn">View</a>
+            
           </div>
         </div>
         <div class="caption_info mobile">

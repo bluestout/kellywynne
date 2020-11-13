@@ -10,6 +10,7 @@
 <h1 class="loving">Kelly is curently loving...</h1>
     <ul class="grid three">
     {% for product in collections.designer-faves.products %}
+    <script type="application/json" class="bold-product-json">{{ product | json }}</script>
         {% include 'product-grid-item' %}
     {% endfor %}
     </ul>

@@ -4,6 +4,7 @@
     <h2><a href="{{ collections[block.settings.featured_collection].url }}">{{ collections[block.settings.featured_collection].title }}</a></h2>
     <ul class="grid three">        
         {% for product in collections[block.settings.featured_collection].products %}
+        <script type="application/json" class="bold-product-json">{{ product | json }}</script>
             {% include 'product-grid-item' %}
         {% endfor %}
     </ul>
