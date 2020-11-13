@@ -80,7 +80,6 @@
                         {% assign status = false %}
                     {% endif %}
                 {% endfor %}
-                <script>console.log({{product_str | json}})</script>
                 {% if product_str != blank %}
                     <li class="mini-cart__item relate_product">
                         {% assign product = all_products[product_str] %}

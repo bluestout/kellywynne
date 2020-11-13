@@ -710,6 +710,13 @@ header.bottom{
       padding: 0;
     }
   }
+  @include respond-to("medium-down"){
+    ul#product-images:after
+    {
+      content: "";
+    }
+  }
+  
   .heading{
     margin-bottom: 0;
     h3{
@@ -899,7 +906,7 @@ header.bottom{
         @include respond-to("medium-down"){
           position: inherit;  
           a{
-            display: none;
+            {% comment %} display: none; {% endcomment %}
           }
         }
         .title{
