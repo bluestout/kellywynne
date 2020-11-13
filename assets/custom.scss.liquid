@@ -1384,6 +1384,7 @@ header.bottom{
                 right: 20px;
                 bottom: 40px;
                 z-index: -1;
+                margin-right: 25px;
               }
             }
           }
@@ -1473,14 +1474,19 @@ header.bottom{
         }
         .shop{
           font-size: 13px;
+          color: #000 !important;
         }
         .message {
-          background-color: $color-midgrey;
+          {% comment %} background-color: $color-midgrey; {% endcomment %}
+          background-color: #fafafa;
           padding: 20px;
           p{
             color: #848484;
             font-size: 12px;
             line-height: 16px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
           }
         }
       }
@@ -1496,7 +1502,7 @@ header.bottom{
         .subtotal{
           display: flex;
           justify-content: space-between;
-          padding: 20px 10px;
+          padding: 20px 10px 20px 0px; 
           border-top: 1px solid $color-green;
           border-bottom: 1px solid $color-green;
           p{

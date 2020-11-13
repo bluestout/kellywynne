@@ -1161,11 +1161,11 @@ a:not(.product_rect):hover img {
 
 p a,
 p a:visited {
-    border-bottom: 1px dotted rgba(0, 0, 0, .1);
+    /* border-bottom: 1px dotted rgba(0, 0, 0, .1); */
 }
 
 p a:hover {
-    border-bottom: 1px dotted rgba(0, 0, 0, .05);
+    /* border-bottom: 1px dotted rgba(0, 0, 0, .05); */
 }
 
 
@@ -2289,6 +2289,9 @@ ul.links li a {
 
 ul.links li a:hover {
     color: #6AB7B1;
+}
+ul.links.ancillary {
+    flex-wrap: wrap;
 }
 
 ul.links.ancillary li {
