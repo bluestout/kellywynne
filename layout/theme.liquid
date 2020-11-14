@@ -58,8 +58,6 @@
 
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://blog.kellywynne.com/rss" /> {% render 'treedify' %}{{ content_for_header }}
     
-    {%- render 'bold-pr' -%}
-
     {{ 'all.css' | asset_url | stylesheet_tag }}
     {{ 'custom.scss.css' | asset_url | stylesheet_tag }}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -117,6 +115,8 @@
         a.appendChild(r);
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>
+
+{%- render 'bold-pr' -%}
 </head>
 
 <body class="{{ template.name }} {{ template.suffix }} {{ product.handle }} {{ page.handle }} {% if settings.show_announcement %}announcement{% endif %}">

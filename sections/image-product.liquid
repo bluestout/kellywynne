@@ -34,7 +34,7 @@
   
           <div id="single_info" class="single">
             <header>
-                <p class="vendor text-center">{{product.vendor}}</p>
+                {% comment %} <p class="vendor text-center">{{product.vendor}}</p> {% endcomment %}
                 <h1 itemprop="name">{{ product.title }}</h1>
   
                 {% if product.price < product.compare_at_price %}

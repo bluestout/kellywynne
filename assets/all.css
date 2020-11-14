@@ -3597,7 +3597,9 @@ a.read-more {
 
 .lSSlideOuter .lSPager.lSpg > li:hover a,
 .lSSlideOuter .lSPager.lSpg > li.active a {
-    background-color: #428bca;
+    /* background-color: #428bca; */
+    background-color: #CDECF0;
+    
 }
 
 .lSSlideOuter .media {

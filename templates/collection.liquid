@@ -33,12 +33,12 @@
         {% if paginate.next %} <a href="{{ paginate.next.url }}" rel="next">More &rarr;</a>{% endif %}
     </div>
     {% elsif collection.handle != 'final-few' %}
-    <section id="home_handbags" class="container">
+    {% comment %} <section id="home_handbags" class="container">
       <h2 style="text-align:center; font-size: 18px; font-weight: 300;line-height: 1.2em;">Didn't find what you're looking for?<br/>Shop our past favorites!</h2>
         <img id="shop-all-arrows-left" src="{{ 'arrows-left.gif' | asset_url }}" alt="Shop All Handbags">&emsp;
         <a href="/collections/final-few" class="button large">Shop The Final Few</a>&emsp;
         <img id="shop-all-arrows-right" src="{{ 'arrows-right.gif' | asset_url }}" alt="Shop All Handbags">
-    </section>
+    </section> {% endcomment %}
     {% endif %}
 
 {% endpaginate %}

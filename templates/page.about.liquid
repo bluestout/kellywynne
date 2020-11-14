@@ -6,7 +6,7 @@
 </section>
 {% endif %}
 
-<section class="container">
+{% comment %} <section class="container">
 <h1 class="loving">Kelly is curently loving...</h1>
     <ul class="grid three">
     {% for product in collections.designer-faves.products %}
@@ -14,4 +14,4 @@
         {% include 'product-grid-item' %}
     {% endfor %}
     </ul>
-</section>
+</section> {% endcomment %}

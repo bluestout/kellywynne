@@ -1,12 +1,16 @@
+
 <section class="container instagram">
-    <h3>Wynnestagram</h3>
+    {% comment %} <h3>Wynnestagram</h3>
     <div class="feed instagram"></div>
-    <div class="clearfix"></div>
-    <h4><a href="https://instagram.com/shopkellywynne/" target="_blank">@shopkellywynne</a><a href="https://www.instagram.com/explore/tags/thatsawynne/" target="_blank">#THATSAWYNNE</a></h4>
+    <div class="clearfix"></div> {% endcomment %}
+    <h4>
+        <a href="https://instagram.com/shopkellywynne/" target="_blank">@shopkellywynne</a>
+        <a href="https://www.instagram.com/explore/tags/thatsawynne/" target="_blank">#THATSAWYNNE</a>
+    </h4>
 </section>
 
 <!-- Instagram feed -->
-{{ 'jquery.instagramFeed.min.js' | asset_url | script_tag }}
+{% comment %} {{ 'jquery.instagramFeed.min.js' | asset_url | script_tag }} 
 
 <script>
     (function($){
@@ -24,4 +28,4 @@
             });
         });
     })(jQuery);
-</script>
+</script> {% endcomment %}
