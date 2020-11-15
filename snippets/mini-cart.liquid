@@ -52,7 +52,7 @@
                             <div class="mini-cart__item__title">
                                 <div class="item_title">
                                     <a href="{{ item.url }}">
-                                    {{ item.product.title }}                                    
+                                    {{ item.product.title }} <span class=tdf-cart-item-t></span>                                    
                                     </a>
                                 </div>
                             </div>
@@ -60,9 +60,10 @@
                             <strong class="left price">
                             {{ item.quantity  }} X 
                             {% if item.price > 0 %}
-                                <span class="money {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}sale{% endif %}">
+                                {% comment %} <span class="money {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}sale{% endif %}">
                                 {% render 'price-element', price: item.final_price %}
-                                </span>
+                                </span>  {% endcomment %}
+                                <span class="money" data-product-id="{{ item.product.id }}">{{ item.product.price | money | remove: '.00' }}</span>
                             {% else %}
                                 {{ settings.free_price_text }}
                             {% endif %}
@@ -146,7 +147,12 @@
                 </li>
                 <li class="cart_subtotal js-cart_subtotal">
                 <span>Subtotal</span>
-                <span class="money">{% render 'price-element', price: cart.total_price %}</span>  
+                <span class="money">
+                    {% comment %} <span class="tdf-cart-total-parent">
+                    {% render 'price-element', price: cart.total_price %}
+                    </span>  {% endcomment %}
+                    <span class="money" data-cart-total>{{ cart.total_price | money }}</span>
+                </span>  
                 </li>
                 <li><button type="submit" name="checkout" class="action_button btn btn-full add_to_cart">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{"shopify.layout.check_out" | t }}</button></li>
                 <li class="freeshipping">
