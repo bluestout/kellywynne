@@ -6,6 +6,7 @@
     <ul class="product-loop">
       {% for block in section.blocks %}
         {% assign product = all_products[block.settings.product] %}
+        <script type="application/json" class="bold-product-json">{{ product | json }}</script>
         {% include 'product-grid-item'%}
       {% endfor %}
     </ul>

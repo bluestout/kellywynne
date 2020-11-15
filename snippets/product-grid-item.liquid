@@ -22,9 +22,9 @@
                 {% if variant.inventory_quantity < 4 and variant.inventory_quantity > 0 %}
                     <span class="lowstock">Only {{ variant.inventory_quantity }} left!</span>
                 {% endif %}
-    {% if product.metafields.product_swatches.swatch_collection_id %}
-            <span class="colors">more colors available!</span>
-    {% endif %}
+                {% if product.metafields.product_swatches.swatch_collection_id %}
+                        <span class="colors">more colors available!</span>
+                {% endif %}
             {% if product.tags contains 'excluded' %}
                 <span class="excluded">excluded from promotion</span>
             {% endif %}

@@ -20,6 +20,7 @@
         </div>
         
         {% assign product = all_products[section.settings.product] %}
+        <script type="application/json" class="bold-product-json">{{ product | json }}</script>
         <section id="single_product" data-currentid="{{ product.id }}">
           <div id="single_photos" class="single"><!-- add if video class video -->
             {% if section.settings.product_image != blank %}
@@ -47,7 +48,9 @@
                 {% else %}
   
                     {% if product.price_min == product.price_max %}
-                            <p class="price" itemprop="price"><span class="money" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span></p>
+                            <p class="price" itemprop="price">
+                              <span class="money" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span>
+                            </p>
                         {% else %}
                             <p class="price" itemprop="price">{{ product.price_min | money | remove: '.00' }} - {{ product.price_max | money | remove: '.00' }}</p>
                         {% endif %}
