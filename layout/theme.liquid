@@ -56,7 +56,10 @@
 
     <link rel="canonical" href="{{ canonical_url }}" />
 
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://blog.kellywynne.com/rss" /> {% render 'treedify' %}{{ content_for_header }}
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://blog.kellywynne.com/rss" /> 
+    {% render 'treedify' %}
+    {{ content_for_header }}
+    
     
     {{ 'all.css' | asset_url | stylesheet_tag }}
     {{ 'custom.scss.css' | asset_url | stylesheet_tag }}

@@ -19,7 +19,7 @@
 
     <ul class="grid three">
     {% for product in collection.products %}
-    <script type="application/json" class="bold-product-json">{{ product | json }}</script>
+    {% comment %} <script type="application/json" class="bold-product-json">{{ product | json }}</script> {% endcomment %}
     {% if product.type == 'PPLR_HIDDEN_PRODUCT' %}{% continue %}{% endif %}
         {% include 'product-grid-item' %}
     {% endfor %}
