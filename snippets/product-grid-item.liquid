@@ -10,14 +10,14 @@
             <h3>{{ product.title }}</h3>
                 {% assign variant = product.variants.first %}
                 {% if variant.inventory_quantity < 0 and variant.available and variant.inventory_management != '' %}
-                    <span class="money price" itemprop="price" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span>
+                    <div class="cst_discount_price_div"><span class="money price" itemprop="price" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span></div>
                 {% elsif product.available != true %}
                     <span class="price soldout" itemprop="price">Sold out</span>
                 {% elsif variant.price < variant.compare_at_price %}
                     <span class="price" itemprop="price">{{ variant.price | money | remove: '.00' }}</span>
                     <span class="price original"> {{variant.compare_at_price | money | remove: '.00' }}</span>
           		{% else %}
-                    <span class="money price" itemprop="price" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span>
+                    <div class="cst_discount_price_div"><span class="money price" itemprop="price" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span></div>
                 {% endif %}
                 {% if variant.inventory_quantity < 4 and variant.inventory_quantity > 0 %}
                     <span class="lowstock">Only {{ variant.inventory_quantity }} left!</span>

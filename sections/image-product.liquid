@@ -39,7 +39,7 @@
                 <h1 itemprop="name">{{ product.title }}</h1>
   
                 {% if product.price < product.compare_at_price %}
-  
+                
                 <p class="price sale" itemprop="price">
                   <span class="money" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span>
   
@@ -48,7 +48,7 @@
                 {% else %}
   
                     {% if product.price_min == product.price_max %}
-                            <p class="price" itemprop="price">
+                            <p class="price cst_discount_price_div" itemprop="price">
                               <span class="money" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span>
                             </p>
                         {% else %}
