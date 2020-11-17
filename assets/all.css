@@ -6506,14 +6506,6 @@ a.pplr_close:hover {
 }
 
 @media only screen and (max-width: 1023px) {
-    .desktop {
-        display: none !important;
-    }
-
-    .mobile {
-        display: inline !important;
-    }
-
     /* Header */
     header.top {
         position: relative;
@@ -6923,7 +6915,6 @@ a.pplr_close:hover {
     .banner.mobile .email a svg {
         float: none !important;
         margin: 0;
-        width: 28px;
     }
 
     .banner.mobile .email a svg {
@@ -7294,20 +7285,6 @@ a.pplr_close:hover {
 
     .container.instagram h3 {
         font-size: 18px;
-    }
-
-    .phone a.center-x {
-        width: auto;
-        float: left;
-        border: 2px solid #182240;
-        padding: 10px 40px;
-        box-sizing: content-box;
-        border-radius: 4px;
-        font-family: "aw-conqueror-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 12px;
-        cursor: pointer;
-        letter-spacing: .1em;
-        text-transform: uppercase;
     }
 
     .phone a svg {

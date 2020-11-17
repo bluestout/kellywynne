@@ -3,7 +3,7 @@ $gutter: 20px;
 
 $grid-small: 480px;
 $grid-medium: 798px;
-$grid-large: 1024px;
+$grid-large: 940px;
 $grid-widescreen: 1400px;
 
 $small: 'small';
@@ -200,6 +200,21 @@ a{
   }
 }
 
+.desktop {
+  display: block;
+  @include respond-to("large-down"){
+    display: none!important;
+  }
+}
+
+.mobile {
+  display: none;
+  @include respond-to("large-down"){
+    display: block!important;
+  }
+}
+
+
 .lSAction {
   .lSPrev{
     display: flex;
@@ -284,7 +299,7 @@ input[type="submit"], .btn{
   }
   &.btn-small{
     width: 250px;
-    @include respond-to("medium-down"){
+    @include respond-to("large-down"){
       margin: auto;
     }
   }
@@ -446,11 +461,26 @@ header.bottom{
     }
     .image{
       width: 50%;
-      background: white;
       line-height: 0;
       position: relative;
+      background: transparent;
       @include respond-to("medium-down"){
         width: 100%;
+        
+      }
+      .desktop_image{
+        display: block;
+      }
+      .mobile_image{
+        display: none;
+      }
+      @include respond-to("medium-down"){
+        .desktop_image{
+          display: none;
+        }
+        .mobile_image{
+          display: block;
+        }
       }
       .icon{
         position: absolute;
@@ -479,7 +509,7 @@ header.bottom{
           letter-spacing: 0.9px;
           color: $color-darkgrey;
           text-transform: uppercase;
-          @include respond-to("medium-down"){
+          @include respond-to("large-down"){
             font-size: 11px;
           }
         }
@@ -494,16 +524,14 @@ header.bottom{
       .info{
         max-width: 375px;
         margin: auto;
-        @media (min-width: 749px){
-          p{
-            font-size: 16px;
-            font-weight: 300;
-            letter-spacing: 0.89px;
-            line-height: 32px;
-          }
+        p{
+          font-size: 16px;
+          font-weight: 300;
+          letter-spacing: 0.89px;
+          line-height: 32px;
         }
         
-        @include respond-to("medium-down"){
+        @include respond-to("large-down"){
           padding: 20px;
           p{
             text-align: center;
@@ -512,7 +540,7 @@ header.bottom{
         .title{
           text-align: left;
           margin-bottom: 20px;
-          @include respond-to("medium-down"){
+          @include respond-to("large-down"){
             display: none;
           }
         }
@@ -654,20 +682,20 @@ header.bottom{
       position: absolute;
       padding: 30px;
       right: 0;
-      @include respond-to("medium-down"){
+      @include respond-to("large-down"){
         width: 100%;
       }
       .info{
         max-width: 500px;
         margin: auto;
-        @include respond-to("medium-down"){
+        @include respond-to("large-down"){
           max-width: 240px;
         }
         .title{
           color: white;
           text-align: left;
           margin-bottom: 20px;
-          @include respond-to("medium-down"){
+          @include respond-to("large-down"){
             font-size: 13px;
             text-align: center;
             line-height: 25px;
@@ -680,13 +708,13 @@ header.bottom{
           font-weight: 300;
           letter-spacing: 1px;
           line-height: 24px;
-          @include respond-to("medium-down"){
+          @include respond-to("large-down"){
             display: none;
           }
         }
         .btn{
           margin-top: 50px;
-          @include respond-to("medium-down"){
+          @include respond-to("large-down"){
             margin-top: 0;
             background-color: $color-blue;
           }
@@ -706,11 +734,11 @@ header.bottom{
     margin-bottom: 50px;
   }
   .container{
-    @include respond-to("medium-down"){
+    @include respond-to("small-down"){
       padding: 0;
     }
   }
-  @include respond-to("medium-down"){
+  @include respond-to("small-down"){
     ul#product-images:after
     {
       content: "";
@@ -719,6 +747,12 @@ header.bottom{
   
   .heading{
     margin-bottom: 0;
+    @include respond-to("large-down"){
+      margin-bottom: 20px;
+    }
+    @include respond-to("medium-down"){
+      margin-bottom: 20px;
+    }
     h3{
       font-size: $font-small;
       @include font-RomanRegular();
@@ -738,7 +772,7 @@ header.bottom{
   .content{
     display: flex;
     
-    @include respond-to("medium-down"){
+    @include respond-to("small-down"){
       margin: 0 -20px;
       width: calc(100% + 40px);
       flex-wrap: wrap;
@@ -751,15 +785,27 @@ header.bottom{
       line-height: 0;
       position: relative;
       order: 2;
+      .desktop_image{
+        display: block;
+      }
+      .mobile_image{
+        display: none;
+      }
       @include respond-to('medium-down'){
         width: 100%;
         order: 0;
+        .desktop_image{
+          display: none;
+        }
+        .mobile_image{
+          display: block;
+        }
       }
     } 
     .description{
       width: 50%;
       display: flex;
-      @include respond-to('medium-down'){
+      @include respond-to('small-down'){
         width: 100%;
         
       }
@@ -834,6 +880,7 @@ header.bottom{
 .featured-product-section{
   @include respond-to("medium-down"){
     order: 8;
+    margin-bottom: 50px;
   }
   .content{
     .product-loop{
@@ -879,7 +926,7 @@ header.bottom{
     .grid_item{
       padding-right: 20px;
       width: 60%;
-      @include respond-to("medium-down"){
+      @include respond-to("large-down"){
         width: 100%;
       }
       .content{
@@ -911,7 +958,7 @@ header.bottom{
         align-items: center;
         justify-content: space-between;
         padding: 0 20px;
-        @include respond-to("medium-down"){
+        @include respond-to("large-down"){
           position: inherit;  
           a{
             {% comment %} display: none; {% endcomment %}
@@ -923,12 +970,12 @@ header.bottom{
           text-transform: uppercase;
           font-size: $font-small;
           @include font-HelveticaBold();
-          @include respond-to("medium-down"){
+          @include respond-to("large-down"){
             font-size: $font-desc;
             color: $color-darkgrey;
             text-align: center;
             line-height: 20px;
-            margin-top: -15px;
+            margin-top: 10px;
           }
         }
       }
@@ -944,14 +991,14 @@ header.bottom{
       &.second{
         display: flex;
         flex-wrap: wrap;
-        @include respond-to("medium-down"){
+        @include respond-to("large-down"){
           padding: 0;
           justify-content: space-between;
         }
         .grid_item{
           width: 50%;
           padding-right: 10px;
-          @include respond-to("medium-down"){
+          @include respond-to("large-down"){
             padding: 0 0 10px 0!important;
             width: calc(50% - 5px)!important;
           }
@@ -1636,14 +1683,14 @@ header.bottom{
     .social {
         display: flex;
         align-items: center;
+        justify-content: space-evenly;
         @include respond-to("medium-down"){
           padding-left: 10px;
           flex-wrap: wrap;
+          justify-content: end;
         }
       li{
-        @include respond-to("medium-down"){
-          width: 100%;
-        }
+        
         a{
           display: flex;
           align-items: center;
@@ -1656,6 +1703,7 @@ header.bottom{
           
           span{
             width: auto;
+            margin-right: 10px;
             @include respond-to("medium-down"){
               width: 60px;
             }
@@ -1677,6 +1725,19 @@ header.bottom{
         font-size: 14px;
         @include font-RomanRegular();
       }
+    }
+    .phone a.center-x {
+      width: auto;
+      float: left;
+      border: 2px solid #182240;
+      padding: 10px 40px;
+      box-sizing: content-box;
+      border-radius: 4px;
+      font-family: "aw-conqueror-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      letter-spacing: .1em;
+      text-transform: uppercase;
     }
   }
   .bottom{
