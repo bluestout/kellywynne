@@ -30,7 +30,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Facebook OG Tags -->
-    <meta property="fb:admins" content="100001644205378" />
+    {% include 'social-meta-tags' %}
+    {% comment %} <meta property="fb:admins" content="100001644205378" />
 {% if template == 'product' %}
     <meta property="og:image" content="{{ product.images.first | img_url: '450x235', crop: 'bottom' }}" />
 {% else %}
@@ -52,7 +53,7 @@
 {% if page_description %}
     <meta name="description" content="{{ page_description }}" />
     <meta property="og:description" content="{{ page_description }}" />
-{% endif %}
+{% endif %} {% endcomment %}
 
     <link rel="canonical" href="{{ canonical_url }}" />
 
