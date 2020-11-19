@@ -61,7 +61,7 @@
                                     <img src="{{ item.product.images[index] | product_img_url: 'compact' }}" alt="{{ item.variant.title | escape }}" />
                                 </a>
                                 <div class="info">
-                                    <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="button light tiny remove">{% include 'icon.close' %}</a>
+                                    {% comment %} <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="button light tiny remove">{% include 'icon.close' %}</a> {% endcomment %}
                                     <p class="item-name">
                                         <a class="product-title" href="{{ item.product.url | within: collections.all }}">{{ item.variant.title }}</a>
                                     </p>
@@ -70,6 +70,7 @@
                     
                                     <div class="qty">
                                         <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="quantity" />
+                                        <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="remove">Remove</a>
                                     </div>
                     
                                     <div class="total">

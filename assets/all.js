@@ -548,8 +548,11 @@ function refreshCart(cart) {
     }
     // Bold:PRE
     
-    $(".cart_count").empty();
-    $cartBtn = $(".cart_count");
+    // $(".cart_count").empty();
+    // $cartBtn = $(".cart_count");
+    $("cart-items").empty();
+    $cartBtn = $(".cart-items");
+    
     var value = $cartBtn.text() || '0';
     var cart_items_html = "";
     var cart_discounts_html = "";
@@ -593,7 +596,7 @@ function refreshCart(cart) {
             '</div></a>';
         }
 
-        cart_items_html += '<div class="mini-cart__item--content"><a href="/cart/change?line=' + line_id + '&amp;quantity=0" class="js-cart-remove-btn cart__remove-btn" data-line-id="' + line_id + '" data-remove-item="mini-cart"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 26.87 26.87"><g transform="rotate(44.999887 13.43502884 13.43502884)"><path fill="none" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.93502884 13.43502884h19"></path><path fill="none" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.43502884 3.93502884v19"></path></g></svg></a><div class="mini-cart__item__title"><div class="item_title"><a href="' + item.url + '">' + item.product_title + '</a></div></div>';
+        cart_items_html += '<div class="mini-cart__item--content"><div class="mini-cart__item__title"><div class="item_title"><a href="' + item.url + '">' + item.product_title + '</a></div></div>';
         cart_items_html += '<strong class="left price">'+item.quantity+' X ';
 
         
@@ -601,7 +604,7 @@ function refreshCart(cart) {
         if(productHasSale == true) {
           //puts the slash through the old item price
           var itemPrice = Shopify.formatMoney(productFinalPrice, $('body').data('money-format')) + ' </span>';
-          cart_items_html += '<span class="money sale">' + itemPrice + '</strong>';
+          cart_items_html += '<span class="money sale">' + itemPrice + '</strong><a href="/cart/change?line=' + line_id + '&amp;quantity=0" class="js-cart-remove-btn cart__remove-btn" data-line-id="' + line_id + '" data-remove-item="mini-cart">Remove</a>';
 
           // Total savings
           saving = (productCompareAtPrice - productFinalPrice) * item.quantity;
@@ -610,10 +613,10 @@ function refreshCart(cart) {
           if (item.price > item.final_price) {
             //puts the slash through the old item price
             var itemPrice = Shopify.formatMoney(item.final_price, $('body').data('money-format')) + ' </span>';
-            cart_items_html += '<span class="money sale">' + itemPrice + '</strong>';
+            cart_items_html += '<span class="money sale">' + itemPrice + '</strong><a href="/cart/change?line=' + line_id + '&amp;quantity=0" class="js-cart-remove-btn cart__remove-btn" data-line-id="' + line_id + '" data-remove-item="mini-cart">Remove</a>';
           } else {
             var itemPrice = Shopify.formatMoney(item.price, $('body').data('money-format'));
-            cart_items_html += '<span class="money">' + itemPrice + '</span></strong>';
+            cart_items_html += '<span class="money">' + itemPrice + '</span></strong><a href="/cart/change?line=' + line_id + '&amp;quantity=0" class="js-cart-remove-btn cart__remove-btn" data-line-id="' + line_id + '" data-remove-item="mini-cart">Remove</a>';
           }
         }
         cart_items_html += '</strong></div></li>';

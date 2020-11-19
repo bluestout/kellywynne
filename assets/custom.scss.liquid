@@ -1183,15 +1183,18 @@ header.bottom{
           }
         }
         .cart__remove-btn{
-          position: absolute;
+          color: #4D4D4F;
+          text-decoration: underline;
+          font-size: 14px;
+          {% comment %} position: absolute;
           top: 6px;
-          right: 0;
+          right: 0; {% endcomment %}
         }
         .price{
           display: flex;
           align-items: center;
           width: 100%;
-          margin-bottom: 20px;
+          {% comment %} margin-bottom: 20px; {% endcomment %}
           @include font-HelveticaRegular();
           font-size: 14px;
           .money{
@@ -1404,17 +1407,6 @@ header.bottom{
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            .remove{
-              background: transparent;
-              position: absolute;
-              top: 10px;
-              right: 0;
-              width: auto;
-              @include respond-to("medium-down"){
-                right: 20px;
-                top: 24px;
-              }
-            }
             .item-name{
               width: 100%;
               @include respond-to("medium-down"){
@@ -1433,6 +1425,14 @@ header.bottom{
               display: none;
             }
             .qty{
+              display: flex;
+              align-items: center;
+              .remove{
+                color: #4D4D4F;
+                text-decoration: underline;
+                margin-left: 10px;
+                font-size: 14px;
+              }
               .quantity{
                 width: 67px;
               }

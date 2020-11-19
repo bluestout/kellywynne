@@ -48,7 +48,7 @@
                         </a>
         
                         <div class="mini-cart__item--content">
-                            <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="cart__remove-btn" data-line-id="{{ forloop.index }}" data-remove-item="mini-cart">{% render 'icon.close' %}</a>
+                            {% comment %} <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="cart__remove-btn" data-line-id="{{ forloop.index }}" data-remove-item="mini-cart">{% render 'icon.close' %}</a> {% endcomment %}
                             <div class="mini-cart__item__title">
                                 <div class="item_title">
                                     <a href="{{ item.url }}">
@@ -68,6 +68,7 @@
                                 {{ settings.free_price_text }}
                             {% endif %}
                             </strong> 
+                            <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="cart__remove-btn" data-line-id="{{ forloop.index }}" data-remove-item="mini-cart">Remove</a>
                         </div>
                     </li>
                 {% endfor %}
