@@ -3,7 +3,7 @@
   <div class="image dark-{{section.settings.dark_image}}">
     <img src="{{ section.settings.image | img_url: '1024x' }}">
   </div>
-  <div class="description">
+  <div class="description {{ section.settings.description_pos }}">
     <div class="info">
       <h3 class="title">{{section.settings.title}}</h3>
       {{ section.settings.description }}
@@ -45,6 +45,22 @@
       "type": "richtext",
       "id": "description",
       "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "description_pos",
+      "label": "Description Position",
+      "default": "right",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
     },
     {
       "type": "text",

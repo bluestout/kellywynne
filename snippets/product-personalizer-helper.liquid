@@ -41,6 +41,7 @@ file_upload_class (defaults to null), use_original_file_name (defaults to true)
 {% assign propertySize = item.properties | size %}
 {% if propertySize > 0 %}
 {% for p in item.properties %}
+  
 {% assign hidden_property = p.first | first | replace: '_', true %}
 {% unless p.last == blank %}
 {% if hidden_property == 'true' %}

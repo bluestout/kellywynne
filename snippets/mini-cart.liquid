@@ -1,15 +1,35 @@
 {% assign recommend_products = '' %}
+{% assign g_status = true %}
+{% for line_items in cart.items %}
+    {% for tag in line_items.product.tags %}
+        {% if tag contains 'gift:' and g_status %}
+            {% assign gift_sku = tag | replace: 'gift:', '' %}
+            {% assign g_status = false %}
+        {% endif %}
+    {% endfor %}
+    
+{% endfor %}
+
+
 {% for item in cart.items %}
-    {% assign product_recommend_str = item.product.metafields["global"]["recommend-products"] %}
-    {% if product_recommend_str != blank %}
-        {% assign recommend_products = recommend_products | append: product_recommend_str | append: ',' %}
+    {% for tag in item.product.tags %}
+        {% assign product_recommend_str = "" %}
+        {% if tag contains 'upsell' %}
+            {% assign product_recommend_str = tag | remove: 'upsell:' %}
+        {% endif %}
+        {% if product_recommend_str != blank %}
+            {% assign recommend_products = recommend_products | append: product_recommend_str | append: ',' %}
+        {% endif %}
+    {% endfor %}
+    {% if item.properties['upsell-porduct'] %}
+        {% assign upsell = true %}
     {% endif %}
 {% endfor %}
-<script>console.log({{recommend_products | json}})</script>
+
 {% unless template contains 'cart' %}
     <div id="mini-cart" class="tos_warning cart_content animated fadeInRight">
         <div class="header flex">
-            <p><a href="/cart">SHOPPING CART</a></p>
+            <p><a class="button button-small" href="/cart">VIEW SHOPPING CART</a></p>
             <a href="#mini-cart" class="close">{% render 'icon.close' %} close</a>
         </div>
         <div class="js-empty-cart__message {% if cart.item_count > 0 %}hidden{% endif %}">
@@ -29,10 +49,14 @@
                 {% if cart.item_count > 0 %}
                 {% assign total_saving = 0 %}
                 {% for item in cart.items %}
-                    
                     {% if recommend_products contains item.product.handle %}
                         {% assign recommend_products = recommend_products | remove: item.product.handle %}
                     {% endif %}
+
+                    {% if item.product.handle == 'gift-wrap' %}
+                        {% assign gift_line_id = forloop.index %}
+                    {% endif %}
+
                     {% if item.variant.compare_at_price > item.variant.price %}
                     {% assign saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
                     {% assign total_saving = saving | plus: total_saving %}
@@ -55,6 +79,11 @@
                                     {{ item.product.title }} <span class=tdf-cart-item-t></span>                                    
                                     </a>
                                 </div>
+                                <p class="personalization">
+                                    {% unless item.properties['upsell-porduct'] %}
+                                            {% render "product-personalizer-helper" ,item:item %}
+                                    {% endunless %}
+                                </p>
                             </div>
 
                             <strong class="left price">
@@ -72,70 +101,61 @@
                         </div>
                     </li>
                 {% endfor %}
-                
+                {% unless upsell %}
                 {% assign recommend_products_arr = recommend_products | split: ',' | uniq %}
-                <script>console.log({{recommend_products_arr | json}})</script>
                 {% assign status = true %}
                 {% for r_product in recommend_products_arr %}
-                    {% if r_product != blank and status %}
-                        {% assign product_str = r_product %}
-                        {% assign status = false %}
-                    {% endif %}
-                {% endfor %}
-                {% if product_str != blank %}
-                    <li class="mini-cart__item relate_product">
-                        {% assign product = all_products[product_str] %}
-                        <a class="image_link" href="{{ product.url }}">
-                            {% if product.featured_image %}
-                            <div class="cart_image mini-cart__item-image">
-                                <img src="{{ product.featured_image | img_url: '320x' }}" alt="{{ product.title | escape }}" class="lazyload" />
-                            </div>
-                            {% endif %}
-                        </a>
-        
-                        <div class="mini-cart__item--content">
-                            <span>You may like this too</span>
-                            <div class="mini-cart__item__title">
-                                <div class="item_title">
-                                    <a href="{{ product.url }}">
-                                    {{ product.title }}                                    
-                                    </a>
-                                </div>
-                            </div>
-
-                            <strong class="left price">
-                            1 X 
-                            {% if product.price > 0 %}
-                                <span class="money">
-                                {% render 'price-element', price: product.price %}
-                                </span>
-                            {% else %}
-                                {{ settings.free_price_text }}
-                            {% endif %}
-                            </strong> 
-                            <div id="product-swatches-images">
-                                {% assign swatchproducts = collections[product.metafields.product_swatches.swatch_collection_id].products %}
-                                <ul class="select">
-                                    {% for swatchproduct in swatchproducts %}
-                                        <li data-id="{{swatchproduct.selected_or_first_available_variant.id}}">
-                                            <a title="{{swatchproduct.title}}">
-                                                <img src="{{ swatchproduct.images[1] | img_url: '100x100', crop: 'center' }}" />
-                                                {{swatchproduct.title}}
+                    {% assign r_product_str = r_product | remove: ' ' %}
+                    {% assign product = all_products[r_product_str] %}
+                    {% if product != blank and status %}
+                        {% if product.available and status %}
+                            <script type="application/json" class="bold-product-json">{{ product | json }}</script>
+                            <li class="mini-cart__item relate_product">
+                                <a class="image_link" href="{{ product.url }}">
+                                    {% if product.featured_image %}
+                                    <div class="cart_image mini-cart__item-image">
+                                        <img src="{{ product.featured_image | img_url: '320x' }}" alt="{{ product.title | escape }}" class="lazyload" />
+                                    </div>
+                                    {% endif %}
+                                </a>
+                
+                                <div class="mini-cart__item--content">
+                                    <span>You may like this too</span>
+                                    <div class="mini-cart__item__title">
+                                        <div class="item_title">
+                                            <a href="{{ product.url }}">
+                                            {{ product.title }}                                    
                                             </a>
-                                        </li>
-                                    {% endfor %}
-                                    <span></span>
-                                </ul>
-                            </div>
-                            <a class="btn btn-small ajax_add_cart_button" data-id="{{swatchproducts[0].selected_or_first_available_variant.id}}" data-quantity="1">ADD</a>
-                        </div>
-                    </li>
-                {% endif %}
-                    
+                                        </div>
+                                    </div>
+                                    <div class="control-pannel">
+                                        <strong class="left price">
+                                            1 X 
+                                        {% if product.price > 0 %}
+                                        <span class="money price" data-product-id="{{ product.id }}" itemprop="price">{{ product.price | money | remove: '.00' }}</span>
+                                        {% else %}
+                                            {{ settings.free_price_text }}
+                                        {% endif %}
+                                        </strong> 
+                                            <a class="btn btn-small ajax_add_cart_button" data-id="{{product.selected_or_first_available_variant.id}}" data-quantity="1">ADD</a>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            {% assign status = false %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}    
+                {% endunless %}
+                
+                
                 {% else %}
+                    {% comment %}
                     <a class="cart_content__continue-shopping secondary_button">
                     {{ 'cart.general.continue_shopping_link_html' | t }}
                     </a>
+                    {% endcomment %}
+                    <p>{{ 'shopify.layout.empty_cart' | t }}</p>
                 {% endif %}
             </ul>
             
@@ -143,12 +163,21 @@
                 <li class="gift-message">
                     <a class="js-toggle_btn">{{"shopify.layout.gift_message" | t }}</a>
                     <div class="js-toggle-content">
-                        <textarea rows="5" class="form-control" name="note"></textarea>
+                        <textarea rows="5" class="form-control" name="note" placeholder="Leave a message for your gift recipient below and we'll print it on the invoice and remove the price!"></textarea>
+                        {% assign gift = all_products['gift-wrap'] %}
+                        {% for g_variant in gift.variants %}
+                            <input type="hidden" class="g_variant_{{g_variant.sku}}" value="{{g_variant.id}}">
+                            {% if g_variant.sku == gift_sku %}
+                                {% assign g_variant_id = g_variant.id %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <p class="gift_wrap_status {%if gift_line_id != blank%}active{%endif%}" {%if g_variant_id == blank %}style="display: none;"{%endif%} data-line-id="{{gift_line_id}}" data-product-id="{{g_variant_id}}"> Add Gift Wrap - $ 5.00 </p>
                     </div>
                 </li>
                 <li class="cart_subtotal js-cart_subtotal">
                 <span>Subtotal</span>
-                <span class="money">
+                <span class="money tdf-cart-total-parent">
                     {% comment %} <span class="tdf-cart-total-parent">
                     {% render 'price-element', price: cart.total_price %}
                     </span>  {% endcomment %}
@@ -162,57 +191,6 @@
                 </li>
             </ul>
         </form>
-        {% if product_str != blank %}
-            <div class="mini-cart__item relate_product_html" style="display: none!important;">
-
-                {% assign product = all_products[product_str] %}
-                <a class="image_link" href="{{ product.url }}">
-                    {% if product.featured_image %}
-                    <div class="cart_image mini-cart__item-image">
-                        <img src="{{ product.featured_image | img_url: '320x' }}" alt="{{ product.title | escape }}" class="lazyload" />
-                    </div>
-                    {% endif %}
-                </a>
-
-                <div class="mini-cart__item--content">
-                    <span>You may like this too</span>
-                    <div class="mini-cart__item__title">
-                        <div class="item_title">
-                            <a href="{{ product.url }}">
-                            {{ product.title }}                                    
-                            </a>
-                        </div>
-                    </div>
-
-                    <strong class="left price">
-                    1 X 
-                    {% if product.price > 0 %}
-                        <span class="money">
-                        {% render 'price-element', price: product.price %}
-                        </span>
-                    {% else %}
-                        {{ settings.free_price_text }}
-                    {% endif %}
-                    </strong> 
-                    <div id="product-swatches-images">
-                        {% assign swatchproducts = collections[product.metafields.product_swatches.swatch_collection_id].products %}
-                        <ul class="select">
-                            {% for swatchproduct in swatchproducts %}
-                                <li data-id="{{swatchproduct.selected_or_first_available_variant.id}}">
-                                    <a title="{{swatchproduct.title}}">
-                                        <img src="{{ swatchproduct.images[1] | img_url: '100x100', crop: 'center' }}" />
-                                        {{swatchproduct.title}}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                            <span></span>
-                        </ul>
-                    </div>
-                    <a class="btn btn-small ajax_add_cart_button" data-id="{{swatchproducts[0].selected_or_first_available_variant.id}}" data-quantity="1">ADD</a>
-                </div>
-            </div>
-        {% endif %}
-        
     </div>
 {% endunless %}
     

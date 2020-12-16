@@ -24,13 +24,13 @@
           <div class="caption_info desktop">
             {% comment %} <p class="title">{{collection.title}}</p>
             <a href="{{collection.url}}" class="btn ex_small-btn">View</a> {% endcomment %}
-            <p class="title">Everyday Bags</p>
-            <a href="https://kellywynne.com/pages/all-legacy" class="btn ex_small-btn">View</a>
+            <p class="title">{{ collection.title }}</p>
+            <a href="{{ collection.url }}" class="btn ex_small-btn">View</a>
           </div>
-          <a href="https://kellywynne.com/pages/all-legacy" class="cst_mobile_a"></a>
+          <a href="{{ collection.url }}" class="cst_mobile_a"></a>
         </div>
         <div class="caption_info mobile">
-          <p class="title"><a href="https://kellywynne.com/pages/all-legacy">Everyday Bags</a></p>
+          <p class="title"><a href="{{ collection.url }}">{{ collection.title }}</a></p>
         </div>
       </div>
 

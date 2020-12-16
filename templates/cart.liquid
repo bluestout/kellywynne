@@ -7,10 +7,19 @@
     <section class="container cart_wrap">
         <script class="cartFlagX"></script>
         {% if cart.item_count > 0 %}
+        {% assign upsell = false %}
         {% for item in cart.items %}
-            {% assign product_recommend_str = item.product.metafields["global"]["recommend-products"] %}
-            {% if product_recommend_str != blank %}
-                {% assign recommend_products = recommend_products | append: product_recommend_str | append: ',' %}
+            {% for tag in item.product.tags %}
+                {% assign product_recommend_str = "" %}
+                {% if tag contains 'upsell' %}
+                    {% assign product_recommend_str = tag | remove: 'upsell:' %}
+                {% endif %}
+                {% if product_recommend_str != blank %}
+                    {% assign recommend_products = recommend_products | append: product_recommend_str | append: ',' %}
+                {% endif %}
+            {% endfor %}
+            {% if item.properties['upsell-porduct'] %}
+                {% assign upsell = true %}
             {% endif %}
         {% endfor %}
             <form action="/cart" method="post">
@@ -18,6 +27,7 @@
                     <div class="item-content">
                         <ul class="grid one">
                             {% for item in cart.items %}
+                            <script type="application/json" class="bold-product-json">{{ item.product | json }}</script>
                                 {% if recommend_products contains item.product.handle %}
                                     {% assign recommend_products = recommend_products | remove: item.product.handle %}
                                 {% endif %}
@@ -66,7 +76,11 @@
                                         <a class="product-title" href="{{ item.product.url | within: collections.all }}">{{ item.variant.title }}</a>
                                     </p>
                     
-                                    <p class="personalization">{% render "product-personalizer-helper" ,item:item %}</p>
+                                    <p class="personalization">
+                                        {% unless item.properties['upsell-porduct'] %}
+                                            {% render "product-personalizer-helper" ,item:item %}
+                                        {% endunless %}
+                                    </p>
                     
                                     <div class="qty">
                                         <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="quantity" />
@@ -74,7 +88,7 @@
                                     </div>
                     
                                     <div class="total">
-                                        <span class="money" data-line-total data-line-index="{{ forloop.index0 }}">{{ item.line_price | money | remove: '.00' }}</span>
+                                        <span class="money" data-line-total data-line-index="{{ forloop.index0 }}" data-product-id="{{ item.product.id }}">{{ item.line_price | money }}</span>
                                     </div>
                                 </div>
                                 
@@ -82,96 +96,70 @@
                                 </li>
                 
                             {% endfor %}
-                            {% assign recommend_products_arr = recommend_products | split: ',' | uniq %}
-                            <script>console.log({{recommend_products_arr | json}})</script>
-                            {% assign status = true %}
-                            {% for r_product in recommend_products_arr %}
-                                {% if r_product != blank and status %}
-                                    {% assign product_str = r_product %}
-                                    {% assign status = false %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if product_str != blank %}
-                                <li class="grid_item signle_product" style="{% render "product-personalizer-helper" ,item:item,pplr: "hide-pricing-item-row" %}" {% render "product-personalizer-helper" ,forloop:forloop,item:item,pplr: "cart-row-data" %}>
-                                    {% assign product = all_products[product_str] %}
-                                    {% assign option_index = 0 %}
-                                        {% assign found_option = false %}
-                                        {% assign index = 0 %}
-                                        {% assign found_image = false %}
-                    
-                                        {% for option in item.product.options %}
-                                        {% if found_option == false %}
-                                            {% assign downcased_option = option | downcase %}
-                                            {% if downcased_option contains 'color' or downcased_option contains 'title' or downcased_option contains 'colour' or downcased_option contains 'style' %}
-                                            {% assign option_index = forloop.index0 %}
-                                            {% assign found_option = true %}
-                                            {% endif %}
-                                        {% endif %}
-                                        {% endfor %}
-                    
-                                        {% if found_option %}
-                                        {% for image in item.product.images %}
-                                        {% unless found_image %}
-                                            {% if image.alt == item.variant.options[option_index] %}
-                                            {% assign index = forloop.index0 %}
-                                            {% assign found_image = true %}
-                                            {% endif %}
-                                        {% endunless %}
-                                        {% endfor %}
-                                        {% endif %}
-                    
-                                    <a class="product-image" href="{{ product.url }}">
-                                        <img src="{{ product.featured_image | product_img_url: '1120x1410', format: 'pjpg' }}" alt='{{ product.title }}'  />
-                                    </a>
-                                    <div class="info">
-                                        <span class="cst_upsell_span">You may like this too</span>
-                                        <p class="item-name">
-                                            <a class="product-title" href="{{ product.url }}">{{ product.title  }}</a>
-                                        </p>
-                        
-                                        <p class="personalization">{% render "product-personalizer-helper" ,item:item %}</p>
-                        
-                                        <div class="qty">
-                                            <input type="number" value="1" class="quantity" />
-                                        </div>
-
-                                        <div id="product-swatches-images">
-                                            {% assign swatchproducts = collections[product.metafields.product_swatches.swatch_collection_id].products %}
-                                            <ul class="select">
-                                                {% for swatchproduct in swatchproducts %}
-                                                    <li data-id="{{swatchproduct.selected_or_first_available_variant.id}}">
-                                                        <a title="{{swatchproduct.title}}">
-                                                            <img src="{{ swatchproduct.images[1] | img_url: '100x100', crop: 'center' }}" />
-                                                            {{swatchproduct.title}}
-                                                        </a>
-                                                    </li>
-                                                {% endfor %}
-                                                <span></span>
-                                            </ul>
-                                        </div>
-                                        <div class="total">
-                                            {% if product.price < product.compare_at_price %}
-                
-                                            <span class="money" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span>
-                    
-                                            <span class="original">{{product.compare_at_price | money | remove: '.00' }}</span>
-                    
-                                            {% else %}
-                    
-                                                {% if product.price_min == product.price_max %}
-                                                <span class="money" data-product-id="{{ product.id }}">{{ product.price | money | remove: '.00' }}</span>
-                                                    {% else %}
-                                                        {{ product.price_min | money | remove: '.00' }} - {{ product.price_max | money | remove: '.00' }}
+                            {% unless upsell %}
+                                {% assign recommend_products_arr = recommend_products | split: ',' | uniq %}
+                                {% assign status = true %}
+                                {% for r_product in recommend_products_arr %}
+                                    {% assign r_product_str = r_product | remove: ' ' %}
+                                    {% assign product = all_products[r_product_str] %}
+            
+                                    {% if product != blank and status %}
+                                        {% if product.available and status %}
+                                        <script type="application/json" class="bold-product-json">{{ product | json }}</script>
+                                            <li class="grid_item signle_product" style="{% render "product-personalizer-helper" ,item:item,pplr: "hide-pricing-item-row" %}" {% render "product-personalizer-helper" ,forloop:forloop,item:item,pplr: "cart-row-data" %}>
+                                                {% assign option_index = 0 %}
+                                                {% assign found_option = false %}
+                                                {% assign index = 0 %}
+                                                {% assign found_image = false %}
+                            
+                                                {% for option in item.product.options %}
+                                                {% if found_option == false %}
+                                                    {% assign downcased_option = option | downcase %}
+                                                    {% if downcased_option contains 'color' or downcased_option contains 'title' or downcased_option contains 'colour' or downcased_option contains 'style' %}
+                                                    {% assign option_index = forloop.index0 %}
+                                                    {% assign found_option = true %}
                                                     {% endif %}
-                    
-                                            {% endif %}
-                                        </div>
-                                        <a class="btn btn-small add_cart_button" data-id="{{swatchproducts[0].selected_or_first_available_variant.id}}" data-quantity="1">ADD</a>
-                                    </div>
-                                </li>
-                            {% endif %}
+                                                {% endif %}
+                                                {% endfor %}
                             
-                            
+                                                {% if found_option %}
+                                                {% for image in item.product.images %}
+                                                {% unless found_image %}
+                                                    {% if image.alt == item.variant.options[option_index] %}
+                                                    {% assign index = forloop.index0 %}
+                                                    {% assign found_image = true %}
+                                                    {% endif %}
+                                                {% endunless %}
+                                                {% endfor %}
+                                                {% endif %}
+                                
+                                                <a class="product-image" href="{{ product.url }}">
+                                                    <img src="{{ product.featured_image | product_img_url: '1120x1410', format: 'pjpg' }}" alt='{{ product.title }}'  />
+                                                </a>
+                                                <div class="info">
+                                                    <span class="cst_upsell_span">You may like this too</span>
+                                                    <p class="item-name">
+                                                        <a class="product-title" href="{{ product.url }}">{{ product.title  }}</a>
+                                                    </p>
+                                    
+                                                    <p class="personalization">{% render "product-personalizer-helper" ,item:product %}</p>
+                                    
+                                                    <div class="qty">
+                                                        <input type="number" value="1" class="quantity" />
+                                                    </div>
+            
+                                                    <div class="total cst_discount_price_div">
+                                                        <span class="money price" data-product-id="{{ product.id }}" itemprop="price">{{ product.price | money }}</span>
+                                                    </div>
+                                                    <a class="btn btn-small add_cart_button" data-id="{{product.selected_or_first_available_variant.id}}" data-quantity="1">ADD</a>
+                                                </div>
+                                            </li>
+                                            {% assign status = false %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}          
+                            {% endunless %}
+                                                 
                         </ul>
                         <a href="/collections/all-handbags" class="btn btn-grey btn-small shop">Continue shopping</a>
                         <div class="message sale">
@@ -189,7 +177,28 @@
                         
                         <div class="message cst_cart_msgbox">
                             <h3 class="cst_cart_msgbox_title">Is this order a gift?</h3>
-                            <textarea class="cst_cart_msgbox_content" name="note" id="note" rows="5" cols="60" placeholder="Leave a message for your gift recipient below and we'll print it on the invoice and remove the price!">{{ cart.note }}</textarea>
+                            <textarea class="cst_cart_msgbox_content" name="note" id="note" rows="5" cols="60" placeholder="Leave a message for your gift recipient below and we'll print it on the invoice and remove the price!" data-cart-notes>{{ cart.note }}</textarea>
+                            {% assign g_status = true %}
+                            {% for line_items in cart.items %}
+                                {% if line_items.product.handle == 'gift-wrap' %}
+                                    {% assign gift_line_id = forloop.index %}
+                                {% endif %}
+                                {% for tag in line_items.product.tags %}
+                                    {% if tag contains 'gift:' and g_status %}
+                                        {% assign gift_sku = tag | replace: 'gift:', '' %}
+                                        {% assign g_status = false %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            {% assign gift = all_products['gift-wrap'] %}
+                            {% for g_variant in gift.variants %}
+                                <input type="hidden" class="g_variant_{{g_variant.sku}}" value="{{g_variant.id}}">
+                                {% if g_variant.sku == gift_sku %}
+                                    {% assign g_variant_id = g_variant.id %}
+                                {% endif %}
+                            {% endfor %}
+
+                            <p class="gift_wrap_status cart-page {%if gift_line_id != blank%}active{%endif%}" {%if g_variant_id == blank %}style="display: none;"{%endif%} data-line-id="{{gift_line_id}}" data-product-id="{{g_variant_id}}"> Add Gift Wrap - $ 5.00 </p>
                         </div>
                 
                         <div class="proceed">
@@ -202,22 +211,6 @@
                         </div>
                     </div>
                 </div>
-                
-                {%- comment -%}
-                     <section class="promos">
-                    <a href="{{ settings.cart-promo1-url }}">
-                        <img src="{{ settings.cart-promo1 | img_url: '600x' }}" alt="Shop!">
-                    </a>
-                    <a href="{{ settings.cart-promo2-url }}">
-                        <img src="{{ settings.cart-promo2 | img_url: '600x' }}" alt="Shop!">
-                    </a>
-                </section>
-        
-                <div id="disclaimer">
-                    {{ settings.cart-disclaimer }}
-                </div>
-                {%- endcomment -%}
-               
             </form>
         {% else %}
         
