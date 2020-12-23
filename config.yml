@@ -1,6 +1,6 @@
 development:
   password: f37fef290d13fcb3946e89f311974c96
-  theme_id: "116566917275"
+  theme_id: "115998130331"
   store: kellywynne.myshopify.com
   ignore_files:
     - config/settings_data.json

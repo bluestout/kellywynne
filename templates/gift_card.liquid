@@ -45,6 +45,72 @@
 
     }
   </script>
+  <style>
+    .wrap {
+      max-width: 610px;
+      margin-top: 4em;
+    }
+    #gift-card-outer-container {
+      padding: 0;
+      background-color: transparent;
+      box-shadow: none;
+    }
+    #gift-card-inner-container {
+      box-shadow: none;
+      background-color: transparent;
+    }
+    #gift-card-holder {
+      margin: 0;
+    }
+    #gift-card-instructions {
+      font-family: 'Helvetica', 'Arial', sans-serif;
+      font-size: 18px;
+      color: #000;
+      margin-top: 3em;
+      margin-bottom: 3em;
+    }
+    #gift-card img {
+      border-radius: 0;
+    }
+    #gift-card-amount {
+      font-size: 48px;
+      font-family: 'Helvetica', 'Arial', sans-serif;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0;
+      text-align: center;
+    }
+    #gift-card-amount strong {
+      text-shadow: none;
+    }
+    #gift-card-code-outer {
+      bottom: 3.5em;
+    }
+    #gift-card-code-inner {
+      background-color: #6AB7B1;
+      padding: .7em;
+    }
+    #gift-card-code-inner strong {
+      font-size: 24px;
+      font-family: 'Helvetica', 'Arial', sans-serif;
+      color: #FFF;
+      letter-spacing: 2px;
+      padding: .4em 1.5em;
+      border: 1px dashed rgba(255,255,255,0.48);
+    }
+    .action-link {
+      padding: 0;
+    }
+    @media screen and (max-width: 580px) {
+      #gift-card-code-outer {
+        bottom: 3em;
+      }
+      #gift-card-code-inner strong {
+        font-size: 16px;
+      }
+    }
+  </style>
 
 </head>
 
@@ -52,18 +118,13 @@
 
   <div class="wrap">
 
-    <header role="banner" id="header">
-      <a href="{{ shop.url }}" class="logo">{{ shop.name }}</a>
-      <a href="{{ shop.url }}" class="shop-url">{{ shop.url | remove: 'http://' }}</a>
-    </header>
-
       <main role="main">
 
           <div id="gift-card-outer-container" {% if gift_card.expired or gift_card.enabled != true %}class="disabled"{% endif %}>
             <div id="gift-card-inner-container">
 
+              {% comment %}
               <header id="gift-card-header">
-                <h2>Here's your gift card!</h2>
                 {% unless gift_card.enabled %}
                   <span class="tag">Disabled</span>
                 {% endunless %}
@@ -74,14 +135,17 @@
                   <span class="tag light">Expires on {{ gift_card.expires_on | date: "%d/%m/%y" }}</span>
                 {% endif %}
               </header>
+              {% endcomment %}
 
               <div id="gift-card-holder">
+                {% comment %}
                 <div class="corner top-left"></div>
                 <div class="corner bottom-right"></div>
                 <div class="corner top-right"></div>
                 <div class="corner bottom-left"></div>
+                {% endcomment %}
                 <div id="gift-card">
-                  <img src="{{ 'gift-card/card.jpg' | shopify_asset_url }}" alt="Gift card illustration">
+                  <img src="{{ 'gift_card.jpg' | asset_url }}" alt="Gift card illustration">
                   {% assign initial_value_size = formatted_initial_value | size %}
                   <div id="gift-card-amount" class="{% if initial_value_size > 6 %}medium{% endif %}">
                     {% if gift_card.balance != gift_card.initial_value %}
@@ -101,6 +165,7 @@
               <div id="gift-card-instructions">
                 <p>Use this code at checkout to redeem your gift card.</p>
               </div>
+              {% comment %}
               <div id="qr-code"></div>
               <script>
                 new QRCode(document.getElementById("qr-code"), {
@@ -109,8 +174,11 @@
                   height: 120
                 });
               </script>
+              {% endcomment %}
               <div id="gift-card-actions">
+                {% comment %}
                 <a href="{{ shop.url }}" class="btn center" target="_blank">Start Shopping</a>
+                {% endcomment %}
                 <a href="#" class="action-link left" onclick="window.print();"><i class="ico-16 print"></i>Print</a>
               </div>
             </div>
