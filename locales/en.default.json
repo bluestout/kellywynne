@@ -2,7 +2,7 @@
   "shopify": {
     "checkout": {
       "shipping": {
-        "shipping_method_notice": "We are unable to ship to PO Boxes. GROUND ORDERS will ship after one business day of order processing. Ground shipping transit times range between 1-4 days, excluding Sundays and holidays. EXPEDITED ORDERS placed before 2pm will ship the same day. Expedited orders placed after 2pm CT will ship the following business day. Expedited shipping transit times exclude weekends and holidays. \n"
+        "shipping_method_notice": "All orders are shipped Monday–Friday. Ground Shipping Method ships within 1-5 business days and will arrive within 1-5 business days after order has been shipped. Two-Day or Next-Day Shipping Method (holidays and weekends excluded) ships same day if submitted before 2 pm CST. All Expedited orders placed after 2 pm CST will ship the following business day. Two-Day Orders will arrive in 2 business days. Next-Day orders will arrive the following business day.\nAll custom pieces will ship within 5-10 business days of an order being processed and are not eligible to ship Expedited.\nAll orders are shipped via FEDEX SERVICE and cannot be delivered to P.O. Boxes. Shipping Charges are Non-Refundable."
       },
       "contact": {
         "shipping_address_title": "Shipping Address (No PO Boxes)"

@@ -7642,6 +7642,13 @@ a.pplr_close:hover {
     }
     */
 
+    #single_info .button:not(.button-large):not(.donate) {
+        font-size: 13px;
+        letter-spacing: 0px;
+        margin-left: 10px;
+        width: calc(100% - 90px);
+    }
+
 }
 
 @media only screen and (max-width: 360px) {
