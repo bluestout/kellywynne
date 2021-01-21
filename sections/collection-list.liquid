@@ -5,6 +5,11 @@
   <div class="content">
     <div class="grid_item first desktop">
       {% assign collection = collections[section.settings.collecon_1] %}
+      {% if section.settings.mobile_image_ != blank %}
+        {% assign mobile_image_1 = section.settings.mobile_image_1 %}
+      {% else %}
+        {% assign mobile_image_1 = section.settings.image_1 %}
+      {% endif %}
       <div class="content" style="background: url({{section.settings.image_1 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
         <div class="caption_info desktop">
           <p class="title">{{collection.title}}</p>
@@ -20,23 +25,19 @@
     
       <div class="grid_item">
         {% assign collection = collections[section.settings.collecon_2] %}
-        <div class="content" style="background: url({{section.settings.image_2 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+        {% if section.settings.mobile_image_2 != blank %}
+          {% assign mobile_image_2 = section.settings.mobile_image_2 %}
+        {% else %}
+          {% assign mobile_image_2 = section.settings.image_2 %}
+        {% endif %}
+        <div class="content desktop" style="background: url({{section.settings.image_2 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
           <div class="caption_info desktop">
-            {% comment %} <p class="title">{{collection.title}}</p>
-            <a href="{{collection.url}}" class="btn ex_small-btn">View</a> {% endcomment %}
-            <p class="title">{{ collection.title }}</p>
-            <a href="{{ collection.url }}" class="btn ex_small-btn">View</a>
+            <p class="title">{{collection.title}}</p>
+            <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
           </div>
-          <a href="{{ collection.url }}" class="cst_mobile_a"></a>
+          <a href="{{collection.url}}" class="cst_mobile_a"></a>
         </div>
-        <div class="caption_info mobile">
-          <p class="title"><a href="{{ collection.url }}">{{ collection.title }}</a></p>
-        </div>
-      </div>
-
-      <div class="grid_item mobile">
-        {% assign collection = collections[section.settings.collecon_1] %}
-        <div class="content" style="background: url({{section.settings.image_1 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+        <div class="content mobile" style="background: url({{mobile_image_2 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
           <div class="caption_info desktop">
             <p class="title">{{collection.title}}</p>
             <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
@@ -44,27 +45,71 @@
           <a href="{{collection.url}}" class="cst_mobile_a"></a>
         </div>
         <div class="caption_info mobile">
-           <p class="title"><a href="{{collection.url}}">{{collection.title}}</a></p>
+          <p class="title"><a href="{{collection.url}}">{{collection.title}}</a></p>
+        </div>
+      </div>
+
+      <div class="grid_item mobile">
+        {% assign collection = collections[section.settings.collecon_1] %}
+        {% if section.settings.mobile_image_1 != blank %}
+          {% assign mobile_image_1 = section.settings.mobile_image_1 %}
+        {% else %}
+          {% assign mobile_image_1 = section.settings.image_1 %}
+        {% endif %}
+        <div class="content" style="background: url({{mobile_image_1 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+          <div class="caption_info desktop">
+            <p class="title">{{collection.title}}</p>
+            <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+          </div>
+          <a href="{{collection.url}}" class="cst_mobile_a"></a>
+        </div>
+        <div class="caption_info mobile">
+          <p class="title"><a href="{{collection.url}}">{{collection.title}}</a></p>
         </div>
       </div>
       
       <div class="grid_item">
         {% assign collection = collections[section.settings.collecon_3] %}
-        <div class="content" style="background: url({{section.settings.image_3 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+        {% if section.settings.mobile_image_3 != blank %}
+          {% assign mobile_image_3 = section.settings.mobile_image_3 %}
+        {% else %}
+          {% assign mobile_image_3 = section.settings.image_3 %}
+        {% endif %}
+        <div class="content desktop" style="background: url({{section.settings.image_3 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
           <div class="caption_info desktop">
             <p class="title">{{collection.title}}</p>
-            <a href="https://kellywynne.com/pages/all-accessories" class="btn ex_small-btn">View</a>
+            <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
           </div>
-          <a href="https://kellywynne.com/pages/all-accessories" class="cst_mobile_a"></a>
+          <a href="{{collection.url}}" class="cst_mobile_a"></a>
+        </div>
+        <div class="content mobile" style="background: url({{mobile_image_3 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+          <div class="caption_info desktop">
+            <p class="title">{{collection.title}}</p>
+            <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+          </div>
+          <a href="{{collection.url}}" class="cst_mobile_a"></a>
         </div>
         <div class="caption_info mobile">
-           <p class="title"><a href="https://kellywynne.com/pages/all-accessories">{{collection.title}}</a></p>
+          <p class="title"><a href="{{collection.url}}">{{collection.title}}</a></p>
         </div>
       </div>
 
       <div class="grid_item">
         {% assign collection = collections[section.settings.collecon_4] %}
-        <div class="content" style="background: url({{section.settings.image_4 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+        {% if section.settings.mobile_image_4 != blank %}
+          {% assign mobile_image_4 = section.settings.mobile_image_4 %}
+        {% else %}
+          {% assign mobile_image_4 = section.settings.image_4 %}
+        {% endif %}
+
+        <div class="content desktop" style="background: url({{section.settings.image_4 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
+          <div class="caption_info desktop">
+            <p class="title">{{collection.title}}</p>
+            <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
+          </div>
+          <a href="{{collection.url}}" class="cst_mobile_a"></a>
+        </div>
+        <div class="content mobile" style="background: url({{mobile_image_4 | img_url:'1024x'}}) 50% 50% / cover no-repeat;">
           <div class="caption_info desktop">
             <p class="title">{{collection.title}}</p>
             <a href="{{collection.url}}" class="btn ex_small-btn">View</a>
@@ -110,6 +155,11 @@
       "label": "Collection Image"
     },
     {
+      "type": "image_picker",
+      "id": "mobile_image_1",
+      "label": "Collection mobile Image"
+    },
+    {
       "type": "collection",
       "id": "collecon_2",
       "label": "Collection"
@@ -118,6 +168,11 @@
       "type": "image_picker",
       "id": "image_2",
       "label": "Collection Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_2",
+      "label": "Collection mobile Image"
     },
     {
       "type": "collection",
@@ -130,6 +185,11 @@
       "label": "Collection Image"
     },
     {
+      "type": "image_picker",
+      "id": "mobile_image_3",
+      "label": "Collection mobile Image"
+    },
+    {
       "type": "collection",
       "id": "collecon_4",
       "label": "Collection"
@@ -138,6 +198,11 @@
       "type": "image_picker",
       "id": "image_4",
       "label": "Collection Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_4",
+      "label": "Collection mobile Image"
     }
   ]
 }
