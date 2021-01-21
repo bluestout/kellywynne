@@ -2231,7 +2231,7 @@ a:hover .icon-path.stroke {
     width: 80px !important;
     right: 0 !important;
     padding: 4px !important;
-    font-family: "aw-conqueror-sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    /*font-family: "aw-conqueror-sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;*/
     font-size: 12px !important;
     line-height: 28px !important;
     color: #182240 !important;
