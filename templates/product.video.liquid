@@ -58,6 +58,22 @@
 	   						{% endif %}
                         
                         {% endif %}
+
+                        {% assign prod_desc = product.description | split: '<div id="tab-details" class="row">' %}
+                        {% if product.description contains '<div class="row" id="tab-details">' %}
+                            {% assign prod_desc = product.description | split: '<div class="row" id="tab-details">' %}
+                        {% endif %}
+                        
+                        {% unless product.description contains 'class="tdfPlaceBundle"' %}
+                        <div class="clearfix"></div>
+                        <div class="short_description">
+                            {% if prod_desc[1] %}
+                            {{ prod_desc[0] | replace: '<input id="input-1" type="checkbox" name="tab">', '' | replace: '<input name="tab" type="checkbox" id="input-1">', '' | replace: '<label for="input-1">Overview</label>', '' }}
+                            {% else %}
+                            {{ product.description }}
+                            {% endif %}
+                        </div>
+                        {% endunless %}
                     </header>
                     
                 
@@ -140,7 +156,12 @@
 
                     <div class="accordion">
 
-                        {{product.description}}
+                        {% if prod_desc[1] %}
+                            <div id="tab-details" class="row">
+                            {{ prod_desc[1] }}
+                        {% else %}
+                            {{ product.description }}
+                        {% endif %}
 
                     </div>                        
 

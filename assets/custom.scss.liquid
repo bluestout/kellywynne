@@ -1973,3 +1973,66 @@ header.bottom{
   padding-left: 5px;
   padding-right: 5px;
 }
+
+header {
+  .short_description {
+    margin-top: 20px;
+    p {
+      font-size: 14px;
+      color: #4d4d4f;
+    }
+  }
+}
+
+#single_product {
+  #single_info {
+    .accordion {
+      #tab-details {
+        & > label {
+          padding-left: 35px;
+          color: #6AB7B1;
+          &:before {
+            content: '';
+            background: url({{ 'materials_ico.svg' | asset_url }}) center center no-repeat;
+            background-size: 17px;
+            position: absolute;
+            width: 17px;
+            height: 17px;
+            top: 20px;
+            left: 5px;
+          }
+        }
+      }
+      #tab-dimensions {
+        & > label {
+          padding-left: 35px;
+          color: #6AB7B1;
+          &:before {
+            content: '';
+            background: url({{ 'dimensions_ico.svg' | asset_url }}) center center no-repeat;
+            background-size: 27px;
+            position: absolute;
+            width: 27px;
+            height: 17px;
+            top: 20px;
+            left: 0;
+          }
+        }
+      }
+    }
+    .nfl_info {
+      margin-top: 40px;
+      svg {
+        top: 5px;
+        position: relative;
+      }
+      span {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #6AB7B1;
+        letter-spacing: 0.9px;
+      }
+    }
+  }
+}

@@ -11,7 +11,7 @@
           {% unless image.attached_to_variant? %}
           {% unless image == product.images[1] %}
             <li class="" data-thumb="{{ image | product_img_url: '120x' }}">
-              <img src="{{ image | product_img_url: '1120x1410', format: 'pjpg' }}" alt='{{ product.title }}' />
+              <img src="{{ image | product_img_url: '2048x', format: 'jpg' }}" alt='{{ product.title }}' />
             </li>
           {% endunless %}
           {% endunless %}
@@ -42,6 +42,29 @@
             {% else %}
               <p class="price" itemprop="price">{{ product.price_min | money | remove: '.00' }} - {{ product.price_max | money | remove: '.00' }}</p>
             {% endif %}
+          {% endif %}
+
+          {% assign prod_desc = product.description | split: '<div id="tab-details" class="row">' %}
+          {% if product.description contains '<div class="row" id="tab-details">' %}
+            {% assign prod_desc = product.description | split: '<div class="row" id="tab-details">' %}
+          {% endif %}
+          
+          {% unless product.description contains 'class="tdfPlaceBundle"' %}
+          <div class="clearfix"></div>
+          <div class="short_description">
+              {% if prod_desc[1] %}
+              {{ prod_desc[0] | replace: '<input id="input-1" type="checkbox" name="tab">', '' | replace: '<input name="tab" type="checkbox" id="input-1">', '' | replace: '<label for="input-1">Overview</label>', '' }}
+              {% else %}
+              {{ product.description }}
+              {% endif %}
+          </div>
+          {% endunless %}
+
+          {% if product.tags contains 'CLEAR BAG STADIUM APPROVED TAG' %}
+          <div class="nfl_info">
+            {% include 'icon' with 'check' %}
+            <span>Complies with NFL, NCAA and most venue requirements</span>
+          </div>
           {% endif %}
         </header>
 
@@ -120,7 +143,12 @@
           {% endif %}
         </form>
         <div class="accordion">
-          {{product.description}}
+          {% if prod_desc[1] %}
+            <div id="tab-details" class="row">
+            {{ prod_desc[1] }}
+          {% else %}
+            {{ product.description }}
+          {% endif %}
         </div>
       </div>
     </div>
