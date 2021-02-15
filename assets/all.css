@@ -4528,7 +4528,8 @@ body.product.video .lSSlideOuter .lSPager.lSGallery li:last-child a:after {
 
 .collection p.description {
     margin: 0 0 60px 0;
-    color: #9c9596;
+    color: rgba(106, 183, 177, 0.7);
+    font-size: 16px;
 }
 
 .pages {

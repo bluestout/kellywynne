@@ -11,7 +11,7 @@
           {% unless image.attached_to_variant? %}
           {% unless image == product.images[1] %}
             <li class="" data-thumb="{{ image | product_img_url: '120x' }}">
-              <img src="{{ image | product_img_url: '2048x', format: 'jpg' }}" alt='{{ product.title }}' />
+              <img src="{{ image | product_img_url: '2048x' }}" alt='{{ product.title }}' />
             </li>
           {% endunless %}
           {% endunless %}
